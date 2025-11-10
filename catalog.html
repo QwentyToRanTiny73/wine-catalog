@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Каталог образцов вина | Лаборатория биохимии вина</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="card">
+        <h1>🍷 Каталог образцов вина</h1>
+        <button id="addSampleBtn" class="btn" style="margin-top: 10px">
+          Добавить образец
+        </button>
+      </header>
+
+      <main>
+        <section class="filters card">
+          <h2>🔍 Фильтры и поиск</h2>
+          <div class="filters-container">
+            <div class="filter-group">
+              <label for="searchInput">Поиск по названию, сорту:</label>
+              <input
+                type="text"
+                id="searchInput"
+                class="filter-input"
+                placeholder="Введите текст..."
+              />
+            </div>
+            <div class="filter-group">
+              <label for="regionFilter">Регион:</label>
+              <select id="regionFilter" class="filter-input">
+                <option value="">Все регионы</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="sortFilter">Сорт:</label>
+              <select id="sortFilter" class="filter-input">
+                <option value="">Все сорта</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="yearFilter">Год урожая:</label>
+              <select id="yearFilter" class="filter-input">
+                <option value="">Все года</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="colorFilter">Цвет:</label>
+              <select id="colorFilter" class="filter-input">
+                <option value="">Все цвета</option>
+                <option value="белое">Белое</option>
+                <option value="красное">Красное</option>
+                <option value="розовое">Розовое</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="zoneFilter">Зона:</label>
+              <select id="zoneFilter" class="filter-input">
+                <option value="">Все зоны</option>
+              </select>
+            </div>
+          </div>
+          <div
+            style="display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap"
+          >
+            <button id="applyFilters" class="btn">Применить фильтры</button>
+            <button id="resetFilters" class="btn btn-secondary">
+              Сбросить фильтры
+            </button>
+            <button
+              id="exportBtn"
+              class="btn"
+              style="background-color: #5a8c5a"
+            >
+              Экспорт в Excel
+            </button>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>📊 Результаты: <span id="resultCount">300</span> образцов</h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th data-sort="name">Название</th>
+                  <th data-sort="sort">Сорт</th>
+                  <th data-sort="harvestYear">Год</th>
+                  <th data-sort="color">Цвет</th>
+                  <th data-sort="region">Регион</th>
+                  <th data-sort="zone">Зона</th>
+                  <th data-sort="ph">pH</th>
+                  <th data-sort="sugar">Сахар (г/дм³)</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="samplesTable">
+                <!-- Сюда будут добавляться данные -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination" id="pagination">
+            <!-- Пагинация будет добавлена скриптом -->
+          </div>
+        </section>
+      </main>
+
+      <!-- Модальное окно для добавления образца -->
+      <div id="addSampleModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>➕ Добавить новый образец</h2>
+          <form id="addSampleForm">
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px"
+            >
+              <div>
+                <label for="name">Название образца:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="filter-input"
+                  required
+                />
+              </div>
+              <div>
+                <label for="sort">Сорт винограда:</label>
+                <input
+                  type="text"
+                  id="sort"
+                  name="sort"
+                  class="filter-input"
+                  required
+                />
+              </div>
+              <div>
+                <label for="harvestYear">Год урожая:</label>
+                <input
+                  type="number"
+                  id="harvestYear"
+                  name="harvestYear"
+                  class="filter-input"
+                  min="1900"
+                  max="2030"
+                  required
+                />
+              </div>
+              <div>
+                <label for="color">Цвет вина:</label>
+                <select id="color" name="color" class="filter-input" required>
+                  <option value="белое">Белое</option>
+                  <option value="красное">Красное</option>
+                  <option value="розовое">Розовое</option>
+                </select>
+              </div>
+              <div>
+                <label for="zone">Зона:</label>
+                <input
+                  type="text"
+                  id="zone"
+                  name="zone"
+                  class="filter-input"
+                  required
+                />
+              </div>
+              <div>
+                <label for="region">Регион:</label>
+                <input
+                  type="text"
+                  id="region"
+                  name="region"
+                  class="filter-input"
+                  required
+                />
+              </div>
+              <div>
+                <label for="terroir">Терруар:</label>
+                <input
+                  type="text"
+                  id="terroir"
+                  name="terroir"
+                  class="filter-input"
+                />
+              </div>
+              <div>
+                <label for="producer">Производитель винограда:</label>
+                <input
+                  type="text"
+                  id="producer"
+                  name="producer"
+                  class="filter-input"
+                />
+              </div>
+              <div>
+                <label for="winery">Винодельня:</label>
+                <input
+                  type="text"
+                  id="winery"
+                  name="winery"
+                  class="filter-input"
+                />
+              </div>
+              <div>
+                <label for="ph">pH:</label>
+                <input
+                  type="number"
+                  id="ph"
+                  name="ph"
+                  class="filter-input"
+                  step="0.01"
+                  min="2.5"
+                  max="4.5"
+                  required
+                />
+              </div>
+              <div>
+                <label for="sugar">Сахар (г/дм³):</label>
+                <input
+                  type="number"
+                  id="sugar"
+                  name="sugar"
+                  class="filter-input"
+                  min="0"
+                  max="300"
+                  required
+                />
+              </div>
+            </div>
+            <div style="margin-top: 25px">
+              <h3>Дополнительные аналитические данные:</h3>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                  gap: 15px;
+                  margin-top: 10px;
+                "
+              >
+                <div>
+                  <label for="acidity">Титруемая кислотность:</label>
+                  <input
+                    type="number"
+                    id="acidity"
+                    name="acidity"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="lemonAcid">Лимонная кислота (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="lemonAcid"
+                    name="lemonAcid"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="wineAcid">Винная кислота (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="wineAcid"
+                    name="wineAcid"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="appleAcid">Яблочная кислота (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="appleAcid"
+                    name="appleAcid"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="glycerin">Глицерин (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="glycerin"
+                    name="glycerin"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="calcium">Кальций (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="calcium"
+                    name="calcium"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn" style="margin-top: 25px">
+              Добавить образец
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Модальное окно для просмотра деталей -->
+      <div id="viewSampleModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2 id="sampleName">Детальная информация об образце</h2>
+
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="info">
+              Основная информация
+            </button>
+            <button class="tab-btn" data-tab="chemical">
+              Химический состав
+            </button>
+            <button class="tab-btn" data-tab="mineral">
+              Минеральный состав
+            </button>
+          </div>
+
+          <div id="info-tab" class="tab-content active">
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-top: 15px;
+              "
+            >
+              <div>
+                <strong>Название образца:</strong>
+                <span id="detail-name"></span>
+              </div>
+              <div>
+                <strong>Сорт винограда:</strong> <span id="detail-sort"></span>
+              </div>
+              <div>
+                <strong>Год урожая:</strong>
+                <span id="detail-harvestYear"></span>
+              </div>
+              <div>
+                <strong>Цвет вина:</strong> <span id="detail-color"></span>
+              </div>
+              <div><strong>Зона:</strong> <span id="detail-zone"></span></div>
+              <div>
+                <strong>Регион:</strong> <span id="detail-region"></span>
+              </div>
+              <div>
+                <strong>Терруар:</strong> <span id="detail-terroir"></span>
+              </div>
+              <div>
+                <strong>Производитель винограда:</strong>
+                <span id="detail-producer"></span>
+              </div>
+              <div>
+                <strong>Винодельня:</strong> <span id="detail-winery"></span>
+              </div>
+            </div>
+          </div>
+
+          <div id="chemical-tab" class="tab-content">
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-top: 15px;
+              "
+            >
+              <div><strong>pH:</strong> <span id="detail-ph"></span></div>
+              <div>
+                <strong>Сахар (г/дм³):</strong> <span id="detail-sugar"></span>
+              </div>
+              <div>
+                <strong>Титруемая кислотность:</strong>
+                <span id="detail-acidity"></span>
+              </div>
+              <div>
+                <strong>Лимонная кислота (г/дм³):</strong>
+                <span id="detail-lemonAcid"></span>
+              </div>
+              <div>
+                <strong>Винная кислота (г/дм³):</strong>
+                <span id="detail-wineAcid"></span>
+              </div>
+              <div>
+                <strong>Яблочная кислота (г/дм³):</strong>
+                <span id="detail-appleAcid"></span>
+              </div>
+              <div>
+                <strong>Глицерин (г/дм³):</strong>
+                <span id="detail-glycerin"></span>
+              </div>
+            </div>
+          </div>
+
+          <div id="mineral-tab" class="tab-content">
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-top: 15px;
+              "
+            >
+              <div>
+                <strong>Кальций (мг/дм³):</strong>
+                <span id="detail-calcium"></span>
+              </div>
+              <div>
+                <strong>Электропроводность (мСм/см):</strong>
+                <span id="detail-electricConductivity"></span>
+              </div>
+              <div>
+                <strong>Этанол (% об.):</strong>
+                <span id="detail-ethanol"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card" style="text-align: center; margin-top: 20px">
+        <p>© 2025 Лаборатория биохимии вина ВННИИВиВ «Магарач»</p>
+        <p>298600, Республика Крым, г. Ялта, ул. Кирова, 31</p>
+      </footer>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
