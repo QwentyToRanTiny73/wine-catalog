@@ -56,6 +56,16 @@
               </select>
             </div>
             <div class="filter-group">
+              <label for="categoryFilter">Категория:</label>
+              <select id="categoryFilter" class="filter-input">
+                <option value="">Все категории</option>
+                <option value="сухое">Сухое</option>
+                <option value="сладкое">Сладкое</option>
+                <option value="полусладкое">Полусладкое</option>
+                <option value="полусухое">Полусухое</option>
+              </select>
+            </div>
+            <div class="filter-group">
               <label for="zoneFilter">Зона:</label>
               <select id="zoneFilter" class="filter-input">
                 <option value="">Все зоны</option>
@@ -89,10 +99,9 @@
                   <th data-sort="sort">Сорт</th>
                   <th data-sort="harvestYear">Год</th>
                   <th data-sort="color">Цвет</th>
+                  <th data-sort="category">Категория</th>
                   <th data-sort="region">Регион</th>
-                  <th data-sort="zone">Зона</th>
-                  <th data-sort="ph">pH</th>
-                  <th data-sort="sugar">Сахар (г/дм³)</th>
+                  <th data-sort="zone">Место происхождения</th>
                   <th>Действия</th>
                 </tr>
               </thead>
@@ -117,56 +126,7 @@
             <div
               style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px"
             >
-              <div>
-                <label for="name">Название образца:</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="filter-input"
-                  required
-                />
-              </div>
-              <div>
-                <label for="sort">Сорт винограда:</label>
-                <input
-                  type="text"
-                  id="sort"
-                  name="sort"
-                  class="filter-input"
-                  required
-                />
-              </div>
-              <div>
-                <label for="harvestYear">Год урожая:</label>
-                <input
-                  type="number"
-                  id="harvestYear"
-                  name="harvestYear"
-                  class="filter-input"
-                  min="1900"
-                  max="2030"
-                  required
-                />
-              </div>
-              <div>
-                <label for="color">Цвет вина:</label>
-                <select id="color" name="color" class="filter-input" required>
-                  <option value="белое">Белое</option>
-                  <option value="красное">Красное</option>
-                  <option value="розовое">Розовое</option>
-                </select>
-              </div>
-              <div>
-                <label for="zone">Зона:</label>
-                <input
-                  type="text"
-                  id="zone"
-                  name="zone"
-                  class="filter-input"
-                  required
-                />
-              </div>
+              <!-- Основные параметры: регион, терруар, хозяйство, винодельня -->
               <div>
                 <label for="region">Регион:</label>
                 <input
@@ -187,7 +147,7 @@
                 />
               </div>
               <div>
-                <label for="producer">Производитель винограда:</label>
+                <label for="producer">Хозяйство:</label>
                 <input
                   type="text"
                   id="producer"
@@ -204,28 +164,63 @@
                   class="filter-input"
                 />
               </div>
+              <!-- Колонки: название, сорт, год, цвет, категория, место происхождения -->
               <div>
-                <label for="ph">pH:</label>
+                <label for="name">Название:</label>
                 <input
-                  type="number"
-                  id="ph"
-                  name="ph"
+                  type="text"
+                  id="name"
+                  name="name"
                   class="filter-input"
-                  step="0.01"
-                  min="2.5"
-                  max="4.5"
                   required
                 />
               </div>
               <div>
-                <label for="sugar">Сахар (г/дм³):</label>
+                <label for="sort">Сорт:</label>
+                <input
+                  type="text"
+                  id="sort"
+                  name="sort"
+                  class="filter-input"
+                  required
+                />
+              </div>
+              <div>
+                <label for="harvestYear">Год:</label>
                 <input
                   type="number"
-                  id="sugar"
-                  name="sugar"
+                  id="harvestYear"
+                  name="harvestYear"
                   class="filter-input"
-                  min="0"
-                  max="300"
+                  min="1900"
+                  max="2030"
+                  required
+                />
+              </div>
+              <div>
+                <label for="color">Цвет:</label>
+                <select id="color" name="color" class="filter-input" required>
+                  <option value="белое">Белое</option>
+                  <option value="красное">Красное</option>
+                  <option value="розовое">Розовое</option>
+                </select>
+              </div>
+              <div>
+                <label for="category">Категория:</label>
+                <select id="category" name="category" class="filter-input" required>
+                  <option value="сухое">Сухое</option>
+                  <option value="сладкое">Сладкое</option>
+                  <option value="полусладкое">Полусладкое</option>
+                  <option value="полусухое">Полусухое</option>
+                </select>
+              </div>
+              <div>
+                <label for="zone">Место происхождения:</label>
+                <input
+                  type="text"
+                  id="zone"
+                  name="zone"
+                  class="filter-input"
                   required
                 />
               </div>
@@ -241,7 +236,29 @@
                 "
               >
                 <div>
-                  <label for="acidity">Титруемая кислотность:</label>
+                  <label for="ethanol">Объемная доля этилового спирта (% об.):</label>
+                  <input
+                    type="number"
+                    id="ethanol"
+                    name="ethanol"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="sugar">Массовая концентрация сахаров (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="sugar"
+                    name="sugar"
+                    class="filter-input"
+                    min="0"
+                    max="300"
+                  />
+                </div>
+                <div>
+                  <label for="acidity">Титруемые кислоты (г/дм³):</label>
                   <input
                     type="number"
                     id="acidity"
@@ -252,56 +269,109 @@
                   />
                 </div>
                 <div>
-                  <label for="lemonAcid">Лимонная кислота (г/дм³):</label>
+                  <label for="reducedExtract">Приведенный экстракт (г/дм³):</label>
                   <input
                     type="number"
-                    id="lemonAcid"
-                    name="lemonAcid"
+                    id="reducedExtract"
+                    name="reducedExtract"
                     class="filter-input"
                     step="0.01"
                     min="0"
                   />
                 </div>
                 <div>
-                  <label for="wineAcid">Винная кислота (г/дм³):</label>
+                  <label for="sulfurDioxide">Диоксид серы (SO₂) (мг/дм³):</label>
                   <input
                     type="number"
-                    id="wineAcid"
-                    name="wineAcid"
+                    id="sulfurDioxide"
+                    name="sulfurDioxide"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="volatileAcids">Летучие кислоты (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="volatileAcids"
+                    name="volatileAcids"
                     class="filter-input"
                     step="0.01"
                     min="0"
                   />
                 </div>
                 <div>
-                  <label for="appleAcid">Яблочная кислота (г/дм³):</label>
+                  <label for="organicAcids">Концентрация органических кислот (г/дм³):</label>
                   <input
                     type="number"
-                    id="appleAcid"
-                    name="appleAcid"
+                    id="organicAcids"
+                    name="organicAcids"
                     class="filter-input"
                     step="0.01"
                     min="0"
                   />
                 </div>
                 <div>
-                  <label for="glycerin">Глицерин (г/дм³):</label>
+                  <label for="phenolicCompounds">Фенольные вещества (мг/дм³):</label>
                   <input
                     type="number"
-                    id="glycerin"
-                    name="glycerin"
+                    id="phenolicCompounds"
+                    name="phenolicCompounds"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="metalCations">Катионы металлов (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="metalCations"
+                    name="metalCations"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="inorganicAnions">Анионы неорганических кислот (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="inorganicAnions"
+                    name="inorganicAnions"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="ph">pH:</label>
+                  <input
+                    type="number"
+                    id="ph"
+                    name="ph"
+                    class="filter-input"
+                    step="0.01"
+                    min="2.5"
+                    max="4.5"
+                  />
+                </div>
+                <div>
+                  <label for="bufferCapacity">Буферная емкость (ммоль/дм³):</label>
+                  <input
+                    type="number"
+                    id="bufferCapacity"
+                    name="bufferCapacity"
                     class="filter-input"
                     step="0.01"
                     min="0"
                   />
                 </div>
                 <div>
-                  <label for="calcium">Кальций (мг/дм³):</label>
+                  <label for="electricConductivity">Электропроводность (мСм/см):</label>
                   <input
                     type="number"
-                    id="calcium"
-                    name="calcium"
+                    id="electricConductivity"
+                    name="electricConductivity"
                     class="filter-input"
+                    step="0.01"
                     min="0"
                   />
                 </div>
@@ -355,7 +425,10 @@
               <div>
                 <strong>Цвет вина:</strong> <span id="detail-color"></span>
               </div>
-              <div><strong>Зона:</strong> <span id="detail-zone"></span></div>
+              <div>
+                <strong>Категория:</strong> <span id="detail-category"></span>
+              </div>
+              <div><strong>Место происхождения:</strong> <span id="detail-zone"></span></div>
               <div>
                 <strong>Регион:</strong> <span id="detail-region"></span>
               </div>
@@ -363,7 +436,7 @@
                 <strong>Терруар:</strong> <span id="detail-terroir"></span>
               </div>
               <div>
-                <strong>Производитель винограда:</strong>
+                <strong>Хозяйство:</strong>
                 <span id="detail-producer"></span>
               </div>
               <div>
@@ -386,24 +459,28 @@
                 <strong>Сахар (г/дм³):</strong> <span id="detail-sugar"></span>
               </div>
               <div>
-                <strong>Титруемая кислотность:</strong>
+                <strong>Титруемые кислоты (г/дм³):</strong>
                 <span id="detail-acidity"></span>
               </div>
               <div>
-                <strong>Лимонная кислота (г/дм³):</strong>
-                <span id="detail-lemonAcid"></span>
+                <strong>Приведенный экстракт (г/дм³):</strong>
+                <span id="detail-reducedExtract"></span>
               </div>
               <div>
-                <strong>Винная кислота (г/дм³):</strong>
-                <span id="detail-wineAcid"></span>
+                <strong>Диоксид серы (SO₂) (мг/дм³):</strong>
+                <span id="detail-sulfurDioxide"></span>
               </div>
               <div>
-                <strong>Яблочная кислота (г/дм³):</strong>
-                <span id="detail-appleAcid"></span>
+                <strong>Летучие кислоты (г/дм³):</strong>
+                <span id="detail-volatileAcids"></span>
               </div>
               <div>
-                <strong>Глицерин (г/дм³):</strong>
-                <span id="detail-glycerin"></span>
+                <strong>Концентрация органических кислот (г/дм³):</strong>
+                <span id="detail-organicAcids"></span>
+              </div>
+              <div>
+                <strong>Фенольные вещества (мг/дм³):</strong>
+                <span id="detail-phenolicCompounds"></span>
               </div>
             </div>
           </div>
@@ -418,16 +495,24 @@
               "
             >
               <div>
-                <strong>Кальций (мг/дм³):</strong>
-                <span id="detail-calcium"></span>
+                <strong>Катионы металлов (мг/дм³):</strong>
+                <span id="detail-metalCations"></span>
+              </div>
+              <div>
+                <strong>Анионы неорганических кислот (мг/дм³):</strong>
+                <span id="detail-inorganicAnions"></span>
               </div>
               <div>
                 <strong>Электропроводность (мСм/см):</strong>
                 <span id="detail-electricConductivity"></span>
               </div>
               <div>
-                <strong>Этанол (% об.):</strong>
+                <strong>Объемная доля этилового спирта (% об.):</strong>
                 <span id="detail-ethanol"></span>
+              </div>
+              <div>
+                <strong>Буферная емкость (ммоль/дм³):</strong>
+                <span id="detail-bufferCapacity"></span>
               </div>
             </div>
           </div>
