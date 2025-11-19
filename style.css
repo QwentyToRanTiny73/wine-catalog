@@ -302,6 +302,42 @@ form button {
   }
 }
 
+/* Список направлений работы лаборатории */
+.lab-directions {
+  padding-left: 20px;
+}
+
+.lab-directions li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+/* Детальные разделы */
+.detail-section {
+  margin-top: 15px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--light-olive);
+  flex-wrap: wrap;
+}
+
+.detail-row strong {
+  flex: 1;
+  margin-right: 15px;
+  min-width: 300px;
+}
+
+.detail-row span {
+  flex: 1;
+  text-align: right;
+  color: var(--khaki);
+  font-weight: 500;
+}
+
 /* Табы */
 .tabs {
   display: flex;

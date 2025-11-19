@@ -194,18 +194,27 @@ function initDatabasePage() {
     const year = document.getElementById("yearFilter").value;
     const color = document.getElementById("colorFilter").value;
     const zone = document.getElementById("zoneFilter").value;
+    const winery = document.getElementById("wineryFilter").value;
+    const producer = document.getElementById("producerFilter").value;
 
     filteredSamples = wineSamples.filter((sample) => {
       const matchesSearch =
         !search ||
         sample.name.toLowerCase().includes(search) ||
-        sample.sort.toLowerCase().includes(search);
+        sample.sort.toLowerCase().includes(search) ||
+        sample.zone.toLowerCase().includes(search) ||
+        sample.region.toLowerCase().includes(search) ||
+        sample.producer.toLowerCase().includes(search) ||
+        sample.winery.toLowerCase().includes(search) ||
+        sample.terroir.toLowerCase().includes(search);
 
       const matchesRegion = !region || sample.region === region;
       const matchesSort = !sort || sample.sort === sort;
       const matchesYear = !year || String(sample.harvestYear) === year;
       const matchesColor = !color || sample.color === color;
       const matchesZone = !zone || sample.zone === zone;
+      const matchesWinery = !winery || sample.winery === winery;
+      const matchesProducer = !producer || sample.producer === producer;
 
       return (
         matchesSearch &&
@@ -213,7 +222,9 @@ function initDatabasePage() {
         matchesSort &&
         matchesYear &&
         matchesColor &&
-        matchesZone
+        matchesZone &&
+        matchesWinery &&
+        matchesProducer
       );
     });
 
@@ -229,6 +240,8 @@ function initDatabasePage() {
     document.getElementById("yearFilter").value = "";
     document.getElementById("colorFilter").value = "";
     document.getElementById("zoneFilter").value = "";
+    document.getElementById("wineryFilter").value = "";
+    document.getElementById("producerFilter").value = "";
 
     filteredSamples = [...wineSamples];
     currentPage = 1;
@@ -342,16 +355,33 @@ function initDatabasePage() {
       terroir: form.terroir.value.trim() || "Не указан",
       producer: form.producer.value.trim() || "Не указан",
       winery: form.winery.value.trim() || "Не указан",
+      category: form.category ? form.category.value.trim() || "Столовое" : "Столовое",
+      origin: form.origin ? form.origin.value.trim() || "Крым" : "Крым",
       ph: parseFloat(form.ph.value),
-      sugar: parseFloat(form.sugar.value),
       acidity: form.acidity.value ? parseFloat(form.acidity.value) : 0,
+      sugar: parseFloat(form.sugar.value),
+      extract: form.extract ? parseFloat(form.extract.value) || 0 : 0,
+      so2: form.so2 ? parseFloat(form.so2.value) || 0 : 0,
+      volatileAcids: form.volatileAcids ? parseFloat(form.volatileAcids.value) || 0 : 0,
       lemonAcid: form.lemonAcid.value ? parseFloat(form.lemonAcid.value) : 0,
       wineAcid: form.wineAcid.value ? parseFloat(form.wineAcid.value) : 0,
       appleAcid: form.appleAcid.value ? parseFloat(form.appleAcid.value) : 0,
+      succinicAcid: form.succinicAcid ? parseFloat(form.succinicAcid.value) || 0 : 0,
+      aceticAcid: form.aceticAcid ? parseFloat(form.aceticAcid.value) || 0 : 0,
+      glucose: form.glucose ? parseFloat(form.glucose.value) || 0 : 0,
+      fructose: form.fructose ? parseFloat(form.fructose.value) || 0 : 0,
+      sucrose: form.sucrose ? parseFloat(form.sucrose.value) || 0 : 0,
       glycerin: form.glycerin.value ? parseFloat(form.glycerin.value) : 0,
+      ethanol: form.ethanol ? parseFloat(form.ethanol.value) || 0 : 0,
+      phenols: form.phenols ? parseFloat(form.phenols.value) || 0 : 0,
+      potassium: form.potassium ? parseFloat(form.potassium.value) || 0 : 0,
+      sodium: form.sodium ? parseFloat(form.sodium.value) || 0 : 0,
       calcium: form.calcium.value ? parseFloat(form.calcium.value) : 0,
-      electricConductivity: 0,
-      ethanol: 0,
+      magnesium: form.magnesium ? parseFloat(form.magnesium.value) || 0 : 0,
+      chlorides: form.chlorides ? parseFloat(form.chlorides.value) || 0 : 0,
+      otherMinerals: form.otherMinerals ? parseFloat(form.otherMinerals.value) || 0 : 0,
+      electricConductivity: form.electricConductivity ? parseFloat(form.electricConductivity.value) || 0 : 0,
+      bufferCapacity: form.bufferCapacity ? parseFloat(form.bufferCapacity.value) || 0 : 0,
     };
 
     // Валидация
@@ -411,9 +441,13 @@ function viewSample(id) {
   document.getElementById("detail-winery").textContent =
     sample.winery || "Не указан";
 
-  // Химический состав
-  document.getElementById("detail-ph").textContent = sample.ph
-    ? sample.ph.toFixed(3)
+  // Техническая информация
+  document.getElementById("detail-category").textContent = sample.category || "Не указана";
+  document.getElementById("detail-origin").textContent = sample.origin || "Не указано";
+
+  // Нормируемые показатели
+  document.getElementById("detail-ethanol").textContent = sample.ethanol
+    ? sample.ethanol.toFixed(2)
     : "Не измерено";
   document.getElementById("detail-sugar").textContent = sample.sugar
     ? sample.sugar.toFixed(1)
@@ -421,30 +455,79 @@ function viewSample(id) {
   document.getElementById("detail-acidity").textContent = sample.acidity
     ? sample.acidity.toFixed(2)
     : "Не измерено";
+  document.getElementById("detail-extract").textContent = sample.extract
+    ? sample.extract.toFixed(1)
+    : "Не измерено";
+  document.getElementById("detail-so2").textContent = sample.so2
+    ? sample.so2.toFixed(1)
+    : "Не измерено";
+  document.getElementById("detail-volatileAcids").textContent = sample.volatileAcids
+    ? sample.volatileAcids.toFixed(2)
+    : "Не измерено";
   document.getElementById("detail-lemonAcid").textContent = sample.lemonAcid
     ? sample.lemonAcid.toFixed(2)
     : "Не измерено";
+
+  // Дополнительные показатели
   document.getElementById("detail-wineAcid").textContent = sample.wineAcid
     ? sample.wineAcid.toFixed(2)
     : "Не измерено";
   document.getElementById("detail-appleAcid").textContent = sample.appleAcid
     ? sample.appleAcid.toFixed(2)
     : "Не измерено";
+  document.getElementById("detail-succinicAcid").textContent = sample.succinicAcid
+    ? sample.succinicAcid.toFixed(2)
+    : "Не измерено";
+  document.getElementById("detail-aceticAcid").textContent = sample.aceticAcid
+    ? sample.aceticAcid.toFixed(2)
+    : "Не измерено";
+  document.getElementById("detail-glucose").textContent = sample.glucose
+    ? sample.glucose.toFixed(1)
+    : "Не измерено";
+  document.getElementById("detail-fructose").textContent = sample.fructose
+    ? sample.fructose.toFixed(1)
+    : "Не измерено";
+  document.getElementById("detail-sucrose").textContent = sample.sucrose
+    ? sample.sucrose.toFixed(1)
+    : "Не измерено";
   document.getElementById("detail-glycerin").textContent = sample.glycerin
     ? sample.glycerin.toFixed(2)
     : "Не измерено";
+  document.getElementById("detail-phenols").textContent = sample.phenols
+    ? sample.phenols.toFixed(1)
+    : "Не измерено";
 
-  // Минеральный состав
+  // Компоненты
+  document.getElementById("detail-potassium").textContent = sample.potassium
+    ? sample.potassium.toFixed(1)
+    : "Не измерено";
+  document.getElementById("detail-sodium").textContent = sample.sodium
+    ? sample.sodium.toFixed(1)
+    : "Не измерено";
   document.getElementById("detail-calcium").textContent = sample.calcium
     ? sample.calcium.toFixed(1)
+    : "Не измерено";
+  document.getElementById("detail-magnesium").textContent = sample.magnesium
+    ? sample.magnesium.toFixed(1)
+    : "Не измерено";
+  document.getElementById("detail-chlorides").textContent = sample.chlorides
+    ? sample.chlorides.toFixed(1)
+    : "Не измерено";
+  document.getElementById("detail-otherMinerals").textContent = sample.otherMinerals
+    ? sample.otherMinerals.toFixed(1)
+    : "Не измерено";
+
+  // Физико-химические характеристики
+  document.getElementById("detail-ph").textContent = sample.ph
+    ? sample.ph.toFixed(3)
+    : "Не измерено";
+  document.getElementById("detail-bufferCapacity").textContent = sample.bufferCapacity
+    ? sample.bufferCapacity.toFixed(1)
     : "Не измерено";
   document.getElementById("detail-electricConductivity").textContent =
     sample.electricConductivity
       ? sample.electricConductivity.toFixed(1)
       : "Не измерено";
-  document.getElementById("detail-ethanol").textContent = sample.ethanol
-    ? sample.ethanol.toFixed(2)
-    : "Не измерено";
 
   // Показываем модальное окно
   modal.style.display = "flex";
