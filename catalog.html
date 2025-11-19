@@ -205,6 +205,26 @@
                 />
               </div>
               <div>
+                <label for="category">Категория:</label>
+                <select id="category" name="category" class="filter-input">
+                  <option value="Столовое">Столовое</option>
+                  <option value="Полусухое">Полусухое</option>
+                  <option value="Полусладкое">Полусладкое</option>
+                  <option value="Сухое">Сухое</option>
+                  <option value="Сладкое">Сладкое</option>
+                </select>
+              </div>
+              <div>
+                <label for="origin">Географическое указание:</label>
+                <input
+                  type="text"
+                  id="origin"
+                  name="origin"
+                  class="filter-input"
+                  placeholder="Крым, Алушта и т.д."
+                />
+              </div>
+              <div>
                 <label for="ph">pH:</label>
                 <input
                   type="number"
@@ -305,6 +325,184 @@
                     min="0"
                   />
                 </div>
+                <div>
+                  <label for="extract">Приведенный экстракт (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="extract"
+                    name="extract"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="so2">SO₂ (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="so2"
+                    name="so2"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="volatileAcids">Летучие кислоты (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="volatileAcids"
+                    name="volatileAcids"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="ethanol">Этанол (% об.):</label>
+                  <input
+                    type="number"
+                    id="ethanol"
+                    name="ethanol"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="succinicAcid">Янтарная кислота (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="succinicAcid"
+                    name="succinicAcid"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="aceticAcid">Уксусная кислота (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="aceticAcid"
+                    name="aceticAcid"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="glucose">Глюкоза (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="glucose"
+                    name="glucose"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="fructose">Фруктоза (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="fructose"
+                    name="fructose"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="sucrose">Сахароза (г/дм³):</label>
+                  <input
+                    type="number"
+                    id="sucrose"
+                    name="sucrose"
+                    class="filter-input"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="phenols">Фенольные вещества (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="phenols"
+                    name="phenols"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="potassium">Калий (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="potassium"
+                    name="potassium"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="sodium">Натрий (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="sodium"
+                    name="sodium"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="magnesium">Магний (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="magnesium"
+                    name="magnesium"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="chlorides">Хлориды (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="chlorides"
+                    name="chlorides"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="otherMinerals">Другие минералы (мг/дм³):</label>
+                  <input
+                    type="number"
+                    id="otherMinerals"
+                    name="otherMinerals"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="electricConductivity">Электропроводность (мСм/см):</label>
+                  <input
+                    type="number"
+                    id="electricConductivity"
+                    name="electricConductivity"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
+                <div>
+                  <label for="bufferCapacity">Буферная емкость (ммоль/дм³):</label>
+                  <input
+                    type="number"
+                    id="bufferCapacity"
+                    name="bufferCapacity"
+                    class="filter-input"
+                    min="0"
+                  />
+                </div>
               </div>
             </div>
             <button type="submit" class="btn" style="margin-top: 25px">
@@ -321,113 +519,189 @@
           <h2 id="sampleName">Детальная информация об образце</h2>
 
           <div class="tabs">
-            <button class="tab-btn active" data-tab="info">
-              Основная информация
+            <button class="tab-btn active" data-tab="organizational">
+              Организационный блок
             </button>
-            <button class="tab-btn" data-tab="chemical">
-              Химический состав
+            <button class="tab-btn" data-tab="technical">
+              Технический блок
             </button>
-            <button class="tab-btn" data-tab="mineral">
-              Минеральный состав
+            <button class="tab-btn" data-tab="analytical">
+              Аналитический блок
             </button>
           </div>
 
-          <div id="info-tab" class="tab-content active">
-            <div
-              style="
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-                margin-top: 15px;
-              "
-            >
-              <div>
-                <strong>Название образца:</strong>
+          <div id="organizational-tab" class="tab-content active">
+            <h3>Административная информация</h3>
+            <div class="detail-section">
+              <div class="detail-row">
+                <strong>Виноградарско-винодельческая зона:</strong>
+                <span id="detail-zone"></span>
+              </div>
+              <div class="detail-row">
+                <strong>Регион:</strong>
+                <span id="detail-region"></span>
+              </div>
+              <div class="detail-row">
+                <strong>Терруар выращивания винограда:</strong>
+                <span id="detail-terroir"></span>
+              </div>
+              <div class="detail-row">
+                <strong>Хозяйство (производитель винограда):</strong>
+                <span id="detail-producer"></span>
+              </div>
+              <div class="detail-row">
+                <strong>Винодельня (производитель вина):</strong>
+                <span id="detail-winery"></span>
+              </div>
+            </div>
+          </div>
+
+          <div id="technical-tab" class="tab-content">
+            <h3>Вспомогательная и уточняющая информация</h3>
+            <div class="detail-section">
+              <div class="detail-row">
+                <strong>Наименование образца:</strong>
                 <span id="detail-name"></span>
               </div>
-              <div>
-                <strong>Сорт винограда:</strong> <span id="detail-sort"></span>
+              <div class="detail-row">
+                <strong>Сортовой состав:</strong>
+                <span id="detail-sort"></span>
               </div>
-              <div>
+              <div class="detail-row">
                 <strong>Год урожая:</strong>
                 <span id="detail-harvestYear"></span>
               </div>
-              <div>
-                <strong>Цвет вина:</strong> <span id="detail-color"></span>
+              <div class="detail-row">
+                <strong>Цвет вина:</strong>
+                <span id="detail-color"></span>
               </div>
-              <div><strong>Зона:</strong> <span id="detail-zone"></span></div>
-              <div>
-                <strong>Регион:</strong> <span id="detail-region"></span>
+              <div class="detail-row">
+                <strong>Категория:</strong>
+                <span id="detail-category">Не указана</span>
               </div>
-              <div>
-                <strong>Терруар:</strong> <span id="detail-terroir"></span>
-              </div>
-              <div>
-                <strong>Производитель винограда:</strong>
-                <span id="detail-producer"></span>
-              </div>
-              <div>
-                <strong>Винодельня:</strong> <span id="detail-winery"></span>
+              <div class="detail-row">
+                <strong>Географическое указание/место происхождения:</strong>
+                <span id="detail-origin">Не указано</span>
               </div>
             </div>
           </div>
 
-          <div id="chemical-tab" class="tab-content">
-            <div
-              style="
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-                margin-top: 15px;
-              "
-            >
-              <div><strong>pH:</strong> <span id="detail-ph"></span></div>
-              <div>
-                <strong>Сахар (г/дм³):</strong> <span id="detail-sugar"></span>
+          <div id="analytical-tab" class="tab-content">
+            <h3>Результаты аналитических исследований</h3>
+            
+            <h4>Нормируемые показатели:</h4>
+            <div class="detail-section">
+              <div class="detail-row">
+                <strong>Объемная доля этилового спирта (% об.):</strong>
+                <span id="detail-ethanol"></span>
               </div>
-              <div>
-                <strong>Титруемая кислотность:</strong>
+              <div class="detail-row">
+                <strong>Массовая концентрация сахаров (г/дм³):</strong>
+                <span id="detail-sugar"></span>
+              </div>
+              <div class="detail-row">
+                <strong>Массовая концентрация титруемых кислот (г/дм³):</strong>
                 <span id="detail-acidity"></span>
               </div>
-              <div>
-                <strong>Лимонная кислота (г/дм³):</strong>
+              <div class="detail-row">
+                <strong>Массовая концентрация приведенного экстракта (г/дм³):</strong>
+                <span id="detail-extract">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Массовая концентрация диоксида серы (SO₂) (мг/дм³):</strong>
+                <span id="detail-so2">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Массовая концентрация летучих кислот (г/дм³):</strong>
+                <span id="detail-volatileAcids">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Массовая концентрация лимонной кислоты (г/дм³):</strong>
                 <span id="detail-lemonAcid"></span>
               </div>
-              <div>
-                <strong>Винная кислота (г/дм³):</strong>
+            </div>
+            
+            <h4>Дополнительные показатели:</h4>
+            <div class="detail-section">
+              <div class="detail-row">
+                <strong>Концентрация винной кислоты (г/дм³):</strong>
                 <span id="detail-wineAcid"></span>
               </div>
-              <div>
-                <strong>Яблочная кислота (г/дм³):</strong>
+              <div class="detail-row">
+                <strong>Концентрация яблочной кислоты (г/дм³):</strong>
                 <span id="detail-appleAcid"></span>
               </div>
-              <div>
-                <strong>Глицерин (г/дм³):</strong>
+              <div class="detail-row">
+                <strong>Концентрация янтарной кислоты (г/дм³):</strong>
+                <span id="detail-succinicAcid">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация уксусной кислоты (г/дм³):</strong>
+                <span id="detail-aceticAcid">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация глюкозы (г/дм³):</strong>
+                <span id="detail-glucose">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация фруктозы (г/дм³):</strong>
+                <span id="detail-fructose">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация сахарозы (г/дм³):</strong>
+                <span id="detail-sucrose">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация глицерина (г/дм³):</strong>
                 <span id="detail-glycerin"></span>
               </div>
+              <div class="detail-row">
+                <strong>Концентрация фенольных веществ (мг/дм³):</strong>
+                <span id="detail-phenols">Не измерено</span>
+              </div>
             </div>
-          </div>
-
-          <div id="mineral-tab" class="tab-content">
-            <div
-              style="
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-                margin-top: 15px;
-              "
-            >
-              <div>
-                <strong>Кальций (мг/дм³):</strong>
+            
+            <h4>Компоненты:</h4>
+            <div class="detail-section">
+              <div class="detail-row">
+                <strong>Концентрация калия (мг/дм³):</strong>
+                <span id="detail-potassium">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация натрия (мг/дм³):</strong>
+                <span id="detail-sodium">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация кальция (мг/дм³):</strong>
                 <span id="detail-calcium"></span>
               </div>
-              <div>
+              <div class="detail-row">
+                <strong>Концентрация магния (мг/дм³):</strong>
+                <span id="detail-magnesium">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация хлоридов (мг/дм³):</strong>
+                <span id="detail-chlorides">Не измерено</span>
+              </div>
+              <div class="detail-row">
+                <strong>Концентрация других минералов (мг/дм³):</strong>
+                <span id="detail-otherMinerals">Не измерено</span>
+              </div>
+            </div>
+            
+            <h4>Физико-химические характеристики:</h4>
+            <div class="detail-section">
+              <div class="detail-row">
+                <strong>pH:</strong>
+                <span id="detail-ph"></span>
+              </div>
+              <div class="detail-row">
+                <strong>Буферная емкость (ммоль/дм³):</strong>
+                <span id="detail-bufferCapacity">Не измерено</span>
+              </div>
+              <div class="detail-row">
                 <strong>Электропроводность (мСм/см):</strong>
                 <span id="detail-electricConductivity"></span>
-              </div>
-              <div>
-                <strong>Этанол (% об.):</strong>
-                <span id="detail-ethanol"></span>
               </div>
             </div>
           </div>
