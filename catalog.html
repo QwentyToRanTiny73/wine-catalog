@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Каталог образцов вина | Лаборатория биохимии вина</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
+    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -80,11 +83,18 @@
               Сбросить фильтры
             </button>
             <button
-              id="exportBtn"
+              id="exportExcelBtn"
               class="btn"
               style="background-color: #5a8c5a"
             >
               Экспорт в Excel
+            </button>
+            <button
+              id="exportWordBtn"
+              class="btn"
+              style="background-color: #2e55a0"
+            >
+              Экспорт в Word
             </button>
           </div>
         </section>
