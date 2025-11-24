@@ -1,70 +1,55 @@
 ```
-# Compiled and build artifacts
-*.pyc
-__pycache__/
-*.o
-*.obj
-dist/
-build/
-*.class
-*.exe
-*.dll
-*.so
-*.a
-*.out
-
 # Dependencies
-.venv/
-venv/
 node_modules/
-target/
-.gradle/
-.mypy_cache/
-.pytest_cache/
-pip-log.txt
-pip-selfcheck.json
-
-# Logs and temp files
-*.log
-*.tmp
-*.swp
-*.swo
-*.bak
-*.~*
-.DS_Store
-Thumbs.db
 
 # Environment
 .env
 .env.local
-.env.*
-.env.local.*
+*.env.*
 
-# Editors
+# Logs
+*.log
+
+# Editor/IDE
 .vscode/
 .idea/
-*.sublime-project
-*.sublime-workspace
-nbproject/
 *.swp
 *.swo
+*.tmp
+
+# Build artifacts
+dist/
+build/
+*.o
+*.obj
+*.out
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.so
+*.egg-info/
 
 # Coverage
 coverage/
 htmlcov/
 .coverage
-*.coverage
-.coverage.*
 
-# Distribution
-*.tar
-*.tar.gz
-*.tar.bz2
-*.tar.xz
+# OS
+.DS_Store
+Thumbs.db
+
+# Compressed files
 *.zip
 *.gz
-*.rar
+*.tar
+*.tgz
+*.bz2
+*.xz
 *.7z
+*.rar
 *.zst
 *.lz4
 *.lzh
@@ -75,13 +60,8 @@ htmlcov/
 *.Z
 *.lz
 *.lzo
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```
