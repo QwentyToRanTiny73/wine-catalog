@@ -6,65 +6,55 @@ __pycache__/
 *.obj
 dist/
 build/
-*.class
-*.exe
-*.dll
-*.so
-*.a
-*.out
+target/
 
 # Dependencies
 .venv/
 venv/
 node_modules/
-target/
-.gradle/
-.mypy_cache/
-.pytest_cache/
-pip-log.txt
-pip-selfcheck.json
+.julia/
+.zig/
 
 # Logs and temp files
 *.log
 *.tmp
 *.swp
-*.swo
-*.bak
-*.~*
-.DS_Store
-Thumbs.db
 
 # Environment
 .env
 .env.local
 .env.*
-.env.local.*
 
 # Editors
 .vscode/
 .idea/
-*.sublime-project
-*.sublime-workspace
-nbproject/
 *.swp
 *.swo
+
+# System files
+.DS_Store
+Thumbs.db
 
 # Coverage
 coverage/
 htmlcov/
 .coverage
-*.coverage
-.coverage.*
 
-# Distribution
-*.tar
-*.tar.gz
-*.tar.bz2
-*.tar.xz
+# MyPy
+.mypy_cache/
+
+# Pytest
+.pytest_cache/
+
+# Compressed files
 *.zip
 *.gz
-*.rar
+*.tar
+*.tgz
+*.bz2
+*.xz
 *.7z
+*.rar
 *.zst
 *.lz4
 *.lzh
@@ -75,13 +65,8 @@ htmlcov/
 *.Z
 *.lz
 *.lzo
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```

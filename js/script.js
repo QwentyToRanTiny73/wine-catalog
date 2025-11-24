@@ -280,7 +280,9 @@ function initDatabasePage() {
           <td>${sample.region}</td>
           <td>${sample.zone}</td>
           <td>
-            <button class="btn" style="padding: 6px 12px; font-size: 14px;" onclick="viewSample(${sample.id})">Подробнее</button>
+            <button class="btn" style="padding: 6px 12px; font-size: 14px;" onclick="viewSample(${sample.id})">
+              <span class="detail-icon">🔍</span> Подробнее
+            </button>
           </td>
         `;
 
