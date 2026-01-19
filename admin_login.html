@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход в личный кабинет администратора | Лаборатория биохимии вина</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <h1>🔐 Вход в личный кабинет администратора</h1>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Авторизация</h2>
+        <form id="adminLoginForm">
+          <div style="margin-bottom: 15px;">
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" class="filter-input" required />
+          </div>
+          
+          <div style="margin-bottom: 20px;">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" class="filter-input" required />
+          </div>
+          
+          <button type="submit" class="btn">Войти</button>
+        </form>
+        
+        <div style="margin-top: 15px;">
+          <a href="index.html">Вернуться на главную</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="card" style="text-align: center; margin-top: 20px">
+      <p>© 2025 Лаборатория биохимии вина ВННИИВиВ «Магарач»</p>
+      <p>298600, Республика Крым, г. Ялта, ул. Кирова, 31</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // Простая проверка учетных данных (в реальном приложении это должно быть на сервере)
+      if (username === 'admin' && password === 'admin123') {
+        // Сохраняем информацию о сессии
+        localStorage.setItem('isAdminLoggedIn', 'true');
+        window.location.href = 'admin_panel.html';
+      } else {
+        alert('Неверный логин или пароль');
+      }
+    });
+  </script>
+</body>
+</html>
