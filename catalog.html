@@ -13,9 +13,15 @@
     <div class="container">
       <header class="card">
         <h1>🍷 Каталог образцов вина</h1>
-        <button id="addSampleBtn" class="btn" style="margin-top: 10px">
-          <span class="add-icon">➕</span> Добавить образец
-        </button>
+        <div id="adminControls" style="display: none;">
+          <button id="addSampleBtn" class="btn" style="margin-top: 10px">
+            <span class="add-icon">➕</span> Добавить образец
+          </button>
+        </div>
+        <div id="loginPrompt" style="display: flex; align-items: center; gap: 10px;">
+          <span>Только для администраторов: </span>
+          <a href="admin_login.html" class="btn" style="background-color: #f39c12;">Войти в личный кабинет</a>
+        </div>
       </header>
 
       <main>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Личный кабинет администратора | Лаборатория биохимии вина</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <h1>👤 Личный кабинет администратора</h1>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Добро пожаловать, Администратор!</h2>
+        <button id="logoutBtn" class="btn" style="background-color: #e74c3c;">Выйти</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Управление образцами вина</h2>
+        <div style="margin-bottom: 20px;">
+          <button id="addSampleBtn" class="btn" style="margin-right: 10px;">
+            <span class="add-icon">➕</span> Добавить образец
+          </button>
+          <a href="catalog.html" class="btn" style="background-color: #3498db;">Вернуться к каталогу</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Статистика</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+          <div class="stat-card">
+            <h3 id="totalSamples">0</h3>
+            <p>Всего образцов</p>
+          </div>
+          <div class="stat-card">
+            <h3 id="whiteWines">0</h3>
+            <p>Белые вина</p>
+          </div>
+          <div class="stat-card">
+            <h3 id="redWines">0</h3>
+            <p>Красные вина</p>
+          </div>
+          <div class="stat-card">
+            <h3 id="regionsCount">0</h3>
+            <p>Регионов</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Модальное окно для добавления образца -->
+    <div id="addSampleModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>➕ Добавить новый образец</h2>
+        <form id="addSampleForm">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+            <!-- Основные параметры: регион, терруар, хозяйство, винодельня -->
+            <div>
+              <label for="region">Регион: <span class="required">*</span></label>
+              <input
+                type="text"
+                id="region"
+                name="region"
+                class="filter-input"
+                required
+              />
+            </div>
+            <div>
+              <label for="terroir">Терруар:</label>
+              <input
+                type="text"
+                id="terroir"
+                name="terroir"
+                class="filter-input"
+              />
+            </div>
+            <div>
+              <label for="producer">Хозяйство:</label>
+              <input
+                type="text"
+                id="producer"
+                name="producer"
+                class="filter-input"
+              />
+            </div>
+            <div>
+              <label for="winery">Винодельня:</label>
+              <input
+                type="text"
+                id="winery"
+                name="winery"
+                class="filter-input"
+              />
+            </div>
+            <!-- Колонки: название, сорт, год, цвет, категория, место происхождения -->
+            <div>
+              <label for="name">Название: <span class="required">*</span></label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="filter-input"
+                required
+              />
+            </div>
+            <div>
+              <label for="sort">Сорт: <span class="required">*</span></label>
+              <input
+                type="text"
+                id="sort"
+                name="sort"
+                class="filter-input"
+                required
+              />
+            </div>
+            <div>
+              <label for="harvestYear">Год: <span class="required">*</span></label>
+              <input
+                type="number"
+                id="harvestYear"
+                name="harvestYear"
+                class="filter-input"
+                min="1900"
+                max="2030"
+                required
+              />
+            </div>
+            <div>
+              <label for="color">Цвет: <span class="required">*</span></label>
+              <select id="color" name="color" class="filter-input" required>
+                <option value="">Выберите цвет</option>
+                <option value="белое">Белое</option>
+                <option value="красное">Красное</option>
+                <option value="розовое">Розовое</option>
+              </select>
+            </div>
+            <div>
+              <label for="category">Категория: <span class="required">*</span></label>
+              <select id="category" name="category" class="filter-input" required>
+                <option value="">Выберите категорию</option>
+                <option value="сухое">Сухое</option>
+                <option value="сладкое">Сладкое</option>
+                <option value="полусладкое">Полусладкое</option>
+                <option value="полусухое">Полусухое</option>
+              </select>
+            </div>
+            <div>
+              <label for="zone">Место происхождения: <span class="required">*</span></label>
+              <input
+                type="text"
+                id="zone"
+                name="zone"
+                class="filter-input"
+                required
+              />
+            </div>
+          </div>
+          <div style="margin-top: 25px">
+            <h3>Дополнительные аналитические данные:</h3>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+                margin-top: 10px;
+              "
+            >
+              <div>
+                <label for="ethanol">Объемная доля этилового спирта (% об.):</label>
+                <input
+                  type="number"
+                  id="ethanol"
+                  name="ethanol"
+                  class="filter-input"
+                  step="0.01"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="sugar">Массовая концентрация сахаров (г/дм³):</label>
+                <input
+                  type="number"
+                  id="sugar"
+                  name="sugar"
+                  class="filter-input"
+                  min="0"
+                  max="300"
+                />
+              </div>
+              <div>
+                <label for="acidity">Титруемые кислоты (г/дм³):</label>
+                <input
+                  type="number"
+                  id="acidity"
+                  name="acidity"
+                  class="filter-input"
+                  step="0.01"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="reducedExtract">Приведенный экстракт (г/дм³):</label>
+                <input
+                  type="number"
+                  id="reducedExtract"
+                  name="reducedExtract"
+                  class="filter-input"
+                  step="0.01"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="sulfurDioxide">Диоксид серы (SO₂) (мг/дм³):</label>
+                <input
+                  type="number"
+                  id="sulfurDioxide"
+                  name="sulfurDioxide"
+                  class="filter-input"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="volatileAcids">Летучие кислоты (г/дм³):</label>
+                <input
+                  type="number"
+                  id="volatileAcids"
+                  name="volatileAcids"
+                  class="filter-input"
+                  step="0.01"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="organicAcids">Концентрация органических кислот (г/дм³):</label>
+                <input
+                  type="number"
+                  id="organicAcids"
+                  name="organicAcids"
+                  class="filter-input"
+                  step="0.01"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="phenolicCompounds">Фенольные вещества (мг/дм³):</label>
+                <input
+                  type="number"
+                  id="phenolicCompounds"
+                  name="phenolicCompounds"
+                  class="filter-input"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="metalCations">Катионы металлов (мг/дм³):</label>
+                <input
+                  type="number"
+                  id="metalCations"
+                  name="metalCations"
+                  class="filter-input"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="inorganicAnions">Анионы неорганических кислот (мг/дм³):</label>
+                <input
+                  type="number"
+                  id="inorganicAnions"
+                  name="inorganicAnions"
+                  class="filter-input"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="ph">pH:</label>
+                <input
+                  type="number"
+                  id="ph"
+                  name="ph"
+                  class="filter-input"
+                  step="0.01"
+                  min="2.5"
+                  max="4.5"
+                />
+              </div>
+              <div>
+                <label for="bufferCapacity">Буферная емкость (ммоль/дм³):</label>
+                <input
+                  type="number"
+                  id="bufferCapacity"
+                  name="bufferCapacity"
+                  class="filter-input"
+                  step="0.01"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label for="electricConductivity">Электропроводность (мСм/см):</label>
+                <input
+                  type="number"
+                  id="electricConductivity"
+                  name="electricConductivity"
+                  class="filter-input"
+                  step="0.01"
+                  min="0"
+                />
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn" style="margin-top: 25px">
+            Добавить образец
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <footer class="card" style="text-align: center; margin-top: 20px">
+      <p>© 2025 Лаборатория биохимии вина ВННИИВиВ «Магарач»</p>
+      <p>298600, Республика Крым, г. Ялта, ул. Кирова, 31</p>
+    </footer>
+  </div>
+
+  <script>
+    // Проверка авторизации
+    if (!localStorage.getItem('isAdminLoggedIn')) {
+      window.location.href = 'admin_login.html';
+    }
+
+    // Получаем данные - сначала из localStorage, если есть, иначе из js/data.js
+    let wineSamples = [];
+    const storedWineSamples = localStorage.getItem('wineSamples');
+    if (storedWineSamples) {
+      wineSamples = JSON.parse(storedWineSamples);
+    } else {
+      // Если в localStorage нет данных, используем оригинальные данные
+      wineSamples = window.wineSamples || [];
+    }
+
+    // DOM элементы
+    const logoutBtn = document.getElementById("logoutBtn");
+    const addSampleBtn = document.getElementById("addSampleBtn");
+    const modal = document.getElementById("addSampleModal");
+    const closeModalBtn = document.querySelector(".close");
+    const addSampleForm = document.getElementById("addSampleForm");
+
+    // Обработчик выхода
+    logoutBtn.addEventListener("click", () => {
+      if (confirm("Вы уверены, что хотите выйти?")) {
+        localStorage.removeItem('isAdminLoggedIn');
+        window.location.href = 'index.html';
+      }
+    });
+
+    // Открытие модального окна
+    addSampleBtn.addEventListener("click", () => {
+      modal.style.display = "flex";
+    });
+
+    // Закрытие модального окна
+    closeModalBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Закрытие модального окна при клике вне его
+    window.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    // Обработка формы добавления
+    addSampleForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      addNewSample();
+    });
+
+    // Функция добавления нового образца
+    function addNewSample() {
+      const form = document.getElementById("addSampleForm");
+      const newSample = {
+        id: Math.max(...wineSamples.map(s => s.id), 0) + 1, // Находим максимальный ID и увеличиваем на 1
+        name: form.name.value.trim(),
+        sort: form.sort.value.trim(),
+        harvestYear: parseInt(form.harvestYear.value),
+        color: form.color.value.trim(),
+        category: form.category.value.trim(),
+        zone: form.zone.value.trim(),
+        region: form.region.value.trim(),
+        terroir: form.terroir.value.trim() || "Не указан",
+        producer: form.producer.value.trim() || "Не указан",
+        winery: form.winery.value.trim() || "Не указан",
+        ethanol: form.ethanol.value ? parseFloat(form.ethanol.value) : 0,
+        sugar: form.sugar.value ? parseFloat(form.sugar.value) : 0,
+        acidity: form.acidity.value ? parseFloat(form.acidity.value) : 0,
+        reducedExtract: form.reducedExtract.value ? parseFloat(form.reducedExtract.value) : 0,
+        sulfurDioxide: form.sulfurDioxide.value ? parseFloat(form.sulfurDioxide.value) : 0,
+        volatileAcids: form.volatileAcids.value ? parseFloat(form.volatileAcids.value) : 0,
+        organicAcids: form.organicAcids.value ? parseFloat(form.organicAcids.value) : 0,
+        phenolicCompounds: form.phenolicCompounds.value ? parseFloat(form.phenolicCompounds.value) : 0,
+        metalCations: form.metalCations.value ? parseFloat(form.metalCations.value) : 0,
+        inorganicAnions: form.inorganicAnions.value ? parseFloat(form.inorganicAnions.value) : 0,
+        ph: form.ph.value ? parseFloat(form.ph.value) : 0,
+        bufferCapacity: form.bufferCapacity.value ? parseFloat(form.bufferCapacity.value) : 0,
+        electricConductivity: form.electricConductivity.value ? parseFloat(form.electricConductivity.value) : 0,
+      };
+
+      // Валидация
+      if (
+        !newSample.name ||
+        !newSample.sort ||
+        !newSample.harvestYear ||
+        !newSample.color ||
+        !newSample.category ||
+        !newSample.zone ||
+        !newSample.region
+      ) {
+        alert("Пожалуйста, заполните все обязательные поля");
+        return;
+      }
+
+      wineSamples.push(newSample);
+      
+      // Сохраняем обновленные данные в localStorage
+      localStorage.setItem('wineSamples', JSON.stringify(wineSamples));
+
+      // Сброс формы
+      form.reset();
+      modal.style.display = "none";
+
+      alert("Новый образец успешно добавлен!");
+      
+      // Обновляем статистику
+      updateStats();
+    }
+
+    // Функция обновления статистики
+    function updateStats() {
+      document.getElementById("totalSamples").textContent = wineSamples.length;
+      
+      const whiteWines = wineSamples.filter(sample => sample.color === 'белое').length;
+      document.getElementById("whiteWines").textContent = whiteWines;
+      
+      const redWines = wineSamples.filter(sample => sample.color === 'красное').length;
+      document.getElementById("redWines").textContent = redWines;
+      
+      const regions = [...new Set(wineSamples.map(sample => sample.region))];
+      document.getElementById("regionsCount").textContent = regions.length;
+    }
+
+    // Инициализация статистики при загрузке
+    document.addEventListener("DOMContentLoaded", updateStats);
+  </script>
+</body>
+</html>

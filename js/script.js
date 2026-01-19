@@ -23,10 +23,28 @@ function initDatabasePage() {
   const viewSampleModal = document.getElementById("viewSampleModal");
   const modal = document.getElementById("addSampleModal");
   const addSampleForm = document.getElementById("addSampleForm");
+  const adminControls = document.getElementById("adminControls");
+  const loginPrompt = document.getElementById("loginPrompt");
+  
+  // Проверка авторизации администратора
+  const isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
+  
+  if (isAdminLoggedIn) {
+    adminControls.style.display = "block";
+    loginPrompt.style.display = "none";
+  } else {
+    adminControls.style.display = "none";
+    loginPrompt.style.display = "flex";
+  }
 
   // Пагинация
   let currentPage = 1;
   const itemsPerPage = 10;
+  
+  // Проверяем, есть ли обновленные данные в localStorage
+  const storedWineSamples = localStorage.getItem('wineSamples');
+  let wineSamples = storedWineSamples ? JSON.parse(storedWineSamples) : window.wineSamples || [];
+  
   let filteredSamples = [...wineSamples];
 
   // Инициализация
@@ -355,7 +373,7 @@ function initDatabasePage() {
   function addNewSample() {
     const form = document.getElementById("addSampleForm");
     const newSample = {
-      id: wineSamples.length + 1,
+      id: Math.max(...wineSamples.map(s => s.id), 0) + 1, // Находим максимальный ID и увеличиваем на 1
       name: form.name.value.trim(),
       sort: form.sort.value.trim(),
       harvestYear: parseInt(form.harvestYear.value),
@@ -396,6 +414,10 @@ function initDatabasePage() {
     }
 
     wineSamples.push(newSample);
+    
+    // Сохраняем обновленные данные в localStorage
+    localStorage.setItem('wineSamples', JSON.stringify(wineSamples));
+    
     filteredSamples = [...wineSamples];
     renderTable();
     renderPagination();
