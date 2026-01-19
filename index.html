@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Лаборатория биохимии вина</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
+    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -57,10 +60,12 @@
             Этот сайт создан для удобного хранения и анализа данных о 300
             образцах вин из коллекции лаборатории. Здесь вы можете
             просматривать, фильтровать и изучать химический состав каждого
-            образца, а также добавлять новые записи для дальнейшего
-            исследования.
+            образца.
           </p>
-          <a href="catalog.html" class="btn">Перейти к базе образцов</a>
+          <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <a href="catalog.html" class="btn">Перейти к базе образцов</a>
+            <a href="admin_login.html" class="btn" style="background-color: #f39c12;">Личный кабинет администратора</a>
+          </div>
         </section>
       </main>
 

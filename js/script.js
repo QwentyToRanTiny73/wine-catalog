@@ -16,16 +16,35 @@ function initDatabasePage() {
   const resultCount = document.getElementById("resultCount");
   const applyBtn = document.getElementById("applyFilters");
   const resetBtn = document.getElementById("resetFilters");
-  const exportBtn = document.getElementById("exportBtn");
+  const exportExcelBtn = document.getElementById("exportExcelBtn");
+  const exportWordBtn = document.getElementById("exportWordBtn");
   const addSampleBtn = document.getElementById("addSampleBtn");
   const closeModalBtns = document.querySelectorAll(".close");
   const viewSampleModal = document.getElementById("viewSampleModal");
   const modal = document.getElementById("addSampleModal");
   const addSampleForm = document.getElementById("addSampleForm");
+  const adminControls = document.getElementById("adminControls");
+  const loginPrompt = document.getElementById("loginPrompt");
+  
+  // Проверка авторизации администратора
+  const isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn') === 'true';
+  
+  if (isAdminLoggedIn) {
+    adminControls.style.display = "block";
+    loginPrompt.style.display = "none";
+  } else {
+    adminControls.style.display = "none";
+    loginPrompt.style.display = "flex";
+  }
 
   // Пагинация
   let currentPage = 1;
   const itemsPerPage = 10;
+  
+  // Проверяем, есть ли обновленные данные в localStorage
+  const storedWineSamples = localStorage.getItem('wineSamples');
+  let wineSamples = storedWineSamples ? JSON.parse(storedWineSamples) : window.wineSamples || [];
+  
   let filteredSamples = [...wineSamples];
 
   // Инициализация
@@ -36,7 +55,8 @@ function initDatabasePage() {
   // Обработчики событий
   applyBtn.addEventListener("click", applyFilters);
   resetBtn.addEventListener("click", resetFilters);
-  exportBtn.addEventListener("click", exportToExcel);
+  exportExcelBtn.addEventListener("click", exportToExcel);
+  exportWordBtn.addEventListener("click", exportToWord);
   addSampleBtn.addEventListener("click", () => {
     modal.style.display = "flex";
   });
@@ -280,7 +300,15 @@ function initDatabasePage() {
           <td>${sample.region}</td>
           <td>${sample.zone}</td>
           <td>
-            <button class="btn" style="padding: 6px 12px; font-size: 14px;" onclick="viewSample(${sample.id})">Подробнее</button>
+            <button class="btn" style="padding: 6px 12px; font-size: 14px; margin-bottom: 5px;" onclick="viewSample(${sample.id})">
+              <span class="detail-icon">🔍</span> Подробнее
+            </button>
+            <button class="btn" style="padding: 6px 12px; font-size: 14px; background-color: #5a8c5a; margin-bottom: 5px;" onclick="exportSingleSampleToExcel(${sample.id})">
+              <span>📊</span> Excel
+            </button>
+            <button class="btn" style="padding: 6px 12px; font-size: 14px; background-color: #2e55a0;" onclick="exportSingleSampleToWord(${sample.id})">
+              <span>📝</span> Word
+            </button>
           </td>
         `;
 
@@ -345,7 +373,7 @@ function initDatabasePage() {
   function addNewSample() {
     const form = document.getElementById("addSampleForm");
     const newSample = {
-      id: wineSamples.length + 1,
+      id: Math.max(...wineSamples.map(s => s.id), 0) + 1, // Находим максимальный ID и увеличиваем на 1
       name: form.name.value.trim(),
       sort: form.sort.value.trim(),
       harvestYear: parseInt(form.harvestYear.value),
@@ -386,6 +414,10 @@ function initDatabasePage() {
     }
 
     wineSamples.push(newSample);
+    
+    // Сохраняем обновленные данные в localStorage
+    localStorage.setItem('wineSamples', JSON.stringify(wineSamples));
+    
     filteredSamples = [...wineSamples];
     renderTable();
     renderPagination();
@@ -398,7 +430,186 @@ function initDatabasePage() {
   }
 
   function exportToExcel() {
-    alert("Функция экспорта в Excel будет реализована в будущем");
+    // Подготовка данных для экспорта
+    const exportData = filteredSamples.map(sample => ({
+      "ID": sample.id,
+      "Название": sample.name,
+      "Сорт": sample.sort,
+      "Год урожая": sample.harvestYear,
+      "Цвет": sample.color,
+      "Категория": sample.category,
+      "Место происхождения": sample.zone,
+      "Регион": sample.region,
+      "Терруар": sample.terroir || "Не указан",
+      "Хозяйство": sample.producer || "Не указано",
+      "Винодельня": sample.winery || "Не указано",
+      "pH": sample.ph || "Не измерено",
+      "Титруемые кислоты (г/дм³)": sample.acidity || "Не измерено",
+      "Массовая концентрация сахаров (г/дм³)": sample.sugar || "Не измерено",
+      "Объемная доля этилового спирта (% об.)": sample.ethanol || "Не измерено",
+      "Приведенный экстракт (г/дм³)": sample.reducedExtract || "Не измерено",
+      "Диоксид серы (SO₂) (мг/дм³)": sample.sulfurDioxide || "Не измерено",
+      "Летучие кислоты (г/дм³)": sample.volatileAcids || "Не измерено",
+      "Концентрация органических кислот (г/дм³)": sample.organicAcids || "Не измерено",
+      "Фенольные вещества (мг/дм³)": sample.phenolicCompounds || "Не измерено",
+      "Катионы металлов (мг/дм³)": sample.metalCations || "Не измерено",
+      "Анионы неорганических кислот (мг/дм³)": sample.inorganicAnions || "Не измерено",
+      "Буферная емкость (ммоль/дм³)": sample.bufferCapacity || "Не измерено",
+      "Электропроводность (мСм/см)": sample.electricConductivity || "Не измерено"
+    }));
+
+    // Создание рабочей книги Excel
+    const ws = XLSX.utils.json_to_sheet(exportData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Анализы вин");
+
+    // Сохранение файла
+    XLSX.writeFile(wb, "анализы_вин.xlsx");
+  }
+
+  function exportToWord() {
+    // Подготовка данных для экспорта
+    const doc = new docx.Document({
+      sections: [{
+        properties: {},
+        children: [
+          new docx.Paragraph({
+            text: "Каталог анализов вин",
+            heading: docx.HeadingLevel.HEADING_1,
+            alignment: docx.AlignmentType.CENTER
+          }),
+          new docx.Paragraph({
+            text: `Общее количество образцов: ${filteredSamples.length}`,
+            bold: true
+          }),
+          ...filteredSamples.map(sample => [
+            new docx.Paragraph({
+              text: `Название: ${sample.name}`,
+              heading: docx.HeadingLevel.HEADING_2
+            }),
+            new docx.Paragraph(`Сорт: ${sample.sort}`),
+            new docx.Paragraph(`Год урожая: ${sample.harvestYear}`),
+            new docx.Paragraph(`Цвет: ${sample.color}`),
+            new docx.Paragraph(`Категория: ${sample.category}`),
+            new docx.Paragraph(`Место происхождения: ${sample.zone}`),
+            new docx.Paragraph(`Регион: ${sample.region}`),
+            new docx.Paragraph(`Терруар: ${sample.terroir || "Не указан"}`),
+            new docx.Paragraph(`Хозяйство: ${sample.producer || "Не указано"}`),
+            new docx.Paragraph(`Винодельня: ${sample.winery || "Не указано"}`),
+            new docx.Paragraph(`pH: ${sample.ph || "Не измерено"}`),
+            new docx.Paragraph(`Титруемые кислоты (г/дм³): ${sample.acidity || "Не измерено"}`),
+            new docx.Paragraph(`Массовая концентрация сахаров (г/дм³): ${sample.sugar || "Не измерено"}`),
+            new docx.Paragraph(`Объемная доля этилового спирта (% об.): ${sample.ethanol || "Не измерено"}`),
+            new docx.Paragraph(`Приведенный экстракт (г/дм³): ${sample.reducedExtract || "Не измерено"}`),
+            new docx.Paragraph(`Диоксид серы (SO₂) (мг/дм³): ${sample.sulfurDioxide || "Не измерено"}`),
+            new docx.Paragraph(`Летучие кислоты (г/дм³): ${sample.volatileAcids || "Не измерено"}`),
+            new docx.Paragraph(`Концентрация органических кислот (г/дм³): ${sample.organicAcids || "Не измерено"}`),
+            new docx.Paragraph(`Фенольные вещества (мг/дм³): ${sample.phenolicCompounds || "Не измерено"}`),
+            new docx.Paragraph(`Катионы металлов (мг/дм³): ${sample.metalCations || "Не измерено"}`),
+            new docx.Paragraph(`Анионы неорганических кислот (мг/дм³): ${sample.inorganicAnions || "Не измерено"}`),
+            new docx.Paragraph(`Буферная емкость (ммоль/дм³): ${sample.bufferCapacity || "Не измерено"}`),
+            new docx.Paragraph(`Электропроводность (мСм/см): ${sample.electricConductivity || "Не измерено"}`),
+            new docx.Paragraph({}), // Пустой параграф для разделения
+          ]).flat()
+        ]
+      }]
+    });
+
+    // Сохранение файла
+    docx.Packer.toBlob(doc).then(blob => {
+      saveAs(blob, "анализы_вин.docx");
+    });
+  }
+
+  function exportSingleSampleToExcel(id) {
+    const sample = wineSamples.find(s => s.id === id);
+    if (!sample) return;
+
+    // Подготовка данных для экспорта
+    const exportData = [{
+      "ID": sample.id,
+      "Название": sample.name,
+      "Сорт": sample.sort,
+      "Год урожая": sample.harvestYear,
+      "Цвет": sample.color,
+      "Категория": sample.category,
+      "Место происхождения": sample.zone,
+      "Регион": sample.region,
+      "Терруар": sample.terroir || "Не указан",
+      "Хозяйство": sample.producer || "Не указано",
+      "Винодельня": sample.winery || "Не указано",
+      "pH": sample.ph || "Не измерено",
+      "Титруемые кислоты (г/дм³)": sample.acidity || "Не измерено",
+      "Массовая концентрация сахаров (г/дм³)": sample.sugar || "Не измерено",
+      "Объемная доля этилового спирта (% об.)": sample.ethanol || "Не измерено",
+      "Приведенный экстракт (г/дм³)": sample.reducedExtract || "Не измерено",
+      "Диоксид серы (SO₂) (мг/дм³)": sample.sulfurDioxide || "Не измерено",
+      "Летучие кислоты (г/дм³)": sample.volatileAcids || "Не измерено",
+      "Концентрация органических кислот (г/дм³)": sample.organicAcids || "Не измерено",
+      "Фенольные вещества (мг/дм³)": sample.phenolicCompounds || "Не измерено",
+      "Катионы металлов (мг/дм³)": sample.metalCations || "Не измерено",
+      "Анионы неорганических кислот (мг/дм³)": sample.inorganicAnions || "Не измерено",
+      "Буферная емкость (ммоль/дм³)": sample.bufferCapacity || "Не измерено",
+      "Электропроводность (мСм/см)": sample.electricConductivity || "Не измерено"
+    }];
+
+    // Создание рабочей книги Excel
+    const ws = XLSX.utils.json_to_sheet(exportData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Анализ вина");
+
+    // Сохранение файла
+    XLSX.writeFile(wb, `анализ_вина_${sample.name}_${sample.id}.xlsx`);
+  }
+
+  function exportSingleSampleToWord(id) {
+    const sample = wineSamples.find(s => s.id === id);
+    if (!sample) return;
+
+    // Подготовка данных для экспорта
+    const doc = new docx.Document({
+      sections: [{
+        properties: {},
+        children: [
+          new docx.Paragraph({
+            text: "Детальный анализ образца вина",
+            heading: docx.HeadingLevel.HEADING_1,
+            alignment: docx.AlignmentType.CENTER
+          }),
+          new docx.Paragraph({
+            text: `Название: ${sample.name}`,
+            heading: docx.HeadingLevel.HEADING_2
+          }),
+          new docx.Paragraph(`Сорт: ${sample.sort}`),
+          new docx.Paragraph(`Год урожая: ${sample.harvestYear}`),
+          new docx.Paragraph(`Цвет: ${sample.color}`),
+          new docx.Paragraph(`Категория: ${sample.category}`),
+          new docx.Paragraph(`Место происхождения: ${sample.zone}`),
+          new docx.Paragraph(`Регион: ${sample.region}`),
+          new docx.Paragraph(`Терруар: ${sample.terroir || "Не указан"}`),
+          new docx.Paragraph(`Хозяйство: ${sample.producer || "Не указано"}`),
+          new docx.Paragraph(`Винодельня: ${sample.winery || "Не указано"}`),
+          new docx.Paragraph(`pH: ${sample.ph || "Не измерено"}`),
+          new docx.Paragraph(`Титруемые кислоты (г/дм³): ${sample.acidity || "Не измерено"}`),
+          new docx.Paragraph(`Массовая концентрация сахаров (г/дм³): ${sample.sugar || "Не измерено"}`),
+          new docx.Paragraph(`Объемная доля этилового спирта (% об.): ${sample.ethanol || "Не измерено"}`),
+          new docx.Paragraph(`Приведенный экстракт (г/дм³): ${sample.reducedExtract || "Не измерено"}`),
+          new docx.Paragraph(`Диоксид серы (SO₂) (мг/дм³): ${sample.sulfurDioxide || "Не измерено"}`),
+          new docx.Paragraph(`Летучие кислоты (г/дм³): ${sample.volatileAcids || "Не измерено"}`),
+          new docx.Paragraph(`Концентрация органических кислот (г/дм³): ${sample.organicAcids || "Не измерено"}`),
+          new docx.Paragraph(`Фенольные вещества (мг/дм³): ${sample.phenolicCompounds || "Не измерено"}`),
+          new docx.Paragraph(`Катионы металлов (мг/дм³): ${sample.metalCations || "Не измерено"}`),
+          new docx.Paragraph(`Анионы неорганических кислот (мг/дм³): ${sample.inorganicAnions || "Не измерено"}`),
+          new docx.Paragraph(`Буферная емкость (ммоль/дм³): ${sample.bufferCapacity || "Не измерено"}`),
+          new docx.Paragraph(`Электропроводность (мСм/см): ${sample.electricConductivity || "Не измерено"}`)
+        ]
+      }]
+    });
+
+    // Сохранение файла
+    docx.Packer.toBlob(doc).then(blob => {
+      saveAs(blob, `анализ_вина_${sample.name}_${sample.id}.docx`);
+    });
   }
 }
 
