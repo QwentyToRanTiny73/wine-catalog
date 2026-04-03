@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>База образцов — Лаборатория «Магарач»</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════ SITE HEADER ═══ -->
+<header class="site-header">
+  <div class="inner">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">🍷</div>
+      <div class="logo-text">
+        <span class="lab-name">Лаборатория биохимии и химии вина</span>
+        <span class="institute-name">ВНИИВиВ «Магарач» · Ялта, Крым</span>
+      </div>
+    </a>
+    <nav>
+      <a href="../index.html#about">О нас</a>
+      <a href="../baza/" class="active">База</a>
+      <a href="../arkhiv/">Архив</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ════════════════════════════ PAGE HERO ════════ -->
+<div class="page-hero">
+  <div class="inner">
+    <a href="../index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Главная
+    </a>
+    <h1>🗃️ База образцов виноматериалов</h1>
+    <p>Криминская коллекция Лаборатории биохимии и химии вина «Магарач» — урожаи 2018–2024</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════ FILTERS ══════════ -->
+<div class="filters-panel" id="filtersPanel">
+  <div class="inner">
+    <div class="filters-top">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          id="globalSearch"
+          class="search-input"
+          placeholder="Поиск по названию, сорту, хозяйству, региону…"
+          autocomplete="off"
+        />
+      </div>
+      <span class="result-count">Найдено: <strong id="resultCount">0</strong> образцов</span>
+    </div>
+
+    <div class="filters-row">
+      <select id="filterRegion"   class="filter-select"><option value="">Все регионы</option></select>
+      <select id="filterSort"     class="filter-select"><option value="">Все сорта</option></select>
+      <select id="filterYear"     class="filter-select"><option value="">Все годы</option></select>
+      <select id="filterColor"    class="filter-select">
+        <option value="">Любой цвет</option>
+        <option value="белое">Белое</option>
+        <option value="красное">Красное</option>
+        <option value="розовое">Розовое</option>
+      </select>
+      <select id="filterProducer" class="filter-select"><option value="">Все хозяйства</option></select>
+      <button class="btn-reset" id="btnReset">✕ Сбросить</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════ TABLE ════════════ -->
+<div class="page-content">
+  <div class="table-section">
+    <div class="inner">
+      <div class="table-wrap">
+        <table id="samplesTable">
+          <thead>
+            <tr>
+              <th data-col="id"          class="no-sort">#</th>
+              <th data-col="name"       >Название</th>
+              <th data-col="sort"       >Сорт</th>
+              <th data-col="harvestYear">Год</th>
+              <th data-col="color"      >Цвет</th>
+              <th data-col="region"     >Регион</th>
+              <th data-col="producer"   >Хозяйство</th>
+              <th data-col="winery"     >Винодельня</th>
+              <th data-col="ph"         >pH</th>
+              <th data-col="acidity"    >Кислотность</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="empty-state-icon">🔍</div>
+        <p>Ничего не найдено. Попробуйте изменить параметры поиска.</p>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════ MODAL ════════════ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+    <div class="modal-header">
+      <div class="modal-header-info">
+        <h2 id="modalTitle">—</h2>
+        <div class="modal-header-meta" id="modalMeta"></div>
+      </div>
+      <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- БЛОК 1: Организационный -->
+      <div class="modal-section">
+        <div class="modal-section-title">
+          <div class="modal-section-icon">🏢</div>
+          <h3>Организационный блок</h3>
+        </div>
+        <div class="modal-grid" id="modalOrgBlock"></div>
+      </div>
+
+      <!-- БЛОК 2: Технический -->
+      <div class="modal-section">
+        <div class="modal-section-title">
+          <div class="modal-section-icon">🔖</div>
+          <h3>Технический блок</h3>
+        </div>
+        <div class="modal-grid" id="modalTechBlock"></div>
+      </div>
+
+      <!-- БЛОК 3: Аналитический -->
+      <div class="modal-section">
+        <div class="modal-section-title">
+          <div class="modal-section-icon">📊</div>
+          <h3>Аналитический блок</h3>
+        </div>
+        <div class="modal-grid" id="modalAnalyticBlock"></div>
+      </div>
+
+    </div><!-- /.modal-body -->
+  </div><!-- /.modal -->
+</div><!-- /.modal-overlay -->
+
+<!-- ════════════════════════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <div class="inner">
+    <p>
+      <strong>Лаборатория биохимии и химии вина</strong> · ВНИИВиВ «Магарач»<br>
+      298600, Республика Крым, г. Ялта, ул. Кирова, 31 · © 2024
+    </p>
+  </div>
+</footer>
+
+<script src="../js/data.js"></script>
+<script src="../js/baza.js"></script>
+</body>
+</html>

@@ -1,77 +1,169 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Лаборатория биохимии вина</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-    <script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
-    <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      <header class="card">
-        <h1>🔬 Лаборатория биохимии и химии вина</h1>
-        <h2>
-          Всероссийский национальный научно-исследовательский институт
-          виноградарства и виноделия «Магарач»
-        </h2>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Лаборатория биохимии и химии вина — Магарач</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-      <main>
-        <section class="card">
-          <h2>
-            🧪 Энохимические показатели подлинности и происхождения
-            виноматериалов
-          </h2>
-          <p>
-            Наша лаборатория занимается исследованием химического состава вин,
-            что позволяет определять их подлинность и происхождение. Мы
-            анализируем более 300 параметров каждого образца, включая массовую
-            концентрацию органических кислот, сахаров, глицерина и фенольных
-            веществ.
-          </p>
-        </section>
+<!-- ═══════════════════════════════ SITE HEADER ═══ -->
+<header class="site-header">
+  <div class="inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🍷</div>
+      <div class="logo-text">
+        <span class="lab-name">Лаборатория биохимии и химии вина</span>
+        <span class="institute-name">ВНИИВиВ «Магарач» · Ялта, Крым</span>
+      </div>
+    </a>
+    <nav>
+      <a href="#about" class="active">О нас</a>
+      <a href="baza/">База</a>
+      <a href="arkhiv/">Архив</a>
+    </nav>
+  </div>
+</header>
 
-        <section class="card">
-          <h2>🔍 Методы выявления фальсификаций</h2>
-          <p>
-            С помощью современных методов анализа мы можем выявить различные
-            виды фальсификаций виноматериалов. Наши исследования помогают
-            защитить потребителей от подделок и сохранить репутацию российского
-            виноделия.
-          </p>
-        </section>
-
-        <section class="card">
-          <h2>⚖️ Критерии качества и безопасности виноматериалов</h2>
-          <p>
-            Мы разрабатываем и внедряем критерии качества и безопасности
-            виноматериалов, основанные на строгом соблюдении требований ФЗ и
-            ГОСТ. Это гарантирует, что каждая бутылка вина, произведенная в
-            нашей стране, соответствует высочайшим стандартам.
-          </p>
-        </section>
-
-        <section class="card">
-          <h2>📚 О проекте</h2>
-          <p>
-            Этот сайт создан для удобного хранения и анализа данных о 300
-            образцах вин из коллекции лаборатории. Здесь вы можете
-            просматривать, фильтровать и изучать химический состав каждого
-            образца.
-          </p>
-          <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a href="catalog.html" class="btn">Перейти к базе образцов</a>
-            <a href="admin_login.html" class="btn" style="background-color: #f39c12;">Личный кабинет администратора</a>
-          </div>
-        </section>
-      </main>
-
-      <footer class="card" style="text-align: center; margin-top: 20px">
-        <p>© 2023 Лаборатория биохимии вина ВННИИВиВ «Магарач»</p>
-      </footer>
+<!-- ═════════════════════════════════ HERO ════════ -->
+<section class="hero">
+  <div class="inner">
+    <div class="hero-badge">
+      <span>🔬</span>
+      Всероссийский научно-исследовательский институт виноградарства и виноделия
     </div>
-  </body>
+
+    <h1>Энохимические показатели<br><em>подлинности и происхождения</em></h1>
+    <p class="subtitle">
+      Каталог виноматериалов Крыма — полный химический анализ более 310&nbsp;образцов
+      от ведущих хозяйств республики
+    </p>
+
+    <div class="hero-divider"></div>
+
+    <!-- Navigation cards -->
+    <div class="nav-cards">
+      <a href="#about" class="nav-card">
+        <div class="nav-card-icon">🔬</div>
+        <div class="nav-card-title">О нас</div>
+        <div class="nav-card-desc">Лаборатория, методы исследования, научная деятельность</div>
+      </a>
+
+      <a href="baza/" class="nav-card">
+        <div class="nav-card-icon">🗃️</div>
+        <div class="nav-card-title">База образцов</div>
+        <div class="nav-card-desc">Поиск, фильтры, полный химический состав каждого образца</div>
+      </a>
+
+      <a href="arkhiv/" class="nav-card">
+        <div class="nav-card-icon">🏛️</div>
+        <div class="nav-card-title">Архив</div>
+        <div class="nav-card-desc">Исторические данные и аналитика по урожайным годам</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ STATS ══════ -->
+<div class="stats-bar">
+  <div class="inner">
+    <div class="stat-item">
+      <div class="stat-num">310+</div>
+      <div class="stat-label">Образцов в базе</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Аналитических показателей</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Регионов Крыма</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2018–2024</div>
+      <div class="stat-label">Годы урожая</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ ABOUT ═════════ -->
+<section class="about-section" id="about">
+  <div class="container">
+    <p class="section-label">О лаборатории</p>
+    <h2 class="section-title">
+      Лаборатория биохимии и химии вина<br>ВНИИВиВ «Магарач»
+    </h2>
+    <p class="section-lead">
+      Наша лаборатория занимается комплексным исследованием химического и биохимического состава
+      крымских вин и виноматериалов. Мы разрабатываем критерии подлинности и географического
+      происхождения для защиты потребителей и репутации российского виноделия.
+    </p>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-icon">🧪</div>
+        <h3>Энохимический анализ</h3>
+        <p>
+          Определение более 20 физико-химических показателей каждого образца:
+          органические кислоты, сахара, минеральные компоненты, фенольные вещества.
+        </p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🔍</div>
+        <h3>Выявление фальсификаций</h3>
+        <p>
+          Современные хроматографические и спектрофотометрические методы позволяют
+          обнаруживать разбавление, добавление сахара, чаптализацию и другие нарушения.
+        </p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📍</div>
+        <h3>Региональная идентификация</h3>
+        <p>
+          База данных терруарных отпечатков Крыма — ЮБК, Бахчисарайский, Черноморский,
+          Кировский и другие районы виноградарства.
+        </p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">⚖️</div>
+        <h3>Стандарты качества</h3>
+        <p>
+          Разработка и внедрение критериев качества в соответствии с ФЗ №468 и ГОСТ,
+          обеспечивающих защиту наименований мест происхождения.
+        </p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📊</div>
+        <h3>База данных образцов</h3>
+        <p>
+          Структурированный каталог из 310+ образцов виноматериалов урожаев 2018–2024
+          годов с полным аналитическим досье по каждому образцу.
+        </p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🤝</div>
+        <h3>Научное партнёрство</h3>
+        <p>
+          Сотрудничество с виноградарскими хозяйствами и винодельнями Крыма для
+          формирования репрезентативной выборки и актуализации базы данных.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ FOOTER ═══════ -->
+<footer class="site-footer">
+  <div class="inner">
+    <p>
+      <strong>Лаборатория биохимии и химии вина</strong><br>
+      Всероссийский национальный научно-исследовательский институт виноградарства и виноделия «Магарач»<br>
+      298600, Республика Крым, г. Ялта, ул. Кирова, 31<br>
+      © 2024 ВНИИВиВ «Магарач»
+    </p>
+  </div>
+</footer>
+
+</body>
 </html>
