@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Лаборатория биохимии и химии вина — Магарач</title>
+  <title>База аналитических данных — Лаборатория биохимии вина «Магарач»</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="data/table.css" />
+  <!-- SheetJS for Excel parsing (CDN, deferred) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+  <script src="data/table.js" defer></script>
 </head>
 <body>
 
-<!-- ═══════════════════════════════ SITE HEADER ═══ -->
+<!-- ════════════════════ SITE HEADER ══════════════════ -->
 <header class="site-header">
   <div class="inner">
     <a href="index.html" class="logo">
@@ -19,151 +23,202 @@
       </div>
     </a>
     <nav>
-      <a href="#about" class="active">О нас</a>
-      <a href="baza/">База</a>
+      <a href="#about">О нас</a>
+      <a href="#table-section" class="active">База</a>
       <a href="arkhiv/">Архив</a>
     </nav>
   </div>
 </header>
 
-<!-- ═════════════════════════════════ HERO ════════ -->
+<!-- ════════════════════ HERO ════════════════════════ -->
 <section class="hero">
   <div class="inner">
     <div class="hero-badge">
       <span>🔬</span>
-      Всероссийский научно-исследовательский институт виноградарства и виноделия
+      Всероссийский научно-исследовательский институт виноградарства и виноделия «Магарач»
     </div>
-
-    <h1>Энохимические показатели<br><em>подлинности и происхождения</em></h1>
+    <h1>Аналитическая база данных<br><em>виноматериалов Крыма</em></h1>
     <p class="subtitle">
-      Каталог виноматериалов Крыма — полный химический анализ более 310&nbsp;образцов
-      от ведущих хозяйств республики
+      133 образца · полный химический анализ по ГОСТ · урожаи 2017–2025
     </p>
-
     <div class="hero-divider"></div>
-
-    <!-- Navigation cards -->
     <div class="nav-cards">
       <a href="#about" class="nav-card">
         <div class="nav-card-icon">🔬</div>
         <div class="nav-card-title">О нас</div>
-        <div class="nav-card-desc">Лаборатория, методы исследования, научная деятельность</div>
+        <div class="nav-card-desc">Лаборатория, методы, научная деятельность</div>
       </a>
-
-      <a href="baza/" class="nav-card">
-        <div class="nav-card-icon">🗃️</div>
-        <div class="nav-card-title">База образцов</div>
+      <a href="#table-section" class="nav-card">
+        <div class="nav-card-icon">📊</div>
+        <div class="nav-card-title">База данных</div>
         <div class="nav-card-desc">Поиск, фильтры, полный химический состав каждого образца</div>
       </a>
-
       <a href="arkhiv/" class="nav-card">
         <div class="nav-card-icon">🏛️</div>
         <div class="nav-card-title">Архив</div>
-        <div class="nav-card-desc">Исторические данные и аналитика по урожайным годам</div>
+        <div class="nav-card-desc">Исторические данные по годам урожая</div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════ STATS ══════ -->
+<!-- ════════════════════ STATS ═══════════════════════ -->
 <div class="stats-bar">
   <div class="inner">
-    <div class="stat-item">
-      <div class="stat-num">310+</div>
-      <div class="stat-label">Образцов в базе</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">20+</div>
-      <div class="stat-label">Аналитических показателей</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">15+</div>
-      <div class="stat-label">Регионов Крыма</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">2018–2024</div>
-      <div class="stat-label">Годы урожая</div>
-    </div>
+    <div class="stat-item"><div class="stat-num">133</div><div class="stat-label">Образцов в базе</div></div>
+    <div class="stat-item"><div class="stat-num">23</div><div class="stat-label">Аналитических показателя</div></div>
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Показателя по ГОСТ</div></div>
+    <div class="stat-item"><div class="stat-num">2017–2025</div><div class="stat-label">Годы урожая</div></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════ ABOUT ═════════ -->
+<!-- ════════════════════ ABOUT ═══════════════════════ -->
 <section class="about-section" id="about">
   <div class="container">
     <p class="section-label">О лаборатории</p>
-    <h2 class="section-title">
-      Лаборатория биохимии и химии вина<br>ВНИИВиВ «Магарач»
-    </h2>
+    <h2 class="section-title">Лаборатория биохимии и химии вина ВНИИВиВ «Магарач»</h2>
     <p class="section-lead">
-      Наша лаборатория занимается комплексным исследованием химического и биохимического состава
-      крымских вин и виноматериалов. Мы разрабатываем критерии подлинности и географического
-      происхождения для защиты потребителей и репутации российского виноделия.
+      Комплексное исследование химического и биохимического состава крымских вин и виноматериалов.
+      Разработка критериев подлинности и географического происхождения, защита потребителей
+      от фальсификаций, научная поддержка российского виноделия.
     </p>
-
     <div class="about-grid">
-      <div class="about-card">
-        <div class="about-card-icon">🧪</div>
+      <div class="about-card"><div class="about-card-icon">🧪</div>
         <h3>Энохимический анализ</h3>
-        <p>
-          Определение более 20 физико-химических показателей каждого образца:
-          органические кислоты, сахара, минеральные компоненты, фенольные вещества.
-        </p>
+        <p>Более 23 физико-химических показателей каждого образца: органические кислоты, сахара, минеральные компоненты, фенольные вещества.</p>
       </div>
-      <div class="about-card">
-        <div class="about-card-icon">🔍</div>
+      <div class="about-card"><div class="about-card-icon">⚖️</div>
+        <h3>Показатели по ГОСТ</h3>
+        <p>Объёмная доля спирта, приведённый экстракт, титруемая кислотность, сахара — регламентируемые показатели качества.</p>
+      </div>
+      <div class="about-card"><div class="about-card-icon">🔍</div>
         <h3>Выявление фальсификаций</h3>
-        <p>
-          Современные хроматографические и спектрофотометрические методы позволяют
-          обнаруживать разбавление, добавление сахара, чаптализацию и другие нарушения.
-        </p>
+        <p>Хроматографические и спектрофотометрические методы для обнаружения разбавления, чаптализации и других нарушений.</p>
       </div>
-      <div class="about-card">
-        <div class="about-card-icon">📍</div>
+      <div class="about-card"><div class="about-card-icon">📍</div>
         <h3>Региональная идентификация</h3>
-        <p>
-          База данных терруарных отпечатков Крыма — ЮБК, Бахчисарайский, Черноморский,
-          Кировский и другие районы виноградарства.
-        </p>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">⚖️</div>
-        <h3>Стандарты качества</h3>
-        <p>
-          Разработка и внедрение критериев качества в соответствии с ФЗ №468 и ГОСТ,
-          обеспечивающих защиту наименований мест происхождения.
-        </p>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">📊</div>
-        <h3>База данных образцов</h3>
-        <p>
-          Структурированный каталог из 310+ образцов виноматериалов урожаев 2018–2024
-          годов с полным аналитическим досье по каждому образцу.
-        </p>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">🤝</div>
-        <h3>Научное партнёрство</h3>
-        <p>
-          Сотрудничество с виноградарскими хозяйствами и винодельнями Крыма для
-          формирования репрезентативной выборки и актуализации базы данных.
-        </p>
+        <p>База терруарных отпечатков Крыма — ЮБК, Бахчисарайский, Черноморский, Кировский и другие районы.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════════════════════════════ FOOTER ═══════ -->
+<!-- ════════════════════ TABLE SECTION ═══════════════ -->
+<section class="wine-table-section" id="table-section">
+
+  <!-- Controls (sticky) -->
+  <div class="table-controls">
+    <div class="ctrl-search">
+      <span class="ctrl-search-icon">🔍</span>
+      <input type="text" id="searchInput"
+             placeholder="Поиск: название, сорт, регион, производитель…"
+             autocomplete="off" />
+    </div>
+
+    <select id="filterYear"   class="ctrl-select"><option value="">Все годы</option></select>
+    <select id="filterColor"  class="ctrl-select">
+      <option value="">Любой цвет</option>
+      <option value="белое">Белое</option>
+      <option value="красное">Красное</option>
+      <option value="розовое">Розовое</option>
+    </select>
+    <select id="filterRegion" class="ctrl-select"><option value="">Все регионы</option></select>
+
+    <button id="btnResetFilters" class="ctrl-reset">✕ Сбросить</button>
+    <span class="ctrl-count">Найдено: <strong id="resultCount">—</strong></span>
+  </div>
+
+  <!-- Loader -->
+  <div id="tableLoader">
+    <div class="loader-spinner"></div>
+    Загрузка данных…
+  </div>
+
+  <!-- Error -->
+  <div id="tableError"></div>
+
+  <!-- Table -->
+  <div id="tableWrap" style="display:none;">
+    <table id="wineTable">
+      <thead>
+        <tr>
+          <th class="td-idx">#</th>
+          <th data-col="researchDate">Дата иссл.</th>
+          <th data-col="adminRegion">Регион · Местонахождение</th>
+          <th data-col="winery">Производитель</th>
+          <th data-col="color">Цвет</th>
+          <th data-col="sort">Сорт</th>
+          <th data-col="year">Год</th>
+          <th data-col="alcohol">Спирт</th>
+          <th class="td-extra" title="Аналитический блок">Доп.</th>
+        </tr>
+      </thead>
+      <tbody id="wineTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-wrap" id="pagination"></div>
+
+</section>
+
+<!-- ════════════════════ FOOTER ══════════════════════ -->
 <footer class="site-footer">
   <div class="inner">
     <p>
       <strong>Лаборатория биохимии и химии вина</strong><br>
       Всероссийский национальный научно-исследовательский институт виноградарства и виноделия «Магарач»<br>
-      298600, Республика Крым, г. Ялта, ул. Кирова, 31<br>
-      © 2024 ВНИИВиВ «Магарач»
+      298600, Республика Крым, г. Ялта, ул. Кирова, 31 · © 2025
     </p>
   </div>
 </footer>
+
+<!-- ════════════════════ MODAL ════════════════════════ -->
+<div id="analyticsOverlay" role="dialog" aria-modal="true" aria-labelledby="modalSampleName">
+  <div class="analytics-modal">
+
+    <!-- Head -->
+    <div class="modal-head">
+      <div>
+        <h2 id="modalSampleName">—</h2>
+        <div class="modal-sample-meta" id="modalMeta"></div>
+      </div>
+      <button class="modal-close" aria-label="Закрыть">✕</button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- 1: Org info -->
+      <div class="modal-section">
+        <div class="modal-section-head">
+          <div class="modal-section-icon">🏢</div>
+          <h3>Организационный блок</h3>
+        </div>
+        <div id="modalOrgInfo"></div>
+      </div>
+
+      <!-- 2: GOST indicators -->
+      <div class="modal-section">
+        <div class="modal-section-head">
+          <div class="modal-section-icon">⚖️</div>
+          <h3>Показатели по ГОСТ (регламентируемые)</h3>
+        </div>
+        <div id="modalGost" class="analytic-grid"></div>
+      </div>
+
+      <!-- 3: Extra indicators -->
+      <div class="modal-section">
+        <div class="modal-section-head">
+          <div class="modal-section-icon">📊</div>
+          <h3>Дополнительные показатели качества</h3>
+        </div>
+        <div id="modalExtra" class="analytic-grid"></div>
+      </div>
+
+    </div><!-- /.modal-body -->
+  </div><!-- /.analytics-modal -->
+</div><!-- /#analyticsOverlay -->
 
 </body>
 </html>
