@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Архив — Лаборатория «Магарач»</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════ SITE HEADER ═══ -->
+<header class="site-header">
+  <div class="inner">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">🍷</div>
+      <div class="logo-text">
+        <span class="lab-name">Лаборатория биохимии и химии вина</span>
+        <span class="institute-name">ВНИИВиВ «Магарач» · Ялта, Крым</span>
+      </div>
+    </a>
+    <nav>
+      <a href="../index.html#about">О нас</a>
+      <a href="../baza/">База</a>
+      <a href="../arkhiv/" class="active">Архив</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ════════════════════════════ PAGE HERO ════════ -->
+<div class="page-hero">
+  <div class="inner">
+    <a href="../index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Главная
+    </a>
+    <h1>🏛️ Архив урожаев</h1>
+    <p>Аналитические данные и сводки по годам урожая — история крымского виноградарства</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════ CONTENT ══════════ -->
+<div class="page-content">
+
+  <!-- Intro -->
+  <div style="background:#fff; padding:36px 20px; border-bottom:1px solid #E0CEBB;">
+    <div style="max-width:880px;margin:0 auto;">
+      <p class="section-label" style="color:#7A2535;">Историческая коллекция</p>
+      <h2 class="section-title" style="color:#1E060A; margin-bottom:16px;">
+        Сводные данные по годам урожая
+      </h2>
+      <p style="color:#5A2530; font-size:0.97rem; line-height:1.75; max-width:720px;">
+        В архиве хранятся аналитические материалы лаборатории за период с&nbsp;2018 по&nbsp;2024&nbsp;год.
+        Данные включают физико-химические показатели виноматериалов из основных
+        виноградарских зон Республики Крым. Полная база образцов доступна в разделе
+        <a href="../baza/" style="color:#7A2535;font-weight:600;text-decoration:underline;">База образцов</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- Archive Cards -->
+  <div class="archive-grid" id="archiveGrid">
+    <!-- populated by JS -->
+  </div>
+
+  <!-- Methodology -->
+  <div style="background:#fff;padding:48px 20px;border-top:1px solid #E0CEBB;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p class="section-label" style="color:#7A2535;">Методология</p>
+      <h2 class="section-title" style="color:#1E060A;margin-bottom:32px;">
+        Аналитические методы
+      </h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-icon">⚗️</div>
+          <h3>Органические кислоты</h3>
+          <p>
+            Метод ионной хроматографии и ферментативный анализ.
+            Определяются: винная, яблочная, лимонная, молочная, янтарная и уксусная кислоты.
+          </p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🍬</div>
+          <h3>Сахара и глицерин</h3>
+          <p>
+            Ферментативное определение глюкозы и фруктозы, рефрактометрия общих сахаров.
+            Глицерин определяют методом ионной хроматографии.
+          </p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🔬</div>
+          <h3>Фенольные вещества</h3>
+          <p>
+            Спектрофотометрический метод с реактивом Фолина–Чокальтеу.
+            Результат выражается в эквиваленте галловой кислоты (мг/дм³).
+          </p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">⚡</div>
+          <h3>Электропроводность</h3>
+          <p>
+            Кондуктометрическое измерение при 20&nbsp;°C.
+            Характеризует суммарное содержание минеральных компонентов.
+          </p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🏔️</div>
+          <h3>Минеральный состав</h3>
+          <p>
+            Кальций, магний, натрий и хлориды определяются
+            методом ионной хроматографии и атомно-абсорбционной спектроскопии.
+          </p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🍷</div>
+          <h3>Спирт и экстракт</h3>
+          <p>
+            Объёмная доля этилового спирта — дистилляционным методом и по Тимофееву.
+            Приведённый экстракт — расчётным методом по ГОСТ.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.page-content -->
+
+<!-- ════════════════════════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <div class="inner">
+    <p>
+      <strong>Лаборатория биохимии и химии вина</strong> · ВНИИВиВ «Магарач»<br>
+      298600, Республика Крым, г. Ялта, ул. Кирова, 31 · © 2024
+    </p>
+  </div>
+</footer>
+
+<script src="../js/data.js"></script>
+<script>
+/* Build archive cards from data */
+(function () {
+  if (!Array.isArray(window.wineSamples)) return;
+
+  const byYear = {};
+  window.wineSamples.forEach(s => {
+    const y = s.harvestYear;
+    if (!y) return;
+    if (!byYear[y]) byYear[y] = { count: 0, sorts: new Set(), regions: new Set(), colors: new Set() };
+    byYear[y].count++;
+    if (s.sort)   byYear[y].sorts.add(s.sort);
+    if (s.region) byYear[y].regions.add(s.region);
+    if (s.color)  byYear[y].colors.add(s.color);
+  });
+
+  const years = Object.keys(byYear).sort((a, b) => b - a);
+
+  const colorLabels = { 'белое': '⬜ белое', 'красное': '🟥 красное', 'розовое': '🌸 розовое' };
+
+  const html = years.map(y => {
+    const d = byYear[y];
+    const colorStr = [...d.colors].map(c => colorLabels[c] || c).join(', ');
+    return `
+      <div class="archive-card">
+        <div class="archive-card-year">${y}</div>
+        <div class="archive-card-title">Урожай ${y}&nbsp;года</div>
+        <div class="archive-card-desc">
+          Цвет: ${colorStr || '—'}.<br>
+          Регионов: ${d.regions.size}. Сортов: ${d.sorts.size}.
+        </div>
+        <div class="archive-card-stats">
+          Образцов: <span>${d.count}</span>
+          &nbsp;·&nbsp;
+          <a href="../baza/?year=${y}" style="color:#7A2535;text-decoration:underline;font-size:0.8rem;">
+            Смотреть в базе →
+          </a>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('archiveGrid').innerHTML = html || '<p style="padding:20px;color:#5A2530;">Нет данных</p>';
+})();
+</script>
+
+</body>
+</html>
