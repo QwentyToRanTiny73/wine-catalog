@@ -6,10 +6,9 @@
   <title>База аналитических данных — Лаборатория биохимии вина «Магарач»</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="data/table.css" />
-  <!-- Embedded data (133 samples, instant load — fallback if Excel unavailable) -->
+  <!-- Данные: 133 образца из Excel (жёстко встроены, работают без сервера) -->
   <script src="js/data.js"></script>
-  <!-- SheetJS for Excel parsing (CDN, non-blocking) -->
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+  <!-- Таблица: рендеринг, фильтры, поиск, модал -->
   <script src="data/table.js" defer></script>
 </head>
 <body>
@@ -150,7 +149,7 @@
           <th data-col="winery">Производитель</th>
           <th data-col="color">Цвет</th>
           <th data-col="sort">Сорт</th>
-          <th data-col="year">Год</th>
+          <th data-col="harvestYear">Год</th>
           <th data-col="alcohol">Спирт</th>
           <th class="td-extra" title="Аналитический блок">Доп.</th>
         </tr>
