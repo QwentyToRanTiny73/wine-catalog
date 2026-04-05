@@ -6,7 +6,9 @@
   <title>База аналитических данных — Лаборатория биохимии вина «Магарач»</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="data/table.css" />
-  <!-- SheetJS for Excel parsing (CDN, deferred) -->
+  <!-- Embedded data (133 samples, instant load — fallback if Excel unavailable) -->
+  <script src="js/data.js"></script>
+  <!-- SheetJS for Excel parsing (CDN, non-blocking) -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
   <script src="data/table.js" defer></script>
 </head>
