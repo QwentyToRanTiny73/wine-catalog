@@ -5,7 +5,7 @@
 'use strict';
 
 /* ── Config ─────────────────────────────────────────── */
-const EXCEL_PATH = '../data/analytical_data.xlsx';
+const EXCEL_PATH = 'data/analytical_data.xlsx';
 const PAGE_SIZE  = 30;   // строк на страницу
 
 /* ── Excel column → field mapping ───────────────────── */
@@ -103,27 +103,90 @@ const state = {
 /* ════════════════════════════════════════════════════ */
 async function boot() {
   showLoader(true);
-  try {
-    const buf  = await fetch(EXCEL_PATH).then(r => {
-      if (!r.ok) throw new Error(`HTTP ${r.status} — не удалось загрузить файл Excel`);
-      return r.arrayBuffer();
-    });
 
-    const wb   = XLSX.read(buf, { type:'array' });
-    // Try to find the right sheet
-    const wsName = wb.SheetNames.find(n => /форм|данн|лист/i.test(n)) || wb.SheetNames[0];
-    const ws   = wb.Sheets[wsName];
-
-    state.rows = parseSheet(ws);
+  // 1. Try loading from embedded JS data (instant, always works)
+  if (Array.isArray(window.wineSamples) && window.wineSamples.length) {
+    state.rows     = normaliseEmbedded(window.wineSamples);
     state.filtered = [...state.rows];
     populateFilters();
     renderTable();
     renderPagination();
     showLoader(false);
-  } catch(err) {
-    showLoader(false);
-    showError(err.message);
+    // 2. Also try fresh Excel in background for updates
+    tryLoadExcel();
+    return;
   }
+
+  // 3. No embedded data — must load Excel
+  const ok = await tryLoadExcel();
+  if (!ok) {
+    showLoader(false);
+    showError('Не удалось загрузить данные. Убедитесь, что файл data/analytical_data.xlsx доступен.');
+  }
+}
+
+/* Convert embedded wineSamples (js/data.js field names) to table format */
+function normaliseEmbedded(samples) {
+  return samples.map((s, i) => ({
+    _row:          i + 2,
+    researchDate:  s.researchDate  || null,
+    district:      s.wineDistrict  || null,
+    climateZone:   s.climateZone   || null,
+    climateRegion: s.climateRegion || null,
+    adminRegion:   s.adminRegion   || null,
+    location:      s.location      || null,
+    grapeProducer: s.grapeProducer || null,
+    winery:        s.winery        || null,
+    productType:   s.productType   || null,
+    name:          s.name          || null,
+    sort:          s.sort          || null,
+    year:          s.harvestYear   || null,
+    color:         s.color         || null,
+    alcohol:       s.alcohol       ?? null,
+    reducedExtract:s.reducedExtract?? null,
+    titratedAcidity: s.titratedAcidity ?? null,
+    sugar:         s.sugar         ?? null,
+    citricAcid:    s.citricAcid    ?? null,
+    tartaricAcid:  s.tartaricAcid  ?? null,
+    malicAcid:     s.malicAcid     ?? null,
+    succinicAcid:  s.succinicAcid  ?? null,
+    lacticAcid:    s.lacticAcid    ?? null,
+    aceticAcid:    s.aceticAcid    ?? null,
+    bioses:        s.bioses        ?? null,
+    glucose:       s.glucose       ?? null,
+    fructose:      s.fructose      ?? null,
+    glycerin:      s.glycerin      ?? null,
+    chlorides:     s.chlorides     ?? null,
+    sodium:        s.sodium        ?? null,
+    potassium:     s.potassium     ?? null,
+    magnesium:     s.magnesium     ?? null,
+    calcium:       s.calcium       ?? null,
+    phenolicSubstances: s.phenolicSubstances ?? null,
+    ph:            s.ph            ?? null,
+    bufferCapacity:s.bufferCapacity?? null,
+    electricConductivity: s.electricConductivity ?? null,
+  }));
+}
+
+async function tryLoadExcel() {
+  try {
+    const r = await fetch(EXCEL_PATH);
+    if (!r.ok) return false;
+    const buf = await r.arrayBuffer();
+    const wb  = XLSX.read(buf, { type:'array' });
+    const wsName = wb.SheetNames.find(n => /форм|данн|лист/i.test(n)) || wb.SheetNames[0];
+    const ws  = wb.Sheets[wsName];
+    const rows = parseSheet(ws);
+    if (!rows.length) return false;
+    // Replace with fresh Excel data
+    state.rows     = rows;
+    state.filtered = [...state.rows];
+    populateFilters();
+    renderTable();
+    renderPagination();
+    showLoader(false);
+    return true;
+  } catch { return false; }
 }
 
 /* ════════════════════════════════════════════════════ */
