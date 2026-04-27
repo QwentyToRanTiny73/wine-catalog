@@ -6,10 +6,10 @@
   <title>База аналитических данных — Лаборатория биохимии вина «Магарач»</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="data/table.css" />
-  <!-- Данные: 133 образца из Excel (жёстко встроены, работают без сервера) -->
-  <script src="js/data.js"></script>
+  <!-- Данные: 133 образца встроены, без сервера -->
+  <script src="js/data.js?v=3"></script>
   <!-- Таблица: рендеринг, фильтры, поиск, модал -->
-  <script src="data/table.js" defer></script>
+  <script src="data/table.js?v=3" defer></script>
 </head>
 <body>
 
@@ -58,6 +58,11 @@
         <div class="nav-card-icon">🏛️</div>
         <div class="nav-card-title">Архив</div>
         <div class="nav-card-desc">Исторические данные по годам урожая</div>
+      </a>
+      <a href="https://magarach-institut.ru/" target="_blank" rel="noopener" class="nav-card">
+        <div class="nav-card-icon">🌐</div>
+        <div class="nav-card-title">Сайт Магарача</div>
+        <div class="nav-card-desc">Официальный сайт ВНИИВиВ «Магарач»</div>
       </a>
     </div>
   </div>
@@ -129,8 +134,8 @@
     <span class="ctrl-count">Найдено: <strong id="resultCount">—</strong></span>
   </div>
 
-  <!-- Loader -->
-  <div id="tableLoader">
+  <!-- Loader (hidden by default; JS shows it only if async fetch is used) -->
+  <div id="tableLoader" style="display:none;">
     <div class="loader-spinner"></div>
     Загрузка данных…
   </div>
@@ -170,6 +175,12 @@
       <strong>Лаборатория биохимии и химии вина</strong><br>
       Всероссийский национальный научно-исследовательский институт виноградарства и виноделия «Магарач»<br>
       298600, Республика Крым, г. Ялта, ул. Кирова, 31 · © 2025
+    </p>
+    <p style="margin-top:10px;">
+      <a href="https://magarach-institut.ru/" target="_blank" rel="noopener"
+         style="color:var(--gold,#C9A84C);text-decoration:none;font-weight:600;">
+        Официальный сайт ВНИИВиВ «Магарач» →
+      </a>
     </p>
   </div>
 </footer>
