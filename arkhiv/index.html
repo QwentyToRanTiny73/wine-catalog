@@ -134,7 +134,7 @@
   </div>
 </footer>
 
-<script src="../js/data.js"></script>
+<script src="../js/data.js?v=4"></script>
 <script>
 /* Build archive cards from data */
 (function () {
@@ -147,7 +147,8 @@
     if (!byYear[y]) byYear[y] = { count: 0, sorts: new Set(), regions: new Set(), colors: new Set() };
     byYear[y].count++;
     if (s.sort)   byYear[y].sorts.add(s.sort);
-    if (s.region) byYear[y].regions.add(s.region);
+    const reg = s.wineDistrict || s.adminRegion;
+    if (reg) byYear[y].regions.add(reg);
     if (s.color)  byYear[y].colors.add(s.color);
   });
 

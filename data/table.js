@@ -189,7 +189,7 @@ function render() {
 
     return `<tr>
       <td class="td-idx">${start + i + 1}</td>
-      <td class="td-date">${e(r.researchDate||'—')}</td>
+      <td class="td-date">${e(r.productType||'—')}</td>
       <td class="td-region">${e(region)}</td>
       <td class="td-producer">${e(producer)}</td>
       <td class="td-color">${colorBadge}</td>
