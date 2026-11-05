@@ -6,8 +6,8 @@
 'use strict';
 
 /* ── Credentials (client-side, as requested) ───────── */
-const ADMIN_LOGIN    = 'MagarachDB';
-const ADMIN_PASSWORD = 'Ximxim26';
+const ADMIN_LOGIN    = '';
+const ADMIN_PASSWORD = '';
 const LS_AUTH_KEY    = 'mgr_admin_auth';
 const LS_EXTRA_KEY   = 'mgr_extra_samples';   // locally added samples
 const LS_IMPORTED_KEY= 'mgr_imported_samples'; // excel-imported samples
