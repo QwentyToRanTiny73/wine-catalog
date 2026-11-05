@@ -19,6 +19,7 @@ export const PAGES = [
   { key: 'home', file: 'index.html', path: '', label: 'О базе' },
   { key: 'baza', file: 'baza/index.html', path: 'baza/', label: 'База образцов' },
   { key: 'arkhiv', file: 'arkhiv/index.html', path: 'arkhiv/', label: 'Архив' },
+  { key: 'aromaty', file: 'aromaty/index.html', path: 'aromaty/', label: 'Ароматы' },
 ];
 
 export function page(key) {

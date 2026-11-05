@@ -6,6 +6,8 @@ import { formatNumber, varietyLabel, plural, sampleTitle, sampleNumber, isEmpty,
 import { COLUMNS } from '../lib/columns.js';
 import { BLOCKS, colorKey, SAMPLE_WORDS } from '../lib/domain.js';
 import { icon } from '../site/icons.js';
+import { pageUrl } from '../site/site.js';
+import { MAX_COMPARE } from '../lib/wheel.js';
 
 const SAMPLES = data.samples;
 const BY_ID = new Map(SAMPLES.map((s) => [s.id, s]));
@@ -244,6 +246,10 @@ function openSample(id, trigger) {
   $('#dlg-number').textContent = sampleTitle(s);
   $('#dlg-title').textContent = varietyLabel(s);
   $('#dlg-meta').textContent = [s.harvestYear && `урожай ${s.harvestYear}`, s.color, s.productType].filter(Boolean).join(' · ');
+  // ссылка на профиль аромата сорта (у купажа — сравнение его сортов, до трёх)
+  const aromaVarieties = s.varieties.slice(0, MAX_COMPARE);
+  $('#dlg-aroma').replaceChildren(...(aromaVarieties.length ? [el('a', { href: `${pageUrl('aromaty')}?v=${encodeURIComponent(aromaVarieties.join(','))}` },
+    aromaVarieties.length > 1 ? 'Профили аромата сортов' : 'Профиль аромата сорта')] : []));
   dlgBody.replaceChildren(...dialogBody(s));
   opener = trigger ?? null;
   state.id = id;

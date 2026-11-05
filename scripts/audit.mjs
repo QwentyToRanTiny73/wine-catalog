@@ -23,6 +23,7 @@ const ROOT = resolve(import.meta.dirname, '..');
 const DIST = join(ROOT, 'dist');
 const WIDTHS = [390, 1366];
 const WEIGHT_LIMIT_KB = 233;
+const AROMA_EXTRA_LIMIT_KB = 50;   // дополнительный вес колеса ароматов (ТЗ)
 const BLOCKING = ['critical', 'serious'];
 const AXE_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 const axeSource = await readFile(createRequire(import.meta.url).resolve('axe-core/axe.min.js'), 'utf8');
@@ -102,6 +103,7 @@ async function checkPage(browser, origin, path, width) {
   if (shotsDir) await page.screenshot({ path: join(shotsDir, `${path.replace(/\//g, '') || 'home'}-${width}.png`), fullPage: true });
   await runAxe(page, label);
   if (path === 'baza/') await checkBaza(page, label, width);
+  if (path === 'aromaty/') await checkAromaty(page, label);
   await context.close();
 }
 
@@ -136,6 +138,26 @@ async function checkBaza(page, label, width) {
   if (!closed || !back) fail(`${label}: Esc не закрыл карточку или фокус не вернулся`); else pass(`${label}: Esc закрывает, фокус возвращается`);
 }
 
+async function checkAromaty(page, label) {
+  // выбор сорта → полоса сорта на колесе
+  await page.locator('#picker-list input[value="Сира"]').check();
+  const bands = await page.locator('.bands .band').count();
+  if (bands !== 1) fail(`${label}: после выбора сорта нет полосы на колесе`); else pass(`${label}: выбор сорта рисует полосу`);
+  // клавиатура: фокус на колесе, стрелка — соседний тон, Enter — подробности
+  await page.locator('.tone[tabindex="0"]').focus();
+  await page.keyboard.press('ArrowRight');
+  const focused = await page.evaluate(() => document.activeElement?.dataset?.id);
+  await page.keyboard.press('Enter');
+  const shown = await page.locator('#details-body .details__title').textContent().catch(() => '');
+  if (!focused || !shown) fail(`${label}: стрелка/Enter на колесе не работают`); else pass(`${label}: колесо с клавиатуры — «${shown}»`);
+  // сорт без данных — сообщение в текстовой версии
+  await page.locator('#picker-list input[value="Красень"]').check();
+  const msg = await page.locator('#profile').textContent();
+  if (!msg.includes('Описание аромата для сорта ещё не внесено')) fail(`${label}: нет сообщения для сорта без данных`);
+  else pass(`${label}: сорт без данных — сообщение «ещё не внесено»`);
+  await runAxe(page, `${label} [сорта выбраны, тон открыт]`);
+}
+
 async function measureWeight(browser, origin) {
   const context = await browser.newContext({ viewport: { width: 1366, height: 900 } });
   const page = await context.newPage();
@@ -152,6 +174,23 @@ async function measureWeight(browser, origin) {
   if (kb > WEIGHT_LIMIT_KB) fail(msg); else pass(msg);
 }
 
+async function measureAromaExtra(browser, origin) {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const cdp = await context.newCDPSession(page);
+  await cdp.send('Network.enable');
+  await cdp.send('Network.setCacheDisabled', { cacheDisabled: true });
+  const urls = new Map();
+  let bytes = 0;
+  cdp.on('Network.responseReceived', (e) => urls.set(e.requestId, e.response.url));
+  cdp.on('Network.loadingFinished', (e) => { if (/\/assets\/aromaty-/.test(urls.get(e.requestId) ?? '')) bytes += e.encodedDataLength; });
+  await page.goto(`${origin}aromaty/`, { waitUntil: 'networkidle' });
+  await context.close();
+  const kb = bytes / 1024;
+  const msg = `/aromaty/: свои JS+CSS (с данными колеса) ${kb.toFixed(1)} КБ (лимит ${AROMA_EXTRA_LIMIT_KB} КБ)`;
+  if (kb > AROMA_EXTRA_LIMIT_KB) fail(msg); else pass(msg);
+}
+
 // ── Запуск ───────────────────────────────────────────────────────────────
 const local = remote ? null : await startServer();
 const origin = remote ? (remote.endsWith('/') ? remote : `${remote}/`) : local.origin;
@@ -164,6 +203,7 @@ const browser = await chromium.launch();
 try {
   for (const path of pages) for (const width of WIDTHS) await checkPage(browser, origin, path, width);
   await measureWeight(browser, origin);
+  await measureAromaExtra(browser, origin);
 } finally {
   await browser.close();
   local?.server.close();
