@@ -6,21 +6,25 @@
 
 ## Страницы
 
-- `/` — о базе и сводная таблица образцов
-- `/baza/` — база образцов: поиск, фильтры, карточка с химическим составом
+- `/` — о базе: ключевые цифры, разделы, графики
+- `/baza/` — база образцов: поиск, фильтры, карточка с полным химическим составом
 - `/arkhiv/` — сводка по годам урожая
 
 ## Запуск локально
 
 ```bash
-python3 -m http.server 8000   # из корня репозитория, затем открыть http://localhost:8000/
+npm ci
+npm run dev        # http://localhost:5173/wine-catalog/
+npm test           # тесты логики
+npm run audit      # доступность (axe-core) и вес страниц
 ```
+
+Данные собираются из Excel скриптом `scripts/build_data.py` (см. `CLAUDE.md`).
 
 ## Деплой
 
-Сайт выкладывается на GitHub Pages только из ветки `main`
-(`.github/workflows/static.yml`). На сайт попадает только папка `dist/`,
-которую собирает `scripts/assemble_site.sh` из белого списка файлов.
+GitHub Actions (`.github/workflows/static.yml`): на каждый pull request — тесты и сборка;
+при пуше в `main` — сборка `npm run build` и выкладка папки `dist/` на GitHub Pages.
 
 ## Документы проекта
 

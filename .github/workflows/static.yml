@@ -1,42 +1,63 @@
-# Деплой сайта на GitHub Pages.
-# Правило проекта: деплой только из main и только папки dist/ (решение Р4).
-name: Deploy site to Pages
+# Сборка и деплой сайта на GitHub Pages.
+# Правило проекта (Р4): деплой только из main и только папки dist/.
+#   build  — тесты и сборка: на push в main и на каждый pull request (ошибка видна до мержа);
+#   deploy — выкладка: только main и только после успешной сборки.
+name: Build and deploy site
 
 on:
   push:
     branches: ["main"]
-  # Ручной запуск из вкладки Actions (тоже только для main — см. условие ниже)
+  pull_request:
+    branches: ["main"]
+  # Ручной запуск из вкладки Actions (деплой — только для main, см. условие ниже)
   workflow_dispatch:
 
+# По умолчанию — только чтение; право публиковать есть только у задачи deploy
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # Один деплой за раз; уже идущий не отменяем
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: false
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install (точно по package-lock.json)
+        run: npm ci
+      - name: Tests
+        run: npm test
+      - name: Build dist/
+        run: npm run build
+      - name: Upload artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
   deploy:
-    # Ручной запуск можно выбрать на любой ветке — не даём выложить не-main
-    if: github.ref == 'refs/heads/main'
+    needs: build
+    # только main: push или ручной запуск на main (pull request не деплоится)
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Build dist/ (белый список файлов)
-        run: bash scripts/assemble_site.sh
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

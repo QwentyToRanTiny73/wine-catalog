@@ -6,8 +6,7 @@
 Команды:
   python3 -I scripts/build_data.py
       Полная сборка. Проверяет Excel по утверждённым таблицам и пишет:
-        src/data/samples.json — данные для сайта (фаза 3);
-        js/data.js            — те же данные в формате текущего сайта (до фазы 3);
+        src/data/samples.json — данные для сайта (подключается при сборке Vite);
         data/report.md        — сводка и что стоит проверить в Excel.
       Любая ошибка (неизвестный сорт, пустой или повторный номер, неизвестный код…)
       останавливает сборку, и ни один файл не перезаписывается.
@@ -45,7 +44,6 @@ VARIETY_MAP = ROOT / "data" / "variety-map.csv"
 FIELDS_CSV = ROOT / "data" / "fields.csv"
 NOTES_CSV = ROOT / "data" / "sample-notes.csv"
 OUT_JSON = Path("src/data/samples.json")
-OUT_LEGACY_JS = Path("js/data.js")
 OUT_REPORT = Path("data/report.md")
 
 SHEET = "БД"
@@ -534,31 +532,6 @@ def build(columns: list[Column], rows, source: Path):
 
 # ── Вывод ────────────────────────────────────────────────────────────────────
 
-LEGACY_KEYS = ["id", "wineDistrict", "climateZone", "climateRegion", "adminRegion", "location",
-               "grapeProducer", "winery", "productType", "name", "sort", "harvestYear", "color",
-               "alcohol", "reducedExtract", "titratedAcidity", "sugar", "citricAcid", "tartaricAcid",
-               "malicAcid", "succinicAcid", "lacticAcid", "aceticAcid", "bioses", "glucose", "fructose",
-               "glycerin", "chlorides", "sodium", "potassium", "magnesium", "calcium",
-               "phenolicSubstances", "ph", "bufferCapacity", "electricConductivity"]
-
-
-def legacy_js(data: dict) -> str:
-    """Формат текущего сайта (window.wineSamples). Нужен до фазы 3."""
-    lines = [
-        f"// СГЕНЕРИРОВАНО scripts/build_data.py из {data['source']['file']} — руками не править.",
-        f"// Образцов: {len(data['samples'])}. Для сайта фазы 3 — src/data/samples.json.",
-        "window.wineSamples = [",
-    ]
-    for i, s in enumerate(data["samples"]):
-        sort = ", ".join(s["varieties"]) if s["varieties"] else (UNKNOWN_BLEND if s["blend"] else None)
-        obj = {k: (sort if k == "sort" else s.get(k)) for k in LEGACY_KEYS}
-        obj["id"] = i + 1  # порядковый номер, как на текущем сайте (до фазы 3 ничего не меняется)
-        comma = "," if i < len(data["samples"]) - 1 else ""
-        lines.append("  " + json.dumps(obj, ensure_ascii=False) + comma)
-    lines.append("];")
-    return "\n".join(lines) + "\n"
-
-
 def report_md(data: dict, issues: dict, filled: dict, columns: list[Column], fields: list[dict]) -> str:
     samples = data["samples"]
     total = len(samples)
@@ -613,7 +586,6 @@ def write_outputs(out_dir: Path, data: dict, issues, filled, columns) -> list[Pa
     paths = []
     for rel_path, text in (
         (OUT_JSON, json.dumps(data, ensure_ascii=False, indent=1) + "\n"),
-        (OUT_LEGACY_JS, legacy_js(data)),
         (OUT_REPORT, report_md(data, issues, filled, columns, data["fields"])),
     ):
         p = out_dir / rel_path
