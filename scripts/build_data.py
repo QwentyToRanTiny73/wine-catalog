@@ -56,6 +56,9 @@ FIRST_DATA_ROW = 6
 EMPTY_ROWS_TO_STOP = 20  # столько пустых строк подряд — конец данных
 
 APPROVED = "утверждено"
+# Образец без лабораторного «Номера» получает внутренний ключ: ROW_KEY_BASE + строка Excel.
+# На сайте он показывается как «б/н», номер не выдумывается (решение Р22).
+ROW_KEY_BASE = 100_000
 CSV_DELIMITER = ";"          # CSV для владельца: «;» и BOM — русский Excel откроет по колонкам
 CSV_ENCODING = "utf-8-sig"
 BLEND_SEPARATOR = " + "      # разделитель сортов купажа в variety-map.csv
@@ -449,6 +452,9 @@ def build(columns: list[Column], rows, source: Path):
                 if n is not None:
                     if as_text:
                         issues[f"«{col.title}»: число записано текстом"].append(excel_row)
+                    if decimals(n) > MAX_TYPED_DECIMALS:
+                        # 36.760000000000005 — это введённое 36.76 с погрешностью хранения: снимаем шум
+                        n = round(n, 10)
                     if decimals(n) > MAX_TYPED_DECIMALS and fields.get(col.key, {}).get("precision") is not None:
                         n = round(n, fields[col.key]["precision"])
                         issues[f"«{col.title}»: длинная дробная часть (результат формулы), "
@@ -458,10 +464,12 @@ def build(columns: list[Column], rows, source: Path):
 
         number = s.pop("labNumber")
         if number is None:
-            errors.append(f"Строка {excel_row}: не заполнен «Номер» образца")
+            issues["«Номер» не заполнен — на сайте образец показан как «б/н» (Р22)"].append(excel_row)
+            sample_id = ROW_KEY_BASE + excel_row
         else:
             numbers_seen[number].append(excel_row)
-        s = {"id": number, **s}
+            sample_id = number
+        s = {"id": sample_id, "labNumber": number, **s}
 
         if s["harvestYear"] is not None and not 1900 <= s["harvestYear"] <= 2100:
             errors.append(f"Строка {excel_row}: год урожая {s['harvestYear']} вне диапазона 1900–2100")
@@ -486,18 +494,14 @@ def build(columns: list[Column], rows, source: Path):
     for number, where in numbers_seen.items():
         if len(where) > 1:
             errors.append(f"Номер образца {number} повторяется в строках {', '.join(map(str, where))}")
-    missing_numbers = [er for er, s in samples if s["id"] is None]
-    if missing_numbers:
-        # одна понятная строка вместо 58 однотипных
-        errors[:] = [e for e in errors if "не заполнен «Номер»" not in e]
-        errors.append(f"Не заполнен «Номер» образца в {len(missing_numbers)} строках Excel: "
-                      f"{spans(missing_numbers)}. Номер — постоянный идентификатор образца (решение Р19).")
+    if any(n >= ROW_KEY_BASE for n in numbers_seen):
+        errors.append(f"«Номер» образца ≥ {ROW_KEY_BASE} пересекается с внутренними ключами (Р22)")
     for raw_variety, where in unknown_varieties.items():
         errors.append(f"Неизвестный сорт «{raw_variety}» (строки Excel {spans(where)}): добавьте строку в "
                       f"{rel(VARIETY_MAP)} командой draft и утвердите её")
-    known_ids = {s["id"] for _, s in samples}
+    known_numbers = {s["labNumber"] for _, s in samples if s["labNumber"] is not None}
     for number, items in notes.items():
-        if number not in known_ids:
+        if number not in known_numbers:
             errors.append(f"{rel(NOTES_CSV)}: образца с номером {number} нет в Excel")
         for item in items:
             if item["field"] not in by_key:
@@ -506,8 +510,7 @@ def build(columns: list[Column], rows, source: Path):
     if errors:
         raise DataError("Сборка остановлена:\n" + "\n".join(f"  - {e}" for e in errors))
 
-    filled = {c.key: sum(1 for _, s in samples if s.get(c.key if c.key != "labNumber" else "id") is not None)
-              for c in columns}
+    filled = {c.key: sum(1 for _, s in samples if s.get(c.key) is not None) for c in columns}
     field_list = []
     for c in columns:
         if c.key in ("labNumber", "varietyRaw"):
@@ -549,6 +552,7 @@ def legacy_js(data: dict) -> str:
     for i, s in enumerate(data["samples"]):
         sort = ", ".join(s["varieties"]) if s["varieties"] else (UNKNOWN_BLEND if s["blend"] else None)
         obj = {k: (sort if k == "sort" else s.get(k)) for k in LEGACY_KEYS}
+        obj["id"] = i + 1  # порядковый номер, как на текущем сайте (до фазы 3 ничего не меняется)
         comma = "," if i < len(data["samples"]) - 1 else ""
         lines.append("  " + json.dumps(obj, ensure_ascii=False) + comma)
     lines.append("];")
@@ -601,7 +605,7 @@ def report_md(data: dict, issues: dict, filled: dict, columns: list[Column], fie
 
     noted = [s for s in samples if s.get("notes")]
     out += ["", "## Пометки к образцам (`data/sample-notes.csv`)", ""]
-    out += [f"- № {s['id']}, поле `{n['field']}`: {n['text']}" for s in noted for n in s["notes"]] or ["- нет"]
+    out += [f"- № {s['labNumber']}, поле `{n['field']}`: {n['text']}" for s in noted for n in s["notes"]] or ["- нет"]
     return "\n".join(out) + "\n"
 
 
