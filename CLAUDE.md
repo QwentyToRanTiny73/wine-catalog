@@ -33,12 +33,16 @@ python3 -m http.server 8000 -d dist   # посмотреть именно то, 
 
 Новый файл сайта (страница, скрипт, стиль, картинка) нужно добавить в список `FILES` в `scripts/assemble_site.sh`, иначе его не будет на проде.
 
-После фазы 2 (данные):
+Данные (фаза 2). Исходный Excel кладётся в `data/source/` (ровно один `.xlsx`, в git не попадает):
 
 ```bash
-python3 -m pip install openpyxl  # именно через python3 -m pip: в контейнере несколько версий Python
-python3 scripts/build_data.py    # Excel из data/source/ → src/data/samples.json и data/report.md
+python3 -m pip install openpyxl           # именно через python3 -m pip: в контейнере несколько версий Python
+python3 -I scripts/build_data.py draft    # черновики data/variety-map.csv и data/fields.csv на утверждение
+python3 -I scripts/build_data.py          # полная сборка (появится после утверждения черновиков)
 ```
+
+`-I` — изолированный режим Python: Excel приходит извне, поэтому посторонние модули из текущей папки не подгружаются.
+CSV для владельца пишутся с разделителем `;` и BOM, чтобы русский Excel открывал их сразу по колонкам.
 
 После фазы 3 (Vite):
 
@@ -54,9 +58,12 @@ npm run audit     # scripts/audit.mjs: Playwright + axe-core по всем ст�
 ## Документы
 
 - `docs/spec.md` — исходное ТЗ дословно.
-- `docs/decisions.md` — решения Р1–Р10 и открытые вопросы.
+- `docs/decisions.md` — решения (Р…) и открытые вопросы (В…).
 - `docs/audit.md` — проверка аудита с доказательствами.
 - `docs/STATUS.md` — где мы сейчас и что нужно от владельца.
+- `data/variety-map.csv` — написание сорта в Excel → канонические сорта (утверждает владелец).
+- `data/fields.csv` — подпись, единица и точность каждого показателя (утверждает владелец).
+- `data/aroma-taxonomy-draft.csv` — черновик таксономии ароматов (утверждает владелец).
 
 ## Проверки
 
