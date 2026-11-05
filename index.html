@@ -1,24 +1,23 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <!--@head page="home" title="Аналитическая база данных виноматериалов Крыма — ВНИИВиВ «Магарач»" description="Аналитическая база данных крымских вин и виноматериалов лаборатории биохимии и химии вина ВНИИВиВ «Магарач»: происхождение, сорт и химический состав каждого образца."-->
-    <link rel="stylesheet" href="/src/styles/main.css" />
+    <!--@head title="Аналитическая база данных виноматериалов Крыма — ВНИИВиВ «Магарач»" description="Аналитическая база данных крымских вин и виноматериалов лаборатории биохимии и химии вина ВНИИВиВ «Магарач»: происхождение, сорт и химический состав каждого образца."-->
     <link rel="stylesheet" href="/src/styles/home.css" />
   </head>
   <body>
-    <!--@header page="home"-->
+    <!--@header-->
 
     <main id="main">
       <!-- 1. Первый экран: что это и главное в цифрах -->
       <section class="hero" aria-labelledby="hero-title">
         <div class="container hero__grid">
           <div class="hero__text">
-            <p class="overline">Лаборатория биохимии и химии вина · ВНИИВиВ «Магарач»</p>
+            <p class="overline">{{site.lab}} · {{site.instituteShort}}</p>
             <h1 id="hero-title">Аналитическая база виноматериалов Крыма</h1>
             <p class="lead">Происхождение, сорт и химический состав каждого образца — от района до pH.</p>
             <div class="hero__actions">
-              <a class="button" href="/wine-catalog/baza/"><!--@icon table-->Открыть базу образцов</a>
-              <a class="button button--ghost" href="/wine-catalog/arkhiv/"><!--@icon archive-->Архив урожаев</a>
+              <a class="button" href="{{url.baza}}"><!--@icon table-->Открыть базу образцов</a>
+              <a class="button button--ghost" href="{{url.arkhiv}}"><!--@icon archive-->Архив урожаев</a>
             </div>
           </div>
           <dl class="hero__stats">
@@ -28,7 +27,7 @@
             <div class="stat stat--wine"><dt>Годы урожая</dt><dd>{{stats.yearFrom}}–{{stats.yearTo}}</dd></div>
           </dl>
         </div>
-        <!--@art chromatogram-->
+        <!--@chart chromatogram-->
       </section>
 
       <!-- 2. Куда пойти: разделы сайта -->
@@ -37,19 +36,19 @@
         <ul class="destinations">
           <li class="dest dest--wine">
             <span class="dest__icon"><!--@icon table--></span>
-            <h3 class="dest__title"><a href="/wine-catalog/baza/">База образцов</a><!--@icon arrowRight--></h3>
+            <h3 class="dest__title"><a href="{{url.baza}}">База образцов</a><!--@icon arrowRight--></h3>
             <p>Поиск и фильтры по сорту, году, цвету и району. Полный химический состав образца.</p>
             <p class="dest__meta"><span class="num">{{stats.samples}}</span> {{stats.samplesWord}}</p>
           </li>
           <li class="dest dest--khaki">
             <span class="dest__icon"><!--@icon archive--></span>
-            <h3 class="dest__title"><a href="/wine-catalog/arkhiv/">Архив урожаев</a><!--@icon arrowRight--></h3>
+            <h3 class="dest__title"><a href="{{url.arkhiv}}">Архив урожаев</a><!--@icon arrowRight--></h3>
             <p>Сводка по каждому году урожая: сколько образцов, какие сорта и районы.</p>
-            <p class="dest__meta"><span class="num">{{stats.years}}</span> урожаев · <span class="num">{{stats.yearFrom}}–{{stats.yearTo}}</span></p>
+            <p class="dest__meta"><span class="num">{{stats.years}}</span> {{stats.yearsWord}} · <span class="num">{{stats.yearFrom}}–{{stats.yearTo}}</span></p>
           </li>
           <li class="dest dest--sand">
             <span class="dest__icon"><!--@icon glass--></span>
-            <h3 class="dest__title"><a href="https://magarach-institut.ru/" rel="noopener" target="_blank">Сайт института<span class="visually-hidden"> (откроется в новой вкладке)</span></a><!--@icon external--></h3>
+            <h3 class="dest__title"><a href="{{site.instituteUrl}}" rel="noopener" target="_blank">Сайт института<span class="visually-hidden"> (откроется в новой вкладке)</span></a><!--@icon external--></h3>
             <p>Официальный сайт ВНИИВиВ «Магарач».</p>
             <p class="dest__meta">magarach-institut.ru</p>
           </li>
@@ -63,7 +62,7 @@
             <p class="section-tag section-tag--wine">База образцов</p>
             <h2 id="overview-title">Что в базе</h2>
           </div>
-          <a class="more-link" href="/wine-catalog/baza/">Все образцы<!--@icon arrowRight--></a>
+          <a class="more-link" href="{{url.baza}}">Все образцы<!--@icon arrowRight--></a>
         </div>
         <div class="overview">
           <div class="panel"><!--@chart years--></div>
@@ -88,17 +87,17 @@
           </div>
         </div>
         <ol class="steps">
-          <li class="step">
+          <li class="step panel">
             <span class="step__icon"><!--@icon pin--></span>
             <h3>Происхождение</h3>
             <p>район АВВР, климатическая зона, населённый пункт, производитель</p>
           </li>
-          <li class="step">
+          <li class="step panel">
             <span class="step__icon"><!--@icon document--></span>
             <h3>Описание</h3>
             <p>сорт, год урожая, цвет, тип продукции</p>
           </li>
-          <li class="step">
+          <li class="step panel">
             <span class="step__icon"><!--@icon flask--></span>
             <h3>Анализ</h3>
             <p><span class="num">{{stats.indicators}}</span> {{stats.indicatorsWord}}, из них <span class="num">{{stats.gostIndicators}}</span> — по ГОСТ</p>
@@ -113,7 +112,7 @@
             <p class="section-tag section-tag--sand">Лаборатория</p>
             <h2 id="lab-title">О лаборатории</h2>
             <p>Комплексное исследование химического и биохимического состава крымских вин и виноматериалов.</p>
-            <a href="https://magarach-institut.ru/" rel="noopener" target="_blank">Официальный сайт института<!--@icon external--><span class="visually-hidden"> (откроется в новой вкладке)</span></a>
+            <!--@external href="{{site.instituteUrl}}" text="Официальный сайт института"-->
           </div>
           <ul class="lab__areas">
             <li><!--@icon flask--><span><strong>Энохимический анализ</strong>кислоты, сахара, минеральные и фенольные вещества</span></li>

@@ -106,6 +106,17 @@
    "filled": 36
   },
   {
+   "key": "varietyRaw",
+   "label": "Сортовой состав",
+   "unit": "",
+   "type": "varieties",
+   "precision": null,
+   "block": "Технический блок",
+   "section": "",
+   "subsection": "",
+   "filled": 184
+  },
+  {
    "key": "harvestYear",
    "label": "Год урожая",
    "unit": "",

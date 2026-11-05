@@ -1,3 +1,6 @@
+/* Общие стили — первыми: так страничные правила гарантированно идут после них */
+@import './main.css';
+
 /* Главная: ознакомительная, с понятным делением на разделы.
    Цвет раздела: «База» — винный, «Архив» — хаки, институт и лаборатория — песок. */
 
@@ -18,7 +21,7 @@
 .hero__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 0; }
 .stat {
   position: relative; padding: 1rem 1.1rem 1.1rem 1.35rem;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
 }
 .stat::before { content: ''; position: absolute; left: 0; top: 1rem; bottom: 1rem; width: 3px; border-radius: 0 3px 3px 0; }
 .stat--wine::before { background: var(--accent); }
@@ -39,17 +42,17 @@
 @media (min-width: 56rem) { .destinations { grid-template-columns: repeat(3, 1fr); } }
 .dest {
   position: relative; display: flex; flex-direction: column; gap: 0.35rem;
-  padding: 1.35rem 1.4rem 1.25rem; border-radius: 12px; border: 1px solid transparent; color: var(--text-2);
+  padding: 1.35rem 1.4rem 1.25rem; border-radius: var(--radius-lg); border: 1px solid transparent; color: var(--text-2);
   transition: transform var(--duration), box-shadow var(--duration), border-color var(--duration);
 }
-.dest--wine { background: var(--wine-tint); border-color: #ead5da; }
-.dest--khaki { background: var(--khaki-tint); border-color: #dadfc8; }
-.dest--sand { background: var(--sand-tint); border-color: #e8dcc6; }
-.dest:hover, .dest:focus-within { transform: translateY(-2px); box-shadow: 0 0.75rem 1.5rem rgb(29 26 23 / 0.08); }
+.dest--wine { background: var(--accent-tint); border-color: var(--wine-line); }
+.dest--khaki { background: var(--khaki-tint); border-color: var(--khaki-line); }
+.dest--sand { background: var(--sand-tint); border-color: var(--sand-line); }
+.dest:hover, .dest:focus-within { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
 .dest:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
 .dest__icon {
   display: grid; place-items: center; width: 2.75rem; height: 2.75rem; margin-bottom: 0.4rem;
-  background: var(--surface); border-radius: 10px;
+  background: var(--surface); border-radius: var(--radius-lg);
 }
 .dest--wine .dest__icon { color: var(--accent); }
 .dest--khaki .dest__icon { color: var(--khaki-text); }
@@ -58,11 +61,11 @@
 .dest__title a { color: var(--text); text-decoration: none; }
 .dest__title a:focus-visible { outline: none; }
 /* вся карточка — одна ссылка, но имя ссылки — только заголовок */
-.dest__title a::after { content: ''; position: absolute; inset: 0; border-radius: 12px; }
+.dest__title a::after { content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg); }
 .dest__title .icon { width: 1.1rem; height: 1.1rem; color: var(--text-3); transition: transform var(--duration); }
 .dest:hover .dest__title .icon { transform: translateX(3px); color: var(--text); }
-.dest p { margin: 0; }
-.dest__meta { margin-top: auto !important; padding-top: 0.6rem; font-size: 0.8125rem; color: var(--text-3); }
+.dest p { margin-bottom: 0; }
+.dest__meta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8125rem; color: var(--text-3); }
 
 /* ── 3. Что в базе: графики ───────────────────────────────────────────── */
 .overview { display: grid; gap: 1rem; }
@@ -102,20 +105,19 @@
 /* ── 4. Карточка образца: три шага ────────────────────────────────────── */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; counter-reset: step; }
 @media (min-width: 48rem) { .steps { grid-template-columns: repeat(3, 1fr); } }
-.step { position: relative; padding: 1.1rem 1.25rem; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-.step__icon { display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; margin-bottom: 0.6rem; border-radius: 50%; background: var(--wine-tint); color: var(--accent); }
+.step__icon { display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; margin-bottom: 0.6rem; border-radius: 50%; background: var(--accent-tint); color: var(--accent); }
 .step h3 { margin-bottom: 0.25rem; }
 .step p { margin: 0; color: var(--text-2); font-size: 0.9375rem; }
 .step p::first-letter { text-transform: uppercase; }
 
 /* ── 5. О лаборатории ─────────────────────────────────────────────────── */
-.lab { display: grid; gap: 1.5rem; padding: 1.5rem; background: var(--sand-tint); border: 1px solid #e8dcc6; border-radius: 14px; }
+.lab { display: grid; gap: 1.5rem; padding: 1.5rem; background: var(--sand-tint); border: 1px solid var(--sand-line); border-radius: var(--radius-lg); }
 @media (min-width: 56rem) { .lab { grid-template-columns: 1fr 1.4fr; padding: 2rem; gap: 2.5rem; align-items: start; } }
 .lab__intro h2 { margin-bottom: 0.5rem; }
 .lab__intro p { color: var(--text-2); }
 .lab__intro a { display: inline-flex; align-items: center; }
 .lab__areas { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
 @media (min-width: 36rem) { .lab__areas { grid-template-columns: 1fr 1fr; } }
-.lab__areas li { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.9rem 1rem; background: var(--surface); border-radius: 10px; font-size: 0.875rem; color: var(--text-2); }
+.lab__areas li { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.9rem 1rem; background: var(--surface); border-radius: var(--radius-lg); font-size: 0.875rem; color: var(--text-2); }
 .lab__areas .icon { width: 1.5rem; height: 1.5rem; color: var(--khaki-text); margin-top: 0.1rem; }
 .lab__areas strong { display: block; font-size: 0.9375rem; color: var(--text); margin-bottom: 0.1rem; }

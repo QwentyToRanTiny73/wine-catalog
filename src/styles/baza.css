@@ -1,3 +1,6 @@
+/* Общие стили — первыми: так страничные правила гарантированно идут после них */
+@import './main.css';
+
 /* /baza/: фильтры, таблица (на узких экранах — карточки), карточка образца */
 
 /* ── Фильтры ──────────────────────────────────────────────────────────── */
@@ -34,7 +37,7 @@
 .samples tbody tr:last-child > * { border-bottom: 0; }
 .samples tbody tr { cursor: pointer; transition: background var(--duration); }
 .samples tbody tr:hover { background: var(--accent-tint); }
-.samples .num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; white-space: nowrap; }
+.samples .num { text-align: right; white-space: nowrap; }   /* шрифт цифр — класс .mono */
 .samples tbody th { font-weight: 400; }
 .samples .col-color, .samples .col-productType { white-space: nowrap; }
 .samples td.col-wineDistrict { min-width: 13rem; }
@@ -81,7 +84,6 @@
     display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; margin-bottom: 0.75rem; padding: 0.9rem 1rem;
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   }
-  .samples tbody tr:last-child > * { border-bottom: 0; }
   .samples th, .samples td { padding: 0; border: 0; }
   .samples tbody td::before, .samples tbody th::before {
     content: attr(data-label); display: block; font: 400 0.75rem/1.3 var(--font-sans); color: var(--text-3); letter-spacing: 0;
@@ -99,9 +101,9 @@ html:has(dialog[open]) { overflow: hidden; }
 .sample-dialog {
   width: min(52rem, calc(100vw - 2rem)); max-height: min(90vh, 60rem); padding: 0;
   color: var(--text); background: var(--surface);
-  border: 1px solid var(--line-strong); border-radius: 10px; box-shadow: 0 1.5rem 3rem rgb(29 26 23 / 0.22);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-lg); box-shadow: var(--shadow-dialog);
 }
-.sample-dialog::backdrop { background: rgb(29 26 23 / 0.5); }
+.sample-dialog::backdrop { background: var(--backdrop); }
 .sample-dialog__inner { display: flex; flex-direction: column; max-height: min(90vh, 60rem); }
 .sample-dialog__head {
   display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
@@ -117,10 +119,7 @@ html:has(dialog[open]) { overflow: hidden; }
 }
 .icon-button:hover { background: var(--surface-2); color: var(--text); }
 
-.dlg-block h3 {
-  margin: 1.25rem 0 0.25rem; padding-top: 0.25rem;
-  font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
-}
+.dlg-block h3 { margin: 1.25rem 0 0.25rem; padding-top: 0.25rem; }   /* вид — класс .overline */
 .dlg-block h4 { margin: 1rem 0 0.15rem; font-size: 0.9375rem; color: var(--accent); }
 .dlg-block h5 { margin: 0.75rem 0 0; font-size: 0.8125rem; font-weight: 600; color: var(--text-2); }
 .kv { margin: 0; }
@@ -130,7 +129,7 @@ html:has(dialog[open]) { overflow: hidden; }
 }
 .kv dt { color: var(--text-2); }
 .kv dd { margin: 0; }
-.kv .num { font-family: var(--font-mono); letter-spacing: -0.02em; font-size: 0.9375rem; }
+.kv .mono { font-size: 0.9375rem; }
 .unit { color: var(--text-3); font-size: 0.8125rem; }
 .note {
   display: flex; gap: 0.4rem; align-items: flex-start; margin: 0.4rem 0 0; padding: 0.4rem 0.6rem;

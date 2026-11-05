@@ -12,15 +12,15 @@
 //   --url https://…/wine-catalog/   проверить живой сайт вместо локального dist/
 //   --shots ПАПКА                    сохранить скриншоты страниц на 390 и 1366 px
 import { createServer } from 'node:http';
-import { readFile, readdir, stat } from 'node:fs/promises';
+import { readFile, mkdir, stat } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { extname, join, resolve, sep } from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { chromium } from 'playwright';
+import { BASE, PAGES } from '../src/site/site.js';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const DIST = join(ROOT, 'dist');
-const BASE = '/wine-catalog/';
 const WIDTHS = [390, 1366];
 const WEIGHT_LIMIT_KB = 233;
 const BLOCKING = ['critical', 'serious'];
@@ -65,19 +65,10 @@ async function startServer() {
   return { server, origin: `http://127.0.0.1:${server.address().port}${BASE}` };
 }
 
-async function listPages() {
-  const pages = [''];
-  for (const entry of await readdir(DIST, { withFileTypes: true })) {
-    if (entry.isDirectory() && entry.name !== 'assets') {
-      try { await stat(join(DIST, entry.name, 'index.html')); pages.push(`${entry.name}/`); } catch { /* не страница */ }
-    }
-  }
-  return pages;
-}
 
 // ── Проверки ─────────────────────────────────────────────────────────────
 async function runAxe(page, label) {
-  await page.addScriptTag({ content: axeSource });
+  if (!(await page.evaluate(() => 'axe' in window))) await page.addScriptTag({ content: axeSource });
   const result = await page.evaluate(async (tags) => {
     const r = await window.axe.run(document, { runOnly: { type: 'tag', values: tags } });
     return r.violations.map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length, target: v.nodes[0]?.target?.join(' ') }));
@@ -164,8 +155,9 @@ async function measureWeight(browser, origin) {
 // ── Запуск ───────────────────────────────────────────────────────────────
 const local = remote ? null : await startServer();
 const origin = remote ? (remote.endsWith('/') ? remote : `${remote}/`) : local.origin;
-const pages = remote ? ['', 'baza/', 'arkhiv/'] : await listPages();
-if (shotsDir) await import('node:fs/promises').then((fs) => fs.mkdir(shotsDir, { recursive: true }));
+// страницы — из того же реестра, что и сборка (src/site/site.js)
+const pages = PAGES.map((p) => p.path);
+if (shotsDir) await mkdir(shotsDir, { recursive: true });
 
 console.log(`Проверка: ${origin} — страницы: ${pages.map((p) => `/${p}`).join(', ')}`);
 const browser = await chromium.launch();

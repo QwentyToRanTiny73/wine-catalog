@@ -7,12 +7,15 @@ export function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, (ch) => HTML_ESCAPES[ch]);
 }
 
+/** Пустое значение: нет данных в исходнике. Единая проверка для всего сайта. */
+export const isEmpty = (v) => v === null || v === undefined || v === '';
+
 /**
  * Число в русской записи без переокругления: знаков столько, сколько в данных
  * (решение Р20: значения — как введены в Excel). 13.5 → «13,5», 2490 → «2490».
  */
 export function formatNumber(value) {
-  if (value === null || value === undefined || value === '') return '';
+  if (isEmpty(value)) return '';
   return String(value).replace('.', ',').replace('-', '−');
 }
 
@@ -22,9 +25,21 @@ export function varietyLabel(sample) {
   return sample.blend ? 'Купаж, состав неизвестен' : 'Сорт не указан';
 }
 
-/** «Образец № 113» или «Образец без номера» (решение Р22: номер не выдумывается). */
+/** Лабораторный номер для показа: «113» или «б/н» (решение Р22: номер не выдумывается). */
+export const sampleNumber = (sample) => (sample.labNumber == null ? 'б/н' : String(sample.labNumber));
+
+/** «Образец № 113» или «Образец без номера». */
 export function sampleTitle(sample) {
   return sample.labNumber == null ? 'Образец без номера' : `Образец № ${sample.labNumber}`;
+}
+
+export const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/** Сколько раз встречается каждое значение: countBy(['а','б','а']) → Map {а→2, б→1}. */
+export function countBy(values) {
+  const counts = new Map();
+  for (const v of values) counts.set(v, (counts.get(v) ?? 0) + 1);
+  return counts;
 }
 
 /** Склонение: plural(5, ['образец', 'образца', 'образцов']) → «образцов». */

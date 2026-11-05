@@ -27,7 +27,10 @@
   --khaki-text: #4f5b24;   /* текст и иконки: 7.4:1 на белом */
   --khaki-tint: #eef0e2;   /* пастель-шалфей: раздел «Архив» */
   --sand-tint: #f6efe3;    /* пастель-песок: первый экран, институт */
-  --wine-tint: #f6ecee;    /* пастель-роза: раздел «База» */
+  /* раздел «База» — пастель-роза --accent-tint */
+  --wine-line: #ead5da;    /* рамки пастельных подложек */
+  --khaki-line: #dadfc8;
+  --sand-line: #e8dcc6;
 
   /* метки цвета вина: только рядом с подписью; проверены validate_palette.js
      (светлота, насыщенность, различимость при дальтонизме, контраст ≥ 3:1) */
@@ -39,6 +42,10 @@
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
   --radius: 6px;
+  --radius-lg: 12px;
+  --shadow-hover: 0 0.75rem 1.5rem rgb(29 26 23 / 0.08);
+  --shadow-dialog: 0 1.5rem 3rem rgb(29 26 23 / 0.22);
+  --backdrop: rgb(29 26 23 / 0.5);
   --gap: 1rem;
   --container: 76rem;
   --duration: 160ms;
@@ -99,9 +106,10 @@ img, svg { display: block; }
 
 /* Метка цвета вина — только рядом с подписью (цвет не единственный носитель смысла) */
 .swatch { display: inline-block; flex: none; width: 0.75rem; height: 0.75rem; border-radius: 50%; border: 1px solid rgb(0 0 0 / 0.18); }
-.swatch--white { background: var(--wine-white); }
-.swatch--red { background: var(--wine-red); }
-.swatch--rose { background: var(--wine-rose); }
+/* цвет метки и части полосы долей — одно правило на цвет */
+.swatch--white, .segbar__part--white { background: var(--wine-white); }
+.swatch--red, .segbar__part--red { background: var(--wine-red); }
+.swatch--rose, .segbar__part--rose { background: var(--wine-rose); }
 
 /* ── Кнопки ───────────────────────────────────────────────────────────── */
 .button {
@@ -159,15 +167,12 @@ img, svg { display: block; }
 .more-link { display: inline-flex; align-items: center; gap: 0.25rem; font-weight: 600; text-decoration: none; }
 .more-link .icon { width: 1rem; height: 1rem; transition: transform var(--duration); }
 .more-link:hover .icon { transform: translateX(3px); }
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem 1.4rem 1.4rem; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem 1.4rem 1.4rem; }
 /* тонкая полоса долей без текста + список с цифрами */
 .segbar { display: flex; gap: 2px; height: 8px; margin-bottom: 1rem; }
 .segbar__part { min-width: 4px; }
 .segbar__part:first-child { border-radius: 999px 0 0 999px; }
 .segbar__part:last-child { border-radius: 0 999px 999px 0; }
-.segbar__part--white { background: var(--wine-white); }
-.segbar__part--red { background: var(--wine-red); }
-.segbar__part--rose { background: var(--wine-rose); }
 
 /* ── Разделы страниц ──────────────────────────────────────────────────── */
 .page-intro { padding-block: 2.5rem 1.5rem; }

@@ -69,7 +69,7 @@ MAX_TYPED_DECIMALS = 4
 # Название колонки в Excel (после normalize_header) → ключ поля и тип.
 # Колонки ищутся по названию, а не по позиции: вставка колонки ничего не сдвинет.
 COLUMNS: dict[str, tuple[str, str]] = {
-    "номер": ("labNumber", "int"),
+    "номер": ("labNumber", "id"),            # лабораторный номер — ключ образца, отдельным полем не показывается
     "виноградо-винодельческий район по аввр (2024 г.)": ("wineDistrict", "text"),
     "природно-климатическая зона выращивания винограда": ("climateZone", "text"),
     "природно-климатический район выращивания винограда": ("climateRegion", "text"),
@@ -79,7 +79,7 @@ COLUMNS: dict[str, tuple[str, str]] = {
     "производитель вина (винодельня)": ("winery", "text"),
     "тип винодельческой продукции": ("productType", "code"),
     "наименование образца": ("name", "text"),
-    "сортовой состав": ("varietyRaw", "text"),
+    "сортовой состав": ("varietyRaw", "varieties"),  # на сайте — канонические сорта по variety-map.csv
     "год урожая": ("harvestYear", "int"),
     "цвет": ("color", "code"),
     "объемная доля этилового спирта": ("alcohol", "number"),
@@ -421,12 +421,12 @@ def build(columns: list[Column], rows, source: Path):
         s: dict = {}
         for col in columns:
             v = raw[col.key]
-            if col.kind == "text":
+            if col.kind in ("text", "varieties"):
                 s[col.key] = clean_text(v)
                 for needle, hint in SUSPICIOUS_TEXT:
                     if s[col.key] and needle in s[col.key]:
                         issues[f"текст «{needle}» в поле «{col.title}» ({hint})"].append(excel_row)
-            elif col.kind == "int":
+            elif col.kind in ("int", "id"):
                 n, as_text, bad = to_number(v)
                 if bad or (n is not None and not float(n).is_integer()):
                     errors.append(f"Строка {excel_row}, «{col.title}»: «{v}» — не целое число")
@@ -500,7 +500,7 @@ def build(columns: list[Column], rows, source: Path):
     # Поля, которые попадут на сайт: показаны в fields.csv и заполнены хотя бы у одного образца
     filled = {c.key: sum(1 for _, s in samples if s.get(c.key) is not None) for c in columns}
     shown = {c.key for c in columns
-             if c.key not in ("labNumber", "varietyRaw") and fields.get(c.key, {}).get("show") and filled[c.key]}
+             if c.kind != "id" and fields.get(c.key, {}).get("show") and filled[c.key]}
 
     known_numbers = {s["labNumber"] for _, s in samples if s["labNumber"] is not None}
     for number, items in notes.items():
@@ -528,7 +528,7 @@ def build(columns: list[Column], rows, source: Path):
             "subsection": c.subsection, "filled": filled[c.key],
         })
     # Скрытые поля (show = «нет») не публикуются вовсе — их значений нет и в samples.json
-    keep = shown | {"id", "labNumber", "varietyRaw", "varieties", "blend", "notes"}
+    keep = shown | {"id", "labNumber", "varieties", "blend", "notes"}
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     data = {
         "source": {"file": source.name, "sha256": digest, "sheet": SHEET, "rows": len(samples)},
@@ -568,12 +568,12 @@ def report_md(data: dict, issues: dict, filled: dict, columns: list[Column], fie
     shown = {f["key"] for f in fields}
     out += ["", "## Поля", "", "| Поле | Подпись на сайте | Единица | Заполнено | На сайте |", "|---|---|---|---:|---|"]
     for c in columns:
-        if c.key == "labNumber":
+        if c.kind == "id":
             continue
         cfg = next((f for f in fields if f["key"] == c.key), None)
         label = cfg["label"] if cfg else ""
         unit = cfg["unit"] if cfg else ""
-        on_site = "да" if c.key in shown else ("в составе «Сорта»" if c.key == "varietyRaw" else "нет")
+        on_site = "да" if c.key in shown else "нет"
         out.append(f"| `{c.key}` | {label} | {unit} | {filled[c.key]}/{total} | {on_site} |")
 
     out += ["", "## Проверьте в Excel", "",

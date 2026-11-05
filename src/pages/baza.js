@@ -2,30 +2,15 @@
 // Данные выводятся только через textContent; innerHTML — лишь для постоянных SVG-иконок.
 import data from '../data/samples.json';
 import { filterSamples, sortSamples, filterOptions, readState, writeState, SELECT_FILTERS, DEFAULT_STATE } from '../lib/query.js';
-import { formatNumber, varietyLabel, plural, sampleTitle } from '../lib/format.js';
-import { icon } from '../site/icons.js';
+import { formatNumber, varietyLabel, plural, sampleTitle, sampleNumber, isEmpty, capitalize } from '../lib/format.js';
+import { COLUMNS } from '../lib/columns.js';
 import { BLOCKS, colorKey, SAMPLE_WORDS } from '../lib/domain.js';
+import { icon } from '../site/icons.js';
 
 const SAMPLES = data.samples;
 const BY_ID = new Map(SAMPLES.map((s) => [s.id, s]));
 const FIELDS = new Map(data.fields.map((f) => [f.key, f]));
-const unitOf = (key) => FIELDS.get(key)?.unit ?? '';
-
-
-// Колонки таблицы. В карточке образца — все поля из данных.
-const COLUMNS = [
-  { key: 'id', label: '№', rowHeader: true, cell: idCell },
-  { key: 'variety', label: 'Сорт', cell: varietyCell },
-  { key: 'harvestYear', label: 'Год', num: true },
-  { key: 'color', label: 'Цвет', cell: colorCell },
-  { key: 'wineDistrict', label: 'Район (АВВР)' },
-  { key: 'productType', label: 'Тип' },
-  { key: 'alcohol', label: 'Спирт', num: true, unit: true },
-  { key: 'sugar', label: 'Сахара', num: true, unit: true },
-  { key: 'titratedAcidity', label: 'Кислотность', num: true, unit: true },
-  { key: 'ph', label: 'pH', num: true },
-];
-const colTitle = (c) => (c.unit && unitOf(c.key) ? `${c.label}, ${unitOf(c.key)}` : c.label);
+const DIR_LABEL = { asc: 'по возрастанию', desc: 'по убыванию' };
 
 const $ = (sel) => document.querySelector(sel);
 const form = $('#filters');
@@ -36,6 +21,7 @@ const emptyNote = $('#empty');
 const countNote = $('#result-count');
 const sortSelect = $('#f-sort');
 const dialog = $('#sample-dialog');
+const dlgBody = $('#dlg-body');
 
 let state = readState(window.location.search);
 let opener = null;
@@ -54,70 +40,89 @@ function el(tag, attrs = {}, ...children) {
   return node;
 }
 
-/** Иконка из постоянной строки (не данные). */
-function svg(name, cls) {
-  const t = document.createElement('template');
-  t.innerHTML = icon(name, cls);
-  return t.content.firstElementChild;
+/** Иконка из постоянной строки (не данные): разбирается один раз, дальше — копии. */
+const iconCache = new Map();
+function svg(name, cls = 'icon') {
+  const key = `${name}|${cls}`;
+  if (!iconCache.has(key)) {
+    const t = document.createElement('template');
+    t.innerHTML = icon(name, cls);
+    iconCache.set(key, t.content.firstElementChild);
+  }
+  return iconCache.get(key).cloneNode(true);
 }
 
 function emptyMark() {
   return el('span', { class: 'empty-value' }, el('span', { 'aria-hidden': 'true' }, '—'), el('span', { class: 'visually-hidden' }, 'нет данных'));
 }
 
-const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-
 // ── Таблица ──────────────────────────────────────────────────────────────
 
-function idCell(cell, s) {
-  const what = [varietyLabel(s), s.harvestYear].filter(Boolean).join(', ');
-  const text = s.labNumber == null ? 'б/н' : String(s.labNumber);
-  // имя кнопки начинается с видимого текста («113» / «б/н») — WCAG 2.5.3
-  const name = s.labNumber == null ? `Образец б/н (без номера): ${what}` : `Образец № ${s.labNumber}: ${what}`;
-  cell.append(el('button', { type: 'button', class: 'row-open', 'data-open': s.id, 'aria-label': name }, text));
-}
+const CELLS = {
+  id(cell, s) {
+    const what = [varietyLabel(s), s.harvestYear].filter(Boolean).join(', ');
+    // имя кнопки начинается с видимого текста («113» / «б/н») — WCAG 2.5.3
+    const name = s.labNumber == null ? `Образец б/н (без номера): ${what}` : `${sampleTitle(s)}: ${what}`;
+    cell.append(el('button', { type: 'button', class: 'row-open', 'data-open': s.id, 'aria-label': name }, sampleNumber(s)));
+  },
+  variety(cell, s) {
+    cell.append(el('span', { class: s.varieties.length ? 'variety' : 'variety variety--unknown' }, varietyLabel(s)));
+    if (s.varieties.length > 1) cell.append(' ', el('span', { class: 'tag' }, 'купаж'));
+    if (s.name) cell.append(el('span', { class: 'cell-sub' }, s.name));
+  },
+  color(cell, s) {
+    if (!s.color) return cell.append(emptyMark());
+    cell.append(el('span', { class: `swatch swatch--${colorKey(s.color)}`, 'aria-hidden': 'true' }), s.color);
+  },
+};
 
-function varietyCell(cell, s) {
-  cell.append(el('span', { class: s.varieties.length ? 'variety' : 'variety variety--unknown' }, varietyLabel(s)));
-  if (s.varieties.length > 1) cell.append(' ', el('span', { class: 'tag' }, 'купаж'));
-  if (s.name) cell.append(el('span', { class: 'cell-sub' }, s.name));
-}
-
-function colorCell(cell, s) {
-  if (!s.color) return cell.append(emptyMark());
-  cell.append(el('span', { class: `swatch swatch--${colorKey(s.color)}`, 'aria-hidden': 'true' }), s.color);
-}
+// Всё, что зависит только от колонки, — один раз, а не в каждой ячейке
+const COLUMN_VIEW = COLUMNS.map((col) => {
+  const unit = col.unit ? FIELDS.get(col.key)?.unit ?? '' : '';
+  return {
+    ...col,
+    unit,
+    cls: [col.num && 'num mono', `col-${col.key}`].filter(Boolean).join(' '),
+    title: unit ? `${col.label}, ${unit}` : col.label,
+  };
+});
 
 function renderRow(s) {
   const tr = el('tr', { 'data-id': s.id, role: 'row' });
-  for (const col of COLUMNS) {
+  for (const col of COLUMN_VIEW) {
     const cell = el(col.rowHeader ? 'th' : 'td', {
       scope: col.rowHeader ? 'row' : null,
       role: col.rowHeader ? 'rowheader' : 'cell',
-      class: [col.num && 'num', `col-${col.key}`].filter(Boolean).join(' '),
-      'data-label': colTitle(col),
+      class: col.cls,
+      'data-label': col.title,
     });
-    if (col.cell) col.cell(cell, s);
+    if (CELLS[col.key]) CELLS[col.key](cell, s);
     else {
       const v = col.num ? formatNumber(s[col.key]) : s[col.key];
-      cell.append(v === '' || v === null || v === undefined ? emptyMark() : String(v));
+      cell.append(isEmpty(v) ? emptyMark() : String(v));
     }
     tr.append(cell);
   }
   return tr;
 }
 
+// Данные не меняются: строки строятся один раз, фильтр и сортировка только переставляют их
+const ROWS = new Map(SAMPLES.map((s) => [s.id, renderRow(s)]));
+
 function buildHead() {
-  for (const col of COLUMNS) {
-    const unit = col.unit ? unitOf(col.key) : '';
+  for (const col of COLUMN_VIEW) {
     const button = el('button', { type: 'button', class: 'sort-button', 'data-sort': col.key },
-      el('span', { class: 'sort-button__label' }, col.label, unit ? el('span', { class: 'sort-button__unit' }, unit) : null),
+      el('span', { class: 'sort-button__label' }, col.label, col.unit ? el('span', { class: 'sort-button__unit' }, col.unit) : null),
       svg('sort', 'icon sort-icon'));
-    thead.append(el('th', { scope: 'col', role: 'columnheader', class: [col.num && 'num', `col-${col.key}`].filter(Boolean).join(' '), 'data-sort': col.key }, button));
+    thead.append(el('th', { scope: 'col', role: 'columnheader', class: col.cls, 'data-sort': col.key }, button));
   }
 }
 
+let shownSort = '';
 function updateHeadSort() {
+  const current = `${state.sort}:${state.dir}`;
+  if (current === shownSort) return;
+  shownSort = current;
   for (const th of thead.children) {
     const active = th.dataset.sort === state.sort;
     if (active) th.setAttribute('aria-sort', state.dir === 'asc' ? 'ascending' : 'descending');
@@ -131,11 +136,10 @@ function updateHeadSort() {
 
 function fillSelects() {
   const options = filterOptions(SAMPLES);
-  for (const key of Object.keys(SELECT_FILTERS)) {
+  for (const [key, filter] of Object.entries(SELECT_FILTERS)) {
     const select = form.elements[key];
     for (const { value, count } of options[key]) {
-      const text = key === 'color' || key === 'type' ? capitalize(value) : value;
-      select.append(el('option', { value }, `${text} (${count})`));
+      select.append(el('option', { value }, `${filter.capitalize ? capitalize(value) : value} (${count})`));
     }
     // значение из адреса, которого нет в списке, — отбрасываем
     if (state[key] && !options[key].some((o) => o.value === state[key])) state[key] = '';
@@ -144,23 +148,15 @@ function fillSelects() {
   form.elements.q.value = state.q;
 
   for (const col of COLUMNS) {
-    for (const dir of ['asc', 'desc']) {
-      const text = `${col.label} — ${dir === 'asc' ? 'по возрастанию' : 'по убыванию'}`;
-      sortSelect.append(el('option', { value: `${col.key}:${dir}` }, text));
+    for (const dir of Object.keys(DIR_LABEL)) {
+      sortSelect.append(el('option', { value: `${col.key}:${dir}` }, `${col.label} — ${DIR_LABEL[dir]}`));
     }
   }
 }
 
-function sortDescription() {
-  const col = COLUMNS.find((c) => c.key === state.sort);
-  return `${col.label}, ${state.dir === 'asc' ? 'по возрастанию' : 'по убыванию'}`;
-}
-
 function render() {
   const rows = sortSamples(filterSamples(SAMPLES, state), state.sort, state.dir);
-  const fragment = document.createDocumentFragment();
-  for (const s of rows) fragment.append(renderRow(s));
-  tbody.replaceChildren(fragment);
+  tbody.replaceChildren(...rows.map((s) => ROWS.get(s.id)));
 
   table.hidden = rows.length === 0;
   emptyNote.hidden = rows.length > 0;
@@ -168,7 +164,8 @@ function render() {
   const found = rows.length === total
     ? `Показаны все ${total} ${plural(total, SAMPLE_WORDS)}`
     : `Найдено: ${rows.length} из ${total}`;
-  countNote.textContent = `${found} · сортировка: ${sortDescription()}`;
+  const sortCol = COLUMNS.find((c) => c.key === state.sort);
+  countNote.textContent = `${found} · сортировка: ${sortCol.label}, ${DIR_LABEL[state.dir]}`;
 
   updateHeadSort();
   sortSelect.value = `${state.sort}:${state.dir}`;
@@ -188,62 +185,53 @@ function setSort(key, dir) {
 
 // ── Карточка образца (<dialog>) ──────────────────────────────────────────
 
-function valueNode(s, key) {
-  const v = s[key];
-  const field = FIELDS.get(key);
-  const isNum = field?.type === 'number' || field?.type === 'int';
-  const text = isNum ? formatNumber(v) : v;
-  const dd = el('dd', {}, el('span', { class: isNum ? 'num' : null }, String(text)));
-  if (field?.unit) dd.append(' ', el('span', { class: 'unit' }, field.unit));
-  for (const note of (s.notes ?? []).filter((n) => n.field === key)) {
-    dd.append(el('p', { class: 'note' }, svg('info', 'icon'), el('span', {}, note.text)));
+function valueNode(s, field) {
+  let dd;
+  if (field.type === 'varieties') {
+    // канонические сорта; если в исходных данных записано иначе — показываем и запись
+    dd = el('dd', {}, varietyLabel(s));
+    const raw = String(s.varietyRaw).replace(/\s+/g, ' ').trim();
+    if (raw !== s.varieties.join(', ')) dd.append(el('span', { class: 'cell-sub' }, `в исходных данных: «${raw}»`));
+  } else {
+    const isNum = field.type === 'number' || field.type === 'int';
+    dd = el('dd', {}, el('span', { class: isNum ? 'mono' : null }, String(isNum ? formatNumber(s[field.key]) : s[field.key])));
+    if (field.unit) dd.append(' ', el('span', { class: 'unit' }, field.unit));
+  }
+  for (const note of (s.notes ?? []).filter((n) => n.field === field.key)) {
+    dd.append(el('p', { class: 'note' }, svg('info'), el('span', {}, note.text)));
   }
   return dd;
 }
 
 /** Список «подпись — значение»; пустые поля — одной строкой «Нет данных: …». */
-function fieldList(s, keys, extraRows = []) {
+function fieldList(s, fields) {
   const dl = el('dl', { class: 'kv' });
-  for (const [label, dd] of extraRows) dl.append(el('div', { class: 'kv__row' }, el('dt', {}, label), dd));
   const missing = [];
-  for (const key of keys) {
-    const v = s[key];
-    if (v === null || v === undefined || v === '') {
-      missing.push(FIELDS.get(key).label);
-      continue;
-    }
-    dl.append(el('div', { class: 'kv__row' }, el('dt', {}, FIELDS.get(key).label), valueNode(s, key)));
+  for (const field of fields) {
+    if (isEmpty(s[field.key])) missing.push(field.label);
+    else dl.append(el('div', { class: 'kv__row' }, el('dt', {}, field.label), valueNode(s, field)));
   }
-  const nodes = [dl];
-  if (missing.length) nodes.push(el('p', { class: 'missing' }, `Нет данных: ${missing.join(', ')}.`));
-  return nodes;
+  return missing.length ? [dl, el('p', { class: 'missing' }, `Нет данных: ${missing.join(', ')}.`)] : [dl];
 }
 
+const blockHeading = (text) => el('h3', { class: 'overline' }, text);
+
 function dialogBody(s) {
-  const keysOf = (pred) => data.fields.filter(pred).map((f) => f.key);
-  const blocks = [];
+  const fieldsOf = (pred) => data.fields.filter(pred);
+  const blocks = [BLOCKS.org, BLOCKS.tech].map((block) =>
+    el('section', { class: 'dlg-block' }, blockHeading(block), ...fieldList(s, fieldsOf((f) => f.block === block))));
 
-  blocks.push(el('section', { class: 'dlg-block' }, el('h3', {}, BLOCKS.org), ...fieldList(s, keysOf((f) => f.block === BLOCKS.org))));
-
-  // Сортовой состав: канонические сорта; если в журнале записано иначе — показываем и запись.
-  const composition = el('dd', {}, varietyLabel(s));
-  const raw = (s.varietyRaw ?? '').replace(/\s+/g, ' ').trim();
-  if (raw && raw !== s.varieties.join(', ')) composition.append(el('span', { class: 'cell-sub' }, `в исходных данных: «${raw}»`));
-  blocks.push(el('section', { class: 'dlg-block' }, el('h3', {}, BLOCKS.tech),
-    ...fieldList(s, keysOf((f) => f.block === BLOCKS.tech), [['Сортовой состав', composition]])));
-
-  const analytic = el('section', { class: 'dlg-block' }, el('h3', {}, BLOCKS.analytic));
-  const sections = [...new Set(data.fields.filter((f) => f.block === BLOCKS.analytic).map((f) => f.section))];
+  const analytic = el('section', { class: 'dlg-block' }, blockHeading(BLOCKS.analytic));
+  const sections = [...new Set(fieldsOf((f) => f.block === BLOCKS.analytic).map((f) => f.section))];
   for (const section of sections) {
     analytic.append(el('h4', {}, section));
-    const subs = [...new Set(data.fields.filter((f) => f.section === section).map((f) => f.subsection))];
+    const subs = [...new Set(fieldsOf((f) => f.section === section).map((f) => f.subsection))];
     for (const sub of subs) {
       if (subs.length > 1 && sub) analytic.append(el('h5', {}, sub));
-      analytic.append(...fieldList(s, keysOf((f) => f.section === section && f.subsection === sub)));
+      analytic.append(...fieldList(s, fieldsOf((f) => f.section === section && f.subsection === sub)));
     }
   }
-  blocks.push(analytic);
-  return blocks;
+  return [...blocks, analytic];
 }
 
 function openSample(id, trigger) {
@@ -256,12 +244,12 @@ function openSample(id, trigger) {
   $('#dlg-number').textContent = sampleTitle(s);
   $('#dlg-title').textContent = varietyLabel(s);
   $('#dlg-meta').textContent = [s.harvestYear && `урожай ${s.harvestYear}`, s.color, s.productType].filter(Boolean).join(' · ');
-  $('#dlg-body').replaceChildren(...dialogBody(s));
+  dlgBody.replaceChildren(...dialogBody(s));
   opener = trigger ?? null;
   state.id = id;
   syncUrl();
   if (!dialog.open) dialog.showModal();
-  $('#dlg-body').scrollTop = 0;
+  dlgBody.scrollTop = 0;
 }
 
 function onDialogClose() {
@@ -305,16 +293,12 @@ function bindEvents() {
 
   tbody.addEventListener('click', (e) => {
     const row = e.target.closest('tr[data-id]');
-    if (!row) return;
-    if (e.target.closest('a')) return;
-    const button = row.querySelector('.row-open');
-    openSample(Number(row.dataset.id), button);
+    if (row) openSample(Number(row.dataset.id), row.querySelector('.row-open'));
   });
 
   $('#dlg-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', onDialogClose);
-  // щелчок по затемнённому фону вокруг карточки закрывает её
-  // если выделяли текст в карточке и отпустили мышь на фоне — не закрываем
+  // щелчок по затемнённому фону закрывает карточку; если выделяли текст и отпустили мышь на фоне — нет
   let pressedOnBackdrop = false;
   dialog.addEventListener('mousedown', (e) => { pressedOnBackdrop = e.target === dialog; });
   dialog.addEventListener('click', (e) => { if (e.target === dialog && pressedOnBackdrop) dialog.close(); });

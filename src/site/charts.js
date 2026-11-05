@@ -4,14 +4,27 @@
 // у каждой метки рядом подпись, цвета проверены validate_palette.js (см. docs/decisions.md).
 import { escapeHtml as esc, plural } from '../lib/format.js';
 import { WINE_COLORS, SAMPLE_WORDS } from '../lib/domain.js';
+import { pageUrl } from './site.js';
+
+/** Части «по цвету вина» для набора образцов: [{ key, plural, count }], без нулевых. */
+export function colorParts(samples) {
+  return WINE_COLORS.map((c) => ({ ...c, count: samples.filter((s) => s.color === c.value).length }))
+    .filter((p) => p.count > 0);
+}
+
+/** Тонкая полоса долей без текста (подписи и цифры — рядом, в списке). */
+export function segbar(parts) {
+  const blocks = parts.map((p) => `<span class="segbar__part segbar__part--${p.key}" style="flex-grow:${p.count}"></span>`);
+  return `<div class="segbar" aria-hidden="true">${blocks.join('')}</div>`;
+}
 
 /** Образцы по годам урожая: столбик — ссылка на базу с фильтром по году. */
-export function renderYearColumns({ stats, base }) {
+export function renderYearColumns({ stats }) {
   const max = Math.max(...stats.byYear.map((y) => y.count));
   const items = stats.byYear.map(({ year, count }) => {
     // имя ссылки собирается из видимого текста («2017», «24») + скрытого пояснения (WCAG 2.5.3)
     return `<li>
-        <a class="column" href="${base}baza/?year=${year}" style="--v:${count};--max:${max}">
+        <a class="column" href="${pageUrl('baza')}?year=${year}" style="--v:${count};--max:${max}">
           <span class="column__year">${year}</span><span class="visually-hidden">: </span>
           <span class="column__plot">
             <span class="column__value">${count}</span><span class="visually-hidden"> ${esc(plural(count, SAMPLE_WORDS))} — открыть в базе</span>
@@ -28,20 +41,19 @@ export function renderYearColumns({ stats, base }) {
 }
 
 /** Доли по цвету: тонкая полоса без текста + список с цифрами (подписи — в списке). */
-export function renderColorSplit({ stats }) {
-  const parts = WINE_COLORS.map((c) => ({ key: c.key, label: c.plural, count: stats[c.key] })).filter((p) => p.count > 0);
-  const total = parts.reduce((a, p) => a + p.count, 0);
+export function renderColorSplit({ data }) {
+  const parts = colorParts(data.samples);
+  const total = data.samples.length;
   const pct = (n) => `${Math.round((n / total) * 100) || '<1'}%`;
-  const bar = parts.map((p) => `<span class="segbar__part segbar__part--${p.key}" style="flex-grow:${p.count}"></span>`).join('');
   const rows = parts.map((p) => `<li>
         <span class="swatch swatch--${p.key}" aria-hidden="true"></span>
-        <span class="split__name">${p.label}</span>
+        <span class="split__name">${p.plural}</span>
         <span class="split__count num">${p.count}</span>
         <span class="split__share num">${pct(p.count)}</span>
       </li>`).join('');
   return `<figure class="chart">
       <figcaption class="chart__title">По цвету вина</figcaption>
-      <div class="segbar" aria-hidden="true">${bar}</div>
+      ${segbar(parts)}
       <ul class="split">${rows}</ul>
     </figure>`;
 }

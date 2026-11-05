@@ -35,10 +35,16 @@ npm run audit     # сборка + scripts/audit.mjs: Playwright + axe-core на
 npm run preview   # посмотреть собранный dist/: http://localhost:4173/wine-catalog/
 ```
 
-Как устроены страницы: HTML-файлы (`index.html`, `baza/index.html`, `arkhiv/index.html`) содержат метки
-`<!--@head …-->`, `<!--@header …-->`, `<!--@footer-->`, `<!--@icon …-->`, `<!--@chart …-->`, `<!--@archive-->`,
-`{{stats.…}}` — плагин в `vite.config.js` подставляет общие части и цифры из `src/data/samples.json` при сборке.
-Новая страница: HTML-файл + строка в `PAGES` в `vite.config.js` + пункт в `NAV` в `src/site/partials.js` + `public/sitemap.xml`.
+Как устроены страницы (всё вставляется при сборке — страницы работают без JavaScript):
+- `src/site/site.js` — **единственный реестр** страниц (`PAGES`), базовый адрес и названия (`SITE`).
+  Из него строятся входы сборки, меню, `sitemap.xml` и список страниц для `npm run audit`.
+  **Новая страница = HTML-файл + одна строка в `PAGES`.**
+- Метки в HTML: `<!--@head title="…" description="…"-->`, `<!--@header-->`, `<!--@footer-->`, `<!--@icon имя-->`,
+  `<!--@chart years|colors|chromatogram-->`, `<!--@archive-->`, `<!--@external href="…" text="…"-->`.
+  Значения: `{{stats.…}}`, `{{site.…}}`, `{{url.baza}}`, `{{base}}`. Неизвестная метка или значение — ошибка сборки.
+- CSS: страничный файл (`home.css`, `baza.css`, `arkhiv.css`) сам импортирует `main.css` первым;
+  в HTML подключается только страничный. Цвета, радиусы, тени — только токены в `:root` `main.css`.
+- Общие понятия (цвета вина, блоки Excel, типы продукции) — `src/lib/domain.js`; колонки таблицы — `src/lib/columns.js`.
 
 Данные (фаза 2). Исходный Excel кладётся в `data/source/` (ровно один `.xlsx`, в git не попадает):
 

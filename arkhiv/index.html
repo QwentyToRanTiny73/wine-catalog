@@ -1,19 +1,18 @@
 <!doctype html>
 <html lang="ru">
   <head>
-    <!--@head page="arkhiv" title="Архив урожаев" description="Сводка по годам урожая: сколько образцов исследовано, какие сорта и виноградо-винодельческие районы Крыма представлены в каждом урожае."-->
-    <link rel="stylesheet" href="/src/styles/main.css" />
+    <!--@head title="Архив урожаев" description="Сводка по годам урожая: сколько образцов исследовано, какие сорта и виноградо-винодельческие районы Крыма представлены в каждом урожае."-->
     <link rel="stylesheet" href="/src/styles/arkhiv.css" />
   </head>
   <body>
-    <!--@header page="arkhiv"-->
+    <!--@header-->
 
     <main id="main">
       <div class="container page-intro">
         <p class="section-tag section-tag--khaki">Архив</p>
         <h1>Архив урожаев</h1>
         <p class="lead">
-          <span class="num">{{stats.years}}</span> урожаев, <span class="num">{{stats.yearFrom}}–{{stats.yearTo}}</span>:
+          <span class="num">{{stats.years}}</span> {{stats.yearsWord}}, <span class="num">{{stats.yearFrom}}–{{stats.yearTo}}</span>:
           сколько образцов исследовано, какие сорта и районы представлены в каждом году.
         </p>
       </div>
