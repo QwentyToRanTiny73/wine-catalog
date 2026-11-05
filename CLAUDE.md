@@ -8,7 +8,7 @@ https://qwentytorantiny73.github.io/wine-catalog/
 ## Главные правила
 
 1. **Деплой только из `main`.** Сайт собирается и выкладывается только при пуше в `main`. Не пушить в `main` напрямую — только через pull request.
-2. **Данные меняются только через `scripts/build_data.py`.** Генерируемые файлы с образцами (`js/data.js`, после фазы 2 — `src/data/samples.json`) руками не править. Пока скрипта нет (до фазы 2), данные не трогать вовсе.
+2. **Данные меняются только через `scripts/build_data.py`.** Генерируемые файлы (`src/data/samples.json`, `js/data.js`, `data/report.md`) руками не править. Источник правды — Excel в `data/source/` и утверждённые таблицы в `data/` (`variety-map.csv`, `fields.csv`, `sample-notes.csv`).
 3. **Ничего не придумывать о винах, сортах, показателях и источниках.** Не уверен — пометить «не подтверждено» и спросить владельца. Канонические названия сортов утверждает владелец (`data/variety-map.csv`). Дескриптор аромата без источника (URL, дата обращения) не записывается.
 4. **Каждое утверждение в отчёте — с доказательством:** файл:строка или вывод команды.
 5. **Не коммитить** токены, пароли, `.env`, исходный Excel (`data/source/`).
@@ -37,8 +37,9 @@ python3 -m http.server 8000 -d dist   # посмотреть именно то, 
 
 ```bash
 python3 -m pip install openpyxl           # именно через python3 -m pip: в контейнере несколько версий Python
-python3 -I scripts/build_data.py draft    # черновики data/variety-map.csv и data/fields.csv на утверждение
-python3 -I scripts/build_data.py          # полная сборка (появится после утверждения черновиков)
+python3 -I scripts/build_data.py          # сборка → src/data/samples.json, js/data.js, data/report.md
+python3 -I scripts/build_data.py draft    # новые сорта/колонки → строки на утверждение (утверждённое не трогает)
+python3 -I scripts/build_data.py --source X.xlsx --out /tmp/dir   # проверка на другом файле, без записи в проект
 ```
 
 `-I` — изолированный режим Python: Excel приходит извне, поэтому посторонние модули из текущей папки не подгружаются.
@@ -63,7 +64,9 @@ npm run audit     # scripts/audit.mjs: Playwright + axe-core по всем ст�
 - `docs/STATUS.md` — где мы сейчас и что нужно от владельца.
 - `data/variety-map.csv` — написание сорта в Excel → канонические сорта (утверждает владелец).
 - `data/fields.csv` — подпись, единица и точность каждого показателя (утверждает владелец).
-- `data/aroma-taxonomy-draft.csv` — черновик таксономии ароматов (утверждает владелец).
+- `data/aroma-taxonomy.csv` — утверждённая таксономия ароматов (Р21).
+- `data/sample-notes.csv` — пометки к отдельным образцам (номер; поле; текст).
+- `data/report.md` — отчёт сборки данных: сводка и что проверить в Excel (генерируется).
 
 ## Проверки
 
