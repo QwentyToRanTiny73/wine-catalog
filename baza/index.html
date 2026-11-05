@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>База образцов — Лаборатория «Магарач»</title>
   <link rel="stylesheet" href="../style.css" />
-  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -23,7 +22,6 @@
       <a href="../index.html#about">О нас</a>
       <a href="../baza/" class="active">База</a>
       <a href="../arkhiv/">Архив</a>
-      <a href="#" id="navAdminBtn" title="Личный кабинет">🔒</a>
     </nav>
   </div>
 </header>
@@ -37,15 +35,6 @@
     </a>
     <h1>🗃️ База образцов виноматериалов</h1>
     <p>Коллекция Лаборатории биохимии и химии вина «Магарач»</p>
-
-    <!-- Admin panel (hidden by default) -->
-    <div id="adminBar" class="admin-bar" style="display:none;">
-      <span class="admin-bar-user">👤 Администратор</span>
-      <button class="admin-bar-btn" id="btnUploadExcel">📤 Загрузить Excel</button>
-      <button class="admin-bar-btn" id="btnAddSample">➕ Добавить образец</button>
-      <button class="admin-bar-btn admin-bar-logout" id="btnLogout">Выйти</button>
-      <input type="file" id="excelFileInput" accept=".xlsx,.xls,.csv" style="display:none" />
-    </div>
   </div>
 </div>
 
@@ -141,126 +130,6 @@
           <h3>Аналитический блок</h3>
         </div>
         <div class="modal-grid" id="modalAnalyticBlock"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ MODAL: Login ═══════════════════ -->
-<div class="modal-overlay" id="loginOverlay">
-  <div class="modal" style="max-width:420px;">
-    <div class="modal-header">
-      <div class="modal-header-info">
-        <h2>🔒 Вход в личный кабинет</h2>
-      </div>
-      <button class="modal-close" id="loginClose" aria-label="Закрыть">✕</button>
-    </div>
-    <div class="modal-body" style="padding:32px;">
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <div>
-          <label class="modal-field-label" style="display:block;margin-bottom:6px;">Логин</label>
-          <input type="text" id="loginUser" class="search-input" placeholder="Логин" autocomplete="username" />
-        </div>
-        <div>
-          <label class="modal-field-label" style="display:block;margin-bottom:6px;">Пароль</label>
-          <input type="password" id="loginPass" class="search-input" placeholder="Пароль" autocomplete="current-password" />
-        </div>
-        <div id="loginError" style="color:#c0392b;font-size:0.85rem;display:none;">
-          Неверный логин или пароль
-        </div>
-        <button class="btn-wine" id="loginSubmit" style="margin-top:8px;">Войти</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ MODAL: Add Sample ═════════════ -->
-<div class="modal-overlay" id="addSampleOverlay">
-  <div class="modal" style="max-width:960px;">
-    <div class="modal-header">
-      <div class="modal-header-info">
-        <h2>➕ Добавить образец</h2>
-      </div>
-      <button class="modal-close" id="addSampleClose" aria-label="Закрыть">✕</button>
-    </div>
-    <div class="modal-body" style="padding:28px 32px;">
-      <form id="addSampleForm">
-        <!-- Org block -->
-        <h3 style="color:#5A1828;margin-bottom:14px;font-family:'Inter',sans-serif;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">🏢 Организационный блок</h3>
-        <div class="modal-grid" style="margin-bottom:24px;">
-          <div class="form-field"><label>Район по СРО</label><input name="wineDistrict" class="search-input" /></div>
-          <div class="form-field"><label>Адм. район</label><input name="adminRegion" class="search-input" /></div>
-          <div class="form-field"><label>Населённый пункт</label><input name="location" class="search-input" /></div>
-          <div class="form-field"><label>Производитель винограда</label><input name="grapeProducer" class="search-input" /></div>
-          <div class="form-field"><label>Винодельня</label><input name="winery" class="search-input" /></div>
-          <div class="form-field"><label>Дата исследования</label><input name="researchDate" class="search-input" placeholder="ДД.ММ.ГГГГ" /></div>
-        </div>
-
-        <!-- Tech block -->
-        <h3 style="color:#5A1828;margin-bottom:14px;font-family:'Inter',sans-serif;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">🔖 Технический блок</h3>
-        <div class="modal-grid" style="margin-bottom:24px;">
-          <div class="form-field"><label>Наименование образца</label><input name="name" class="search-input" /></div>
-          <div class="form-field"><label>Сортовой состав</label><input name="sort" class="search-input" required /></div>
-          <div class="form-field"><label>Год урожая</label><input name="harvestYear" type="number" min="2000" max="2030" class="search-input" required /></div>
-          <div class="form-field">
-            <label>Цвет</label>
-            <select name="color" class="filter-select" style="width:100%;" required>
-              <option value="">—</option>
-              <option value="белое">Белое</option>
-              <option value="красное">Красное</option>
-              <option value="розовое">Розовое</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label>Тип продукции</label>
-            <select name="productType" class="filter-select" style="width:100%;">
-              <option value="">—</option>
-              <option value="вино">Вино</option>
-              <option value="виноматериал">Виноматериал</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Analytic block -->
-        <h3 style="color:#5A1828;margin-bottom:14px;font-family:'Inter',sans-serif;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">📊 Аналитический блок</h3>
-        <div class="modal-grid" id="addAnalyticFields"></div>
-
-        <div style="display:flex;gap:12px;margin-top:28px;justify-content:flex-end;">
-          <button type="button" class="btn-reset" id="addSampleCancel">Отмена</button>
-          <button type="submit" class="btn-wine">Сохранить образец</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ MODAL: Excel Upload ═══════════════ -->
-<div class="modal-overlay" id="excelUploadOverlay">
-  <div class="modal" style="max-width:600px;">
-    <div class="modal-header">
-      <div class="modal-header-info">
-        <h2>📤 Загрузка данных из Excel</h2>
-      </div>
-      <button class="modal-close" id="excelUploadClose" aria-label="Закрыть">✕</button>
-    </div>
-    <div class="modal-body" style="padding:28px 32px;">
-      <div class="upload-zone" id="uploadZone">
-        <div class="upload-zone-icon">📂</div>
-        <p>Перетащите файл .xlsx сюда<br>или <span style="color:#5A1828;text-decoration:underline;cursor:pointer;" id="uploadZoneClick">выберите файл</span></p>
-        <input type="file" id="excelUploadInput" accept=".xlsx,.xls,.csv" style="display:none" />
-      </div>
-      <div id="uploadStatus" style="margin-top:16px;display:none;">
-        <div id="uploadStatusText" style="font-size:0.9rem;color:#5A2530;"></div>
-      </div>
-      <div id="uploadPreview" style="margin-top:16px;display:none;">
-        <p style="font-size:0.88rem;color:#5A2530;margin-bottom:12px;">
-          <strong id="uploadPreviewCount">0</strong> образцов найдено в файле:
-        </p>
-        <div style="max-height:200px;overflow-y:auto;border:1px solid #E0CEBB;border-radius:8px;padding:12px;background:#FFF8F0;font-size:0.82rem;color:#4A2030;" id="uploadPreviewList"></div>
-        <div style="display:flex;gap:12px;margin-top:20px;justify-content:flex-end;">
-          <button type="button" class="btn-reset" id="uploadCancel">Отмена</button>
-          <button type="button" class="btn-wine" id="uploadConfirm">Добавить в базу</button>
-        </div>
       </div>
     </div>
   </div>

@@ -1,32 +1,27 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Деплой сайта на GitHub Pages.
+# Правило проекта: деплой только из main и только папки dist/ (решение Р4).
+name: Deploy site to Pages
 
 on:
-  # Runs on pushes to any branch (deploys whatever is the live/default branch)
   push:
-    branches:
-      - "main"
-      - "qwen-code-*"
-      - "claude/**"
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: ["main"]
+  # Ручной запуск из вкладки Actions (тоже только для main — см. условие ниже)
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Один деплой за раз; уже идущий не отменяем
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
+    # Ручной запуск можно выбрать на любой ветке — не даём выложить не-main
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -36,11 +31,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Build dist/ (белый список файлов)
+        run: bash scripts/assemble_site.sh
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
