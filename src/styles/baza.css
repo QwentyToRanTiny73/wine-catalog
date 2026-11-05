@@ -1,0 +1,148 @@
+/* /baza/: фильтры, таблица (на узких экранах — карточки), карточка образца */
+
+/* ── Фильтры ──────────────────────────────────────────────────────────── */
+.filters {
+  display: grid; gap: 0.75rem 1rem; align-items: end;
+  grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
+  padding: 1rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.filters__field { display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+.filters__field--search { grid-column: span 2; }
+.filters__field--sort { display: none; }
+.filters__field label { font-size: 0.8125rem; font-weight: 600; color: var(--text-2); }
+.filters__actions { display: flex; }
+.filters input, .filters select {
+  width: 100%; min-height: 2.75rem; padding: 0.5rem 0.7rem;
+  font: inherit; font-size: 0.9375rem; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius);
+}
+.filters input:hover, .filters select:hover { border-color: var(--text-3); }
+.input-icon { position: relative; }
+.input-icon .icon { position: absolute; left: 0.7rem; top: 50%; transform: translateY(-50%); color: var(--text-3); pointer-events: none; }
+.input-icon input { padding-left: 2.4rem; }
+
+.results-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; margin: 1rem 0 0.5rem; font-size: 0.875rem; }
+.results-bar p { margin: 0; }
+.results-bar__count { font-weight: 600; color: var(--text-2); }
+.notice { padding: 1rem 1.25rem; background: var(--surface-2); border-radius: var(--radius); color: var(--text-2); }
+
+/* ── Таблица ──────────────────────────────────────────────────────────── */
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.samples { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.samples th, .samples td { padding: 0.55rem 0.75rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.samples thead th { padding: 0; background: var(--surface-2); border-bottom: 1px solid var(--line-strong); vertical-align: bottom; white-space: nowrap; }
+.samples tbody tr:last-child > * { border-bottom: 0; }
+.samples tbody tr { cursor: pointer; transition: background var(--duration); }
+.samples tbody tr:hover { background: var(--accent-tint); }
+.samples .num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; white-space: nowrap; }
+.samples tbody th { font-weight: 400; }
+.samples .col-color, .samples .col-productType { white-space: nowrap; }
+.samples td.col-wineDistrict { min-width: 13rem; }
+.samples td.col-variety { min-width: 13rem; }
+
+.sort-button {
+  display: flex; align-items: flex-end; gap: 0.3rem; width: 100%; min-height: 2.75rem; white-space: nowrap;
+  padding: 0.55rem 0.75rem; border: 0; background: none; cursor: pointer;
+  font: 600 0.8125rem/1.2 var(--font-sans); color: var(--text-2); text-align: left;
+}
+.num .sort-button { justify-content: flex-end; text-align: right; }
+.sort-button:hover { color: var(--accent); }
+.sort-button__label { display: flex; flex-direction: column; }
+.num .sort-button__label { align-items: flex-end; }
+.sort-button__unit { font-weight: 400; color: var(--text-3); font-size: 0.75rem; }
+.sort-icon { width: 0.95rem; height: 0.95rem; color: var(--text-3); }
+[aria-sort] .sort-button { color: var(--accent); }
+[aria-sort] .sort-icon { color: var(--accent); }
+
+.row-open {
+  min-width: 2.25rem; min-height: 1.75rem; padding: 0.1rem 0.4rem; margin: -0.1rem -0.4rem;
+  border: 0; border-radius: 4px; background: none; cursor: pointer;
+  font: 400 0.9375rem/1.4 var(--font-mono); color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em;
+}
+.row-open:hover { background: var(--accent-tint); color: var(--accent-hover); }
+.variety--unknown { color: var(--text-3); font-style: italic; }
+.cell-sub { display: block; font-size: 0.8125rem; color: var(--text-3); }
+.tag { display: inline-block; padding: 0 0.4rem; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 0.75rem; color: var(--text-3); vertical-align: 0.1em; }
+.empty-value { color: var(--text-3); }
+.samples .swatch { margin-right: 0.4rem; vertical-align: -0.03em; }
+
+/* ── До 640 px: строки становятся карточками ──────────────────────────── */
+@media (max-width: 40rem) {
+  .filters { grid-template-columns: 1fr 1fr; }
+  .filters__field--search { grid-column: 1 / -1; }
+  .filters__field--sort { display: flex; grid-column: 1 / -1; }
+  .filters__actions { grid-column: 1 / -1; }
+  .filters__actions .button { width: 100%; justify-content: center; }
+
+  .table-wrap { background: none; border: 0; overflow: visible; }
+  .samples, .samples tbody, .samples tr, .samples th, .samples td { display: block; }
+  .samples thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .samples tbody tr {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; margin-bottom: 0.75rem; padding: 0.9rem 1rem;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  }
+  .samples tbody tr:last-child > * { border-bottom: 0; }
+  .samples th, .samples td { padding: 0; border: 0; }
+  .samples tbody td::before, .samples tbody th::before {
+    content: attr(data-label); display: block; font: 400 0.75rem/1.3 var(--font-sans); color: var(--text-3); letter-spacing: 0;
+  }
+  .samples .num { text-align: left; }
+  .samples .col-id, .samples .col-variety { grid-column: 1 / -1; }
+  .samples tbody .col-id::before { content: none; }
+  .samples .row-open::before { content: '№ '; }
+  .samples .row-open { margin: 0; padding: 0.1rem 0; }
+  .samples .col-variety .variety { font-weight: 600; }
+}
+
+/* ── Карточка образца ─────────────────────────────────────────────────── */
+html:has(dialog[open]) { overflow: hidden; }
+.sample-dialog {
+  width: min(52rem, calc(100vw - 2rem)); max-height: min(90vh, 60rem); padding: 0;
+  color: var(--text); background: var(--surface);
+  border: 1px solid var(--line-strong); border-radius: 10px; box-shadow: 0 1.5rem 3rem rgb(29 26 23 / 0.22);
+}
+.sample-dialog::backdrop { background: rgb(29 26 23 / 0.5); }
+.sample-dialog__inner { display: flex; flex-direction: column; max-height: min(90vh, 60rem); }
+.sample-dialog__head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+  padding: 1.25rem 1.5rem 1rem; border-bottom: 1px solid var(--line);
+}
+.sample-dialog__head h2 { margin: 0 0 0.2rem; }
+.sample-dialog__head .overline { margin-bottom: 0.25rem; }
+.sample-dialog__meta { margin: 0; color: var(--text-2); }
+.sample-dialog__body { overflow-y: auto; padding: 0.25rem 1.5rem 1.5rem; overscroll-behavior: contain; }
+.icon-button {
+  display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; flex: none;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text-2); cursor: pointer;
+}
+.icon-button:hover { background: var(--surface-2); color: var(--text); }
+
+.dlg-block h3 {
+  margin: 1.25rem 0 0.25rem; padding-top: 0.25rem;
+  font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
+}
+.dlg-block h4 { margin: 1rem 0 0.15rem; font-size: 0.9375rem; color: var(--accent); }
+.dlg-block h5 { margin: 0.75rem 0 0; font-size: 0.8125rem; font-weight: 600; color: var(--text-2); }
+.kv { margin: 0; }
+.kv__row {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 0.15rem 1rem;
+  padding: 0.45rem 0; border-bottom: 1px solid var(--line);
+}
+.kv dt { color: var(--text-2); }
+.kv dd { margin: 0; }
+.kv .num { font-family: var(--font-mono); letter-spacing: -0.02em; font-size: 0.9375rem; }
+.unit { color: var(--text-3); font-size: 0.8125rem; }
+.note {
+  display: flex; gap: 0.4rem; align-items: flex-start; margin: 0.4rem 0 0; padding: 0.4rem 0.6rem;
+  font-size: 0.8125rem; color: var(--text-2); background: var(--accent-tint); border-radius: var(--radius);
+}
+.note .icon { width: 1rem; height: 1rem; color: var(--accent); margin-top: 0.1rem; }
+.missing { margin: 0.5rem 0 0; font-size: 0.8125rem; color: var(--text-3); }
+
+@media (max-width: 40rem) {
+  .sample-dialog { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; border-radius: 0; }
+  .sample-dialog__inner { max-height: 100dvh; height: 100%; }
+  .sample-dialog__head { padding: 1rem; }
+  .sample-dialog__body { padding: 0.25rem 1rem 1.5rem; }
+  .kv__row { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,36 @@
+/* Главная: о базе и цифры */
+.hero { padding-block: 3rem 2.5rem; }
+.hero h1 { max-width: 40rem; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* Цифры */
+.figures {
+  display: grid; gap: 1px; margin: 0;
+  grid-template-columns: 1fr;
+  background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+}
+@media (min-width: 30rem) { .figures { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 64rem) { .figures { grid-template-columns: repeat(4, 1fr); } }
+.figure { background: var(--surface); padding: 1.1rem 1.25rem 1.25rem; }
+.figure--wide { grid-column: 1 / -1; }
+.figure dt { font-size: 0.8125rem; color: var(--text-3); margin-bottom: 0.25rem; }
+.figure dd { margin: 0; }
+.figure dd.num { font-family: var(--font-mono); letter-spacing: -0.02em; font-size: 2rem; line-height: 1.15; color: var(--text); }
+.figure--wide dd { display: flex; flex-wrap: wrap; gap: 0.35rem 1.75rem; font-size: 1rem; }
+.color-stat { display: inline-flex; align-items: center; gap: 0.4rem; }
+.color-stat .num { font-family: var(--font-mono); font-size: 1.125rem; }
+.figure .figure__note { margin-top: 0.35rem; font-size: 0.8125rem; color: var(--text-2); }
+
+
+/* Блоки данных и карточки лаборатории */
+.blocks, .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.blocks { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); counter-reset: block; }
+.cards { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin-top: 1.25rem; }
+.block, .card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.25rem; color: var(--text-2);
+}
+.block .icon, .card .icon { width: 1.75rem; height: 1.75rem; color: var(--accent); margin-bottom: 0.75rem; }
+.block h3, .card h3 { color: var(--text); margin-bottom: 0.4rem; }
+.block p, .card p { margin: 0; font-size: 0.9375rem; }
+.section__head a { display: inline-flex; align-items: center; }
