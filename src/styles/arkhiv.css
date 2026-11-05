@@ -1,0 +1,24 @@
+/* Общие стили — первыми: так страничные правила гарантированно идут после них */
+@import './main.css';
+
+/* /arkhiv/: карточка на каждый год урожая. Цвет раздела — хаки. */
+.year-cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+@media (min-width: 56rem) { .year-cards { grid-template-columns: repeat(2, 1fr); } }
+.year-card {
+  display: flex; flex-direction: column; gap: 0.9rem;
+  border-top: 3px solid var(--khaki);   /* фон, рамка, скругление и отступы — от .panel */
+}
+.year-card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.year-card__year { margin: 0; font-size: 2rem; letter-spacing: -0.02em; }
+.year-card__count { margin: 0; color: var(--text-2); }
+.year-card__count .num { font-weight: 600; color: var(--text); font-size: 1.125rem; }
+.year-card .segbar { margin: 0; }
+.year-card__colors { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; font-size: 0.9375rem; color: var(--text-2); }
+.year-card__colors li { display: inline-flex; align-items: center; gap: 0.4rem; }
+.year-card__colors .num { font-weight: 600; color: var(--text); }
+.year-card__facts { margin: 0; display: grid; gap: 0.6rem; }
+.year-card__facts div { padding-top: 0.6rem; border-top: 1px solid var(--line); }
+.year-card__facts dt { font-size: 0.8125rem; color: var(--text-3); margin-bottom: 0.15rem; }
+.year-card__facts dd { margin: 0; font-size: 0.9375rem; color: var(--text-2); }
+.year-card__facts .num { color: var(--text-3); }
+.year-card .more-link { margin-top: auto; }

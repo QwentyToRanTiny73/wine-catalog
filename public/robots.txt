@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qwentytorantiny73.github.io/wine-catalog/sitemap.xml

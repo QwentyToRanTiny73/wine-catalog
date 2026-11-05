@@ -6,8 +6,7 @@
 Команды:
   python3 -I scripts/build_data.py
       Полная сборка. Проверяет Excel по утверждённым таблицам и пишет:
-        src/data/samples.json — данные для сайта (фаза 3);
-        js/data.js            — те же данные в формате текущего сайта (до фазы 3);
+        src/data/samples.json — данные для сайта (подключается при сборке Vite);
         data/report.md        — сводка и что стоит проверить в Excel.
       Любая ошибка (неизвестный сорт, пустой или повторный номер, неизвестный код…)
       останавливает сборку, и ни один файл не перезаписывается.
@@ -45,7 +44,6 @@ VARIETY_MAP = ROOT / "data" / "variety-map.csv"
 FIELDS_CSV = ROOT / "data" / "fields.csv"
 NOTES_CSV = ROOT / "data" / "sample-notes.csv"
 OUT_JSON = Path("src/data/samples.json")
-OUT_LEGACY_JS = Path("js/data.js")
 OUT_REPORT = Path("data/report.md")
 
 SHEET = "БД"
@@ -71,7 +69,7 @@ MAX_TYPED_DECIMALS = 4
 # Название колонки в Excel (после normalize_header) → ключ поля и тип.
 # Колонки ищутся по названию, а не по позиции: вставка колонки ничего не сдвинет.
 COLUMNS: dict[str, tuple[str, str]] = {
-    "номер": ("labNumber", "int"),
+    "номер": ("labNumber", "id"),            # лабораторный номер — ключ образца, отдельным полем не показывается
     "виноградо-винодельческий район по аввр (2024 г.)": ("wineDistrict", "text"),
     "природно-климатическая зона выращивания винограда": ("climateZone", "text"),
     "природно-климатический район выращивания винограда": ("climateRegion", "text"),
@@ -81,7 +79,7 @@ COLUMNS: dict[str, tuple[str, str]] = {
     "производитель вина (винодельня)": ("winery", "text"),
     "тип винодельческой продукции": ("productType", "code"),
     "наименование образца": ("name", "text"),
-    "сортовой состав": ("varietyRaw", "text"),
+    "сортовой состав": ("varietyRaw", "varieties"),  # на сайте — канонические сорта по variety-map.csv
     "год урожая": ("harvestYear", "int"),
     "цвет": ("color", "code"),
     "объемная доля этилового спирта": ("alcohol", "number"),
@@ -423,12 +421,12 @@ def build(columns: list[Column], rows, source: Path):
         s: dict = {}
         for col in columns:
             v = raw[col.key]
-            if col.kind == "text":
+            if col.kind in ("text", "varieties"):
                 s[col.key] = clean_text(v)
                 for needle, hint in SUSPICIOUS_TEXT:
                     if s[col.key] and needle in s[col.key]:
                         issues[f"текст «{needle}» в поле «{col.title}» ({hint})"].append(excel_row)
-            elif col.kind == "int":
+            elif col.kind in ("int", "id"):
                 n, as_text, bad = to_number(v)
                 if bad or (n is not None and not float(n).is_integer()):
                     errors.append(f"Строка {excel_row}, «{col.title}»: «{v}» — не целое число")
@@ -499,6 +497,11 @@ def build(columns: list[Column], rows, source: Path):
     for raw_variety, where in unknown_varieties.items():
         errors.append(f"Неизвестный сорт «{raw_variety}» (строки Excel {spans(where)}): добавьте строку в "
                       f"{rel(VARIETY_MAP)} командой draft и утвердите её")
+    # Поля, которые попадут на сайт: показаны в fields.csv и заполнены хотя бы у одного образца
+    filled = {c.key: sum(1 for _, s in samples if s.get(c.key) is not None) for c in columns}
+    shown = {c.key for c in columns
+             if c.kind != "id" and fields.get(c.key, {}).get("show") and filled[c.key]}
+
     known_numbers = {s["labNumber"] for _, s in samples if s["labNumber"] is not None}
     for number, items in notes.items():
         if number not in known_numbers:
@@ -506,58 +509,36 @@ def build(columns: list[Column], rows, source: Path):
         for item in items:
             if item["field"] not in by_key:
                 errors.append(f"{rel(NOTES_CSV)}: у образца {number} неизвестное поле «{item['field']}»")
+            elif item["field"] not in shown:
+                # пометка к скрытому или служебному полю на сайте не видна — лучше сказать сразу
+                errors.append(f"{rel(NOTES_CSV)}: у образца {number} пометка к полю «{item['field']}», "
+                              "которое не показывается на сайте")
 
     if errors:
         raise DataError("Сборка остановлена:\n" + "\n".join(f"  - {e}" for e in errors))
 
-    filled = {c.key: sum(1 for _, s in samples if s.get(c.key) is not None) for c in columns}
     field_list = []
     for c in columns:
-        if c.key in ("labNumber", "varietyRaw"):
+        if c.key not in shown:
             continue
         cfg = fields[c.key]
-        if not cfg["show"] or filled[c.key] == 0:
-            continue
         field_list.append({
             "key": c.key, "label": cfg["label"], "unit": cfg["unit"], "type": c.kind,
             "precision": cfg["precision"], "block": c.block, "section": c.section,
             "subsection": c.subsection, "filled": filled[c.key],
         })
+    # Скрытые поля (show = «нет») не публикуются вовсе — их значений нет и в samples.json
+    keep = shown | {"id", "labNumber", "varieties", "blend", "notes"}
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     data = {
         "source": {"file": source.name, "sha256": digest, "sheet": SHEET, "rows": len(samples)},
         "fields": field_list,
-        "samples": [{k: v for k, v in s.items() if v is not None} for _, s in samples],
+        "samples": [{k: v for k, v in s.items() if v is not None and k in keep} for _, s in samples],
     }
     return data, issues, filled
 
 
 # ── Вывод ────────────────────────────────────────────────────────────────────
-
-LEGACY_KEYS = ["id", "wineDistrict", "climateZone", "climateRegion", "adminRegion", "location",
-               "grapeProducer", "winery", "productType", "name", "sort", "harvestYear", "color",
-               "alcohol", "reducedExtract", "titratedAcidity", "sugar", "citricAcid", "tartaricAcid",
-               "malicAcid", "succinicAcid", "lacticAcid", "aceticAcid", "bioses", "glucose", "fructose",
-               "glycerin", "chlorides", "sodium", "potassium", "magnesium", "calcium",
-               "phenolicSubstances", "ph", "bufferCapacity", "electricConductivity"]
-
-
-def legacy_js(data: dict) -> str:
-    """Формат текущего сайта (window.wineSamples). Нужен до фазы 3."""
-    lines = [
-        f"// СГЕНЕРИРОВАНО scripts/build_data.py из {data['source']['file']} — руками не править.",
-        f"// Образцов: {len(data['samples'])}. Для сайта фазы 3 — src/data/samples.json.",
-        "window.wineSamples = [",
-    ]
-    for i, s in enumerate(data["samples"]):
-        sort = ", ".join(s["varieties"]) if s["varieties"] else (UNKNOWN_BLEND if s["blend"] else None)
-        obj = {k: (sort if k == "sort" else s.get(k)) for k in LEGACY_KEYS}
-        obj["id"] = i + 1  # порядковый номер, как на текущем сайте (до фазы 3 ничего не меняется)
-        comma = "," if i < len(data["samples"]) - 1 else ""
-        lines.append("  " + json.dumps(obj, ensure_ascii=False) + comma)
-    lines.append("];")
-    return "\n".join(lines) + "\n"
-
 
 def report_md(data: dict, issues: dict, filled: dict, columns: list[Column], fields: list[dict]) -> str:
     samples = data["samples"]
@@ -587,12 +568,12 @@ def report_md(data: dict, issues: dict, filled: dict, columns: list[Column], fie
     shown = {f["key"] for f in fields}
     out += ["", "## Поля", "", "| Поле | Подпись на сайте | Единица | Заполнено | На сайте |", "|---|---|---|---:|---|"]
     for c in columns:
-        if c.key == "labNumber":
+        if c.kind == "id":
             continue
         cfg = next((f for f in fields if f["key"] == c.key), None)
         label = cfg["label"] if cfg else ""
         unit = cfg["unit"] if cfg else ""
-        on_site = "да" if c.key in shown else ("в составе «Сорта»" if c.key == "varietyRaw" else "нет")
+        on_site = "да" if c.key in shown else "нет"
         out.append(f"| `{c.key}` | {label} | {unit} | {filled[c.key]}/{total} | {on_site} |")
 
     out += ["", "## Проверьте в Excel", "",
@@ -613,7 +594,6 @@ def write_outputs(out_dir: Path, data: dict, issues, filled, columns) -> list[Pa
     paths = []
     for rel_path, text in (
         (OUT_JSON, json.dumps(data, ensure_ascii=False, indent=1) + "\n"),
-        (OUT_LEGACY_JS, legacy_js(data)),
         (OUT_REPORT, report_md(data, issues, filled, columns, data["fields"])),
     ):
         p = out_dir / rel_path
