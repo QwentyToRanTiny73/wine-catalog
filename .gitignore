@@ -1,1 +1,21 @@
-Nothing should be ignored based on the provided file changes, as they consist only of source files (markdown and HTML files) and modified source files without any build artifacts, dependencies, or temporary files.
+# Зависимости и результат сборки
+node_modules/
+dist/
+
+# Исходные данные (решение Р3): Excel хранится только локально
+data/source/
+~$*.xlsx
+
+# Секреты
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Системный мусор и логи
+.DS_Store
+Thumbs.db
+*.log
