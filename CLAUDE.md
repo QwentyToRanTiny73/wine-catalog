@@ -8,7 +8,7 @@ https://qwentytorantiny73.github.io/wine-catalog/
 ## Главные правила
 
 1. **Деплой только из `main`.** Сайт собирается и выкладывается только при пуше в `main`. Не пушить в `main` напрямую — только через pull request.
-2. **Данные меняются только через `scripts/build_data.py`.** Генерируемые файлы с образцами (`js/data.js`, после фазы 2 — `src/data/samples.json`) руками не править. Пока скрипта нет (до фазы 2), данные не трогать вовсе.
+2. **Данные меняются только через `scripts/build_data.py`.** Генерируемые файлы (`src/data/samples.json`, `js/data.js`, `data/report.md`) руками не править. Источник правды — Excel в `data/source/` и утверждённые таблицы в `data/` (`variety-map.csv`, `fields.csv`, `sample-notes.csv`).
 3. **Ничего не придумывать о винах, сортах, показателях и источниках.** Не уверен — пометить «не подтверждено» и спросить владельца. Канонические названия сортов утверждает владелец (`data/variety-map.csv`). Дескриптор аромата без источника (URL, дата обращения) не записывается.
 4. **Каждое утверждение в отчёте — с доказательством:** файл:строка или вывод команды.
 5. **Не коммитить** токены, пароли, `.env`, исходный Excel (`data/source/`).
@@ -33,12 +33,17 @@ python3 -m http.server 8000 -d dist   # посмотреть именно то, 
 
 Новый файл сайта (страница, скрипт, стиль, картинка) нужно добавить в список `FILES` в `scripts/assemble_site.sh`, иначе его не будет на проде.
 
-После фазы 2 (данные):
+Данные (фаза 2). Исходный Excel кладётся в `data/source/` (ровно один `.xlsx`, в git не попадает):
 
 ```bash
-python3 -m pip install openpyxl  # именно через python3 -m pip: в контейнере несколько версий Python
-python3 scripts/build_data.py    # Excel из data/source/ → src/data/samples.json и data/report.md
+python3 -m pip install openpyxl           # именно через python3 -m pip: в контейнере несколько версий Python
+python3 -I scripts/build_data.py          # сборка → src/data/samples.json, js/data.js, data/report.md
+python3 -I scripts/build_data.py draft    # новые сорта/колонки → строки на утверждение (утверждённое не трогает)
+python3 -I scripts/build_data.py --source X.xlsx --out /tmp/dir   # проверка на другом файле, без записи в проект
 ```
+
+`-I` — изолированный режим Python: Excel приходит извне, поэтому посторонние модули из текущей папки не подгружаются.
+CSV для владельца пишутся с разделителем `;` и BOM, чтобы русский Excel открывал их сразу по колонкам.
 
 После фазы 3 (Vite):
 
@@ -54,9 +59,14 @@ npm run audit     # scripts/audit.mjs: Playwright + axe-core по всем ст�
 ## Документы
 
 - `docs/spec.md` — исходное ТЗ дословно.
-- `docs/decisions.md` — решения Р1–Р10 и открытые вопросы.
+- `docs/decisions.md` — решения (Р…) и открытые вопросы (В…).
 - `docs/audit.md` — проверка аудита с доказательствами.
 - `docs/STATUS.md` — где мы сейчас и что нужно от владельца.
+- `data/variety-map.csv` — написание сорта в Excel → канонические сорта (утверждает владелец).
+- `data/fields.csv` — подпись, единица и точность каждого показателя (утверждает владелец).
+- `data/aroma-taxonomy.csv` — утверждённая таксономия ароматов (Р21).
+- `data/sample-notes.csv` — пометки к отдельным образцам (номер; поле; текст).
+- `data/report.md` — отчёт сборки данных: сводка и что проверить в Excel (генерируется).
 
 ## Проверки
 
