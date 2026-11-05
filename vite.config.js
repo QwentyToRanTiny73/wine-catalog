@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import { renderHead, renderHeader, renderFooter } from './src/site/partials.js';
 import { computeStats } from './src/site/stats.js';
 import { icon } from './src/site/icons.js';
+import { renderYearColumns, renderColorSplit, renderChromatogram } from './src/site/charts.js';
 import { escapeHtml } from './src/lib/format.js';
 
 const BASE = '/wine-catalog/';
@@ -22,6 +23,7 @@ const PAGES = {
  * Метки в HTML:
  *   <!--@head page="baza" title="…" description="…"-->
  *   <!--@header page="baza"-->   <!--@footer-->   <!--@icon flask-->
+ *   <!--@chart years|colors-->   <!--@art chromatogram-->   — графики (src/site/charts.js)
  *   {{stats.samples}} и т. п. — цифры из src/data/samples.json
  */
 function sitePartials() {
@@ -39,6 +41,9 @@ function sitePartials() {
           .replace(/<!--@header\s+page="([^"]+)"\s*-->/g, (_, page) => renderHeader({ ...ctx, page }))
           .replace(/<!--@footer\s*-->/g, () => renderFooter(ctx))
           .replace(/<!--@icon\s+([a-zA-Z]+)\s*-->/g, (_, name) => icon(name))
+          .replace(/<!--@chart\s+years\s*-->/g, () => renderYearColumns(ctx))
+          .replace(/<!--@chart\s+colors\s*-->/g, () => renderColorSplit(ctx))
+          .replace(/<!--@art\s+chromatogram\s*-->/g, () => renderChromatogram())
           .replace(/\{\{\s*stats\.([a-zA-Z0-9_]+)\s*\}\}/g, (m, key) => {
             if (!(key in stats)) throw new Error(`Нет показателя stats.${key} (src/site/stats.js)`);
             return escapeHtml(String(stats[key]));

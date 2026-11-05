@@ -13,7 +13,7 @@ export const SELECT_FILTERS = {
 
 /** Колонки, по которым можно сортировать: ключ → значение для сравнения. */
 export const SORT_KEYS = {
-  id: (s) => s.id,
+  id: (s) => s.labNumber,   // колонка «№» — лабораторный номер; «б/н» в конце
   variety: (s) => (s.varieties.length ? varietyLabel(s) : null),
   harvestYear: (s) => s.harvestYear,
   color: (s) => s.color,
@@ -37,7 +37,7 @@ export function normalizeText(text) {
 }
 
 function searchText(s) {
-  const parts = [s.id, s.harvestYear, ...s.varieties, ...SEARCH_FIELDS.map((k) => s[k])];
+  const parts = [s.labNumber ?? 'б/н', s.harvestYear, ...s.varieties, ...SEARCH_FIELDS.map((k) => s[k])];
   return normalizeText(parts.filter((p) => p != null).join(' '));
 }
 

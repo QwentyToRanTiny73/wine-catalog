@@ -2,7 +2,7 @@
 // Данные выводятся только через textContent; innerHTML — лишь для постоянных SVG-иконок.
 import data from '../data/samples.json';
 import { filterSamples, sortSamples, filterOptions, readState, writeState, SELECT_FILTERS, DEFAULT_STATE } from '../lib/query.js';
-import { formatNumber, varietyLabel, plural } from '../lib/format.js';
+import { formatNumber, varietyLabel, plural, sampleTitle } from '../lib/format.js';
 import { icon } from '../site/icons.js';
 
 const SAMPLES = data.samples;
@@ -73,7 +73,10 @@ const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 function idCell(cell, s) {
   const what = [varietyLabel(s), s.harvestYear].filter(Boolean).join(', ');
-  cell.append(el('button', { type: 'button', class: 'row-open', 'data-open': s.id, 'aria-label': `Образец № ${s.id}: ${what}` }, String(s.id)));
+  const text = s.labNumber == null ? 'б/н' : String(s.labNumber);
+  // имя кнопки начинается с видимого текста («113» / «б/н») — WCAG 2.5.3
+  const name = s.labNumber == null ? `Образец б/н (без номера): ${what}` : `Образец № ${s.labNumber}: ${what}`;
+  cell.append(el('button', { type: 'button', class: 'row-open', 'data-open': s.id, 'aria-label': name }, text));
 }
 
 function varietyCell(cell, s) {
@@ -253,7 +256,7 @@ function openSample(id, trigger) {
     syncUrl();
     return;
   }
-  $('#dlg-number').textContent = `Образец № ${s.id}`;
+  $('#dlg-number').textContent = sampleTitle(s);
   $('#dlg-title').textContent = varietyLabel(s);
   $('#dlg-meta').textContent = [s.harvestYear && `урожай ${s.harvestYear}`, s.color, s.productType].filter(Boolean).join(' · ');
   $('#dlg-body').replaceChildren(...dialogBody(s));

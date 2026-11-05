@@ -22,10 +22,18 @@
   --accent-tint: #f6ecee;
   --focus: #7a2236;
 
-  /* метки цвета вина: только как дополнение к подписи */
-  --wine-white: #e4cf8f;
-  --wine-red: #7a2236;
-  --wine-rose: #d79aa5;
+  /* второй акцент — хаки (правка владельца к превью) и пастельные подложки разделов */
+  --khaki: #6f8128;        /* метки графиков; проверено validate_palette.js */
+  --khaki-text: #4f5b24;   /* текст и иконки: 7.4:1 на белом */
+  --khaki-tint: #eef0e2;   /* пастель-шалфей: раздел «Архив» */
+  --sand-tint: #f6efe3;    /* пастель-песок: первый экран, институт */
+  --wine-tint: #f6ecee;    /* пастель-роза: раздел «База» */
+
+  /* метки цвета вина: только рядом с подписью; проверены validate_palette.js
+     (светлота, насыщенность, различимость при дальтонизме, контраст ≥ 3:1) */
+  --wine-white: #b08a25;
+  --wine-red: #9b2c44;
+  --wine-rose: #d0607a;
 
   --font-sans: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;

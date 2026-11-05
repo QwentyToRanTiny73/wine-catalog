@@ -2,14 +2,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { filterSamples, sortSamples, filterOptions, readState, writeState, DEFAULT_STATE } from '../src/lib/query.js';
-import { formatNumber, plural, varietyLabel } from '../src/lib/format.js';
+import { formatNumber, plural, varietyLabel, sampleTitle } from '../src/lib/format.js';
 
 const S = [
-  { id: 1, varieties: ['Мерло'], blend: false, harvestYear: 2019, color: 'красное', ph: 3.5, alcohol: 13 },
-  { id: 2, varieties: ['Каберне-Совиньон', 'Мерло'], blend: true, harvestYear: 2020, color: 'красное', ph: null, alcohol: 12.5 },
-  { id: 3, varieties: ['Шардоне'], blend: false, harvestYear: 2019, color: 'белое', ph: 3.2, name: 'Ёлочка' },
-  { id: 4, varieties: [], blend: true, harvestYear: 2021, color: 'красное', ph: 3.9 },   // купаж, состав неизвестен
-  { id: 5, varieties: [], blend: false, harvestYear: 2022, color: 'белое', ph: 3.2 },   // сорт не указан
+  { id: 1, labNumber: 1, varieties: ['Мерло'], blend: false, harvestYear: 2019, color: 'красное', ph: 3.5, alcohol: 13 },
+  { id: 2, labNumber: 2, varieties: ['Каберне-Совиньон', 'Мерло'], blend: true, harvestYear: 2020, color: 'красное', ph: null, alcohol: 12.5 },
+  { id: 3, labNumber: 3, varieties: ['Шардоне'], blend: false, harvestYear: 2019, color: 'белое', ph: 3.2, name: 'Ёлочка' },
+  { id: 4, labNumber: 4, varieties: [], blend: true, harvestYear: 2021, color: 'красное', ph: 3.9 },   // купаж, состав неизвестен
+  { id: 5, labNumber: 5, varieties: [], blend: false, harvestYear: 2022, color: 'белое', ph: 3.2 },   // сорт не указан
 ];
 const ids = (list) => list.map((s) => s.id);
 const st = (over) => ({ ...DEFAULT_STATE, ...over });
@@ -82,4 +82,22 @@ test('подпись состава', () => {
   assert.equal(varietyLabel(S[1]), 'Каберне-Совиньон + Мерло');
   assert.equal(varietyLabel(S[3]), 'Купаж, состав неизвестен');
   assert.equal(varietyLabel(S[4]), 'Сорт не указан');
+});
+
+// Р22: образец без лабораторного номера — «б/н», внутренний ключ не показывается
+const NONUM = { id: 100030, labNumber: null, varieties: ['Алиготе'], blend: false, harvestYear: 2018, color: 'белое' };
+
+test('сортировка по номеру: образцы «б/н» в конце в обе стороны', () => {
+  assert.deepEqual(ids(sortSamples([NONUM, S[1], S[0]], 'id', 'asc')), [1, 2, 100030]);
+  assert.deepEqual(ids(sortSamples([NONUM, S[1], S[0]], 'id', 'desc')), [2, 1, 100030]);
+});
+
+test('поиск «б/н» находит образцы без номера; поиск по номеру — по лабораторному', () => {
+  assert.deepEqual(ids(filterSamples([NONUM, ...S], st({ q: 'б/н' }))), [100030]);
+  assert.deepEqual(ids(filterSamples([NONUM, ...S], st({ q: '100030' }))), []);
+});
+
+test('заголовок карточки', () => {
+  assert.equal(sampleTitle(S[0]), 'Образец № 1');
+  assert.equal(sampleTitle(NONUM), 'Образец без номера');
 });

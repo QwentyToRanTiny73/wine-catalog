@@ -39,6 +39,7 @@ export function computeStats(data) {
     yearFrom: Math.min(...years),
     yearTo: Math.max(...years),
     years: new Set(years).size,
+    byYear: [...new Set(years)].sort((a, b) => a - b).map((year) => ({ year, count: years.filter((y) => y === year).length })),
     white: count('color', 'белое'),
     red: count('color', 'красное'),
     rose: count('color', 'розовое'),

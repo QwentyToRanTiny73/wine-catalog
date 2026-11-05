@@ -22,6 +22,11 @@ export function varietyLabel(sample) {
   return sample.blend ? 'Купаж, состав неизвестен' : 'Сорт не указан';
 }
 
+/** «Образец № 113» или «Образец без номера» (решение Р22: номер не выдумывается). */
+export function sampleTitle(sample) {
+  return sample.labNumber == null ? 'Образец без номера' : `Образец № ${sample.labNumber}`;
+}
+
 /** Склонение: plural(5, ['образец', 'образца', 'образцов']) → «образцов». */
 export function plural(n, [one, few, many]) {
   const n10 = n % 10;
