@@ -36,9 +36,16 @@ export function normalizeText(text) {
   return String(text ?? '').toLowerCase().replace(/ё/g, 'е').replace(/\s+/g, ' ').trim();
 }
 
+// данные не меняются — нормализованная строка поиска считается один раз на образец
+const searchCache = new WeakMap();
 function searchText(s) {
-  const parts = [s.labNumber ?? 'б/н', s.harvestYear, ...s.varieties, ...SEARCH_FIELDS.map((k) => s[k])];
-  return normalizeText(parts.filter((p) => p != null).join(' '));
+  let text = searchCache.get(s);
+  if (text === undefined) {
+    const parts = [s.labNumber ?? 'б/н', s.harvestYear, ...s.varieties, ...SEARCH_FIELDS.map((k) => s[k])];
+    text = normalizeText(parts.filter((p) => p != null).join(' '));
+    searchCache.set(s, text);
+  }
+  return text;
 }
 
 /** Образцы, подходящие под все фильтры. Поиск: все слова запроса должны встретиться. */

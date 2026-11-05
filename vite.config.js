@@ -39,7 +39,12 @@ function sitePartials() {
         const data = readData();
         const stats = computeStats(data);
         const ctx = { base: BASE, siteUrl: SITE_URL, stats, data };
+        // сначала метки шаблона {{stats.*}}, потом вставки из данных: текст из Excel не разбирается как шаблон
         return html
+          .replace(/\{\{\s*stats\.([a-zA-Z0-9_]+)\s*\}\}/g, (m, key) => {
+            if (!(key in stats)) throw new Error(`Нет показателя stats.${key} (src/site/stats.js)`);
+            return escapeHtml(String(stats[key]));
+          })
           .replace(/<!--@head\s+([^>]*?)-->/g, (_, attrs) => renderHead({ ...ctx, ...parseAttrs(attrs) }))
           .replace(/<!--@header\s+page="([^"]+)"\s*-->/g, (_, page) => renderHeader({ ...ctx, page }))
           .replace(/<!--@footer\s*-->/g, () => renderFooter(ctx))
@@ -47,11 +52,7 @@ function sitePartials() {
           .replace(/<!--@chart\s+years\s*-->/g, () => renderYearColumns(ctx))
           .replace(/<!--@chart\s+colors\s*-->/g, () => renderColorSplit(ctx))
           .replace(/<!--@art\s+chromatogram\s*-->/g, () => renderChromatogram())
-          .replace(/<!--@archive\s*-->/g, () => renderArchive(ctx))
-          .replace(/\{\{\s*stats\.([a-zA-Z0-9_]+)\s*\}\}/g, (m, key) => {
-            if (!(key in stats)) throw new Error(`Нет показателя stats.${key} (src/site/stats.js)`);
-            return escapeHtml(String(stats[key]));
-          });
+          .replace(/<!--@archive\s*-->/g, () => renderArchive(ctx));
       },
     },
     handleHotUpdate({ file, server }) {

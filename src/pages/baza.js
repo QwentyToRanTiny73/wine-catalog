@@ -4,15 +4,13 @@ import data from '../data/samples.json';
 import { filterSamples, sortSamples, filterOptions, readState, writeState, SELECT_FILTERS, DEFAULT_STATE } from '../lib/query.js';
 import { formatNumber, varietyLabel, plural, sampleTitle } from '../lib/format.js';
 import { icon } from '../site/icons.js';
+import { BLOCKS, colorKey, SAMPLE_WORDS } from '../lib/domain.js';
 
 const SAMPLES = data.samples;
 const BY_ID = new Map(SAMPLES.map((s) => [s.id, s]));
 const FIELDS = new Map(data.fields.map((f) => [f.key, f]));
 const unitOf = (key) => FIELDS.get(key)?.unit ?? '';
 
-const ORG_BLOCK = 'Организационный блок';
-const TECH_BLOCK = 'Технический блок';
-const ANALYTIC_BLOCK = 'Аналитический блок';
 
 // Колонки таблицы. В карточке образца — все поля из данных.
 const COLUMNS = [
@@ -87,8 +85,7 @@ function varietyCell(cell, s) {
 
 function colorCell(cell, s) {
   if (!s.color) return cell.append(emptyMark());
-  const mod = { белое: 'white', красное: 'red', розовое: 'rose' }[s.color] ?? 'none';
-  cell.append(el('span', { class: `swatch swatch--${mod}`, 'aria-hidden': 'true' }), s.color);
+  cell.append(el('span', { class: `swatch swatch--${colorKey(s.color)}`, 'aria-hidden': 'true' }), s.color);
 }
 
 function renderRow(s) {
@@ -169,7 +166,7 @@ function render() {
   emptyNote.hidden = rows.length > 0;
   const total = SAMPLES.length;
   const found = rows.length === total
-    ? `Показаны все ${total} ${plural(total, ['образец', 'образца', 'образцов'])}`
+    ? `Показаны все ${total} ${plural(total, SAMPLE_WORDS)}`
     : `Найдено: ${rows.length} из ${total}`;
   countNote.textContent = `${found} · сортировка: ${sortDescription()}`;
 
@@ -226,17 +223,17 @@ function dialogBody(s) {
   const keysOf = (pred) => data.fields.filter(pred).map((f) => f.key);
   const blocks = [];
 
-  blocks.push(el('section', { class: 'dlg-block' }, el('h3', {}, ORG_BLOCK), ...fieldList(s, keysOf((f) => f.block === ORG_BLOCK))));
+  blocks.push(el('section', { class: 'dlg-block' }, el('h3', {}, BLOCKS.org), ...fieldList(s, keysOf((f) => f.block === BLOCKS.org))));
 
   // Сортовой состав: канонические сорта; если в журнале записано иначе — показываем и запись.
   const composition = el('dd', {}, varietyLabel(s));
   const raw = (s.varietyRaw ?? '').replace(/\s+/g, ' ').trim();
   if (raw && raw !== s.varieties.join(', ')) composition.append(el('span', { class: 'cell-sub' }, `в исходных данных: «${raw}»`));
-  blocks.push(el('section', { class: 'dlg-block' }, el('h3', {}, TECH_BLOCK),
-    ...fieldList(s, keysOf((f) => f.block === TECH_BLOCK), [['Сортовой состав', composition]])));
+  blocks.push(el('section', { class: 'dlg-block' }, el('h3', {}, BLOCKS.tech),
+    ...fieldList(s, keysOf((f) => f.block === BLOCKS.tech), [['Сортовой состав', composition]])));
 
-  const analytic = el('section', { class: 'dlg-block' }, el('h3', {}, ANALYTIC_BLOCK));
-  const sections = [...new Set(data.fields.filter((f) => f.block === ANALYTIC_BLOCK).map((f) => f.section))];
+  const analytic = el('section', { class: 'dlg-block' }, el('h3', {}, BLOCKS.analytic));
+  const sections = [...new Set(data.fields.filter((f) => f.block === BLOCKS.analytic).map((f) => f.section))];
   for (const section of sections) {
     analytic.append(el('h4', {}, section));
     const subs = [...new Set(data.fields.filter((f) => f.section === section).map((f) => f.subsection))];
@@ -317,7 +314,10 @@ function bindEvents() {
   $('#dlg-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', onDialogClose);
   // щелчок по затемнённому фону вокруг карточки закрывает её
-  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+  // если выделяли текст в карточке и отпустили мышь на фоне — не закрываем
+  let pressedOnBackdrop = false;
+  dialog.addEventListener('mousedown', (e) => { pressedOnBackdrop = e.target === dialog; });
+  dialog.addEventListener('click', (e) => { if (e.target === dialog && pressedOnBackdrop) dialog.close(); });
 }
 
 // ── Запуск ───────────────────────────────────────────────────────────────

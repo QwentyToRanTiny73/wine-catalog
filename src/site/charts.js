@@ -3,8 +3,7 @@
 // подписи значений вместо оси, текст — цветом текста (не цветом данных),
 // у каждой метки рядом подпись, цвета проверены validate_palette.js (см. docs/decisions.md).
 import { escapeHtml as esc, plural } from '../lib/format.js';
-
-const SAMPLE_WORDS = ['образец', 'образца', 'образцов'];
+import { WINE_COLORS, SAMPLE_WORDS } from '../lib/domain.js';
 
 /** Образцы по годам урожая: столбик — ссылка на базу с фильтром по году. */
 export function renderYearColumns({ stats, base }) {
@@ -30,11 +29,7 @@ export function renderYearColumns({ stats, base }) {
 
 /** Доли по цвету: тонкая полоса без текста + список с цифрами (подписи — в списке). */
 export function renderColorSplit({ stats }) {
-  const parts = [
-    { key: 'white', label: 'белые', count: stats.white },
-    { key: 'red', label: 'красные', count: stats.red },
-    { key: 'rose', label: 'розовые', count: stats.rose },
-  ].filter((p) => p.count > 0);
+  const parts = WINE_COLORS.map((c) => ({ key: c.key, label: c.plural, count: stats[c.key] })).filter((p) => p.count > 0);
   const total = parts.reduce((a, p) => a + p.count, 0);
   const pct = (n) => `${Math.round((n / total) * 100) || '<1'}%`;
   const bar = parts.map((p) => `<span class="segbar__part segbar__part--${p.key}" style="flex-grow:${p.count}"></span>`).join('');

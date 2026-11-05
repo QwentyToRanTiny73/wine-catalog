@@ -81,7 +81,7 @@ export function renderFooter({ base, stats }) {
     </div>
     <div class="site-footer__col">
       <p class="site-footer__title">Данные</p>
-      <p><span class="num">${stats.samples}</span> образцов, урожаи <span class="num">${stats.yearFrom}–${stats.yearTo}</span>.</p>
+      <p><span class="num">${stats.samples}</span> ${stats.samplesWord}, урожаи <span class="num">${stats.yearFrom}–${stats.yearTo}</span>.</p>
       <p>© ${year} ${esc(INSTITUTE_SHORT)}</p>
     </div>
   </div>

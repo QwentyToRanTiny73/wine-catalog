@@ -1,13 +1,8 @@
 // /arkhiv/ — сводка по годам урожая. Собирается из данных при сборке (страница без JavaScript).
 import { escapeHtml as esc, plural } from '../lib/format.js';
 import { icon } from './icons.js';
+import { WINE_COLORS, SAMPLE_WORDS } from '../lib/domain.js';
 
-const SAMPLE_WORDS = ['образец', 'образца', 'образцов'];
-const COLORS = [
-  { key: 'white', value: 'белое', label: 'белые' },
-  { key: 'red', value: 'красное', label: 'красные' },
-  { key: 'rose', value: 'розовое', label: 'розовые' },
-];
 const TOP_VARIETIES = 6;
 const collator = new Intl.Collator('ru');
 
@@ -20,7 +15,7 @@ function ranked(values) {
 
 function yearCard(year, samples, base) {
   const n = samples.length;
-  const colors = COLORS.map((c) => ({ ...c, count: samples.filter((s) => s.color === c.value).length })).filter((c) => c.count);
+  const colors = WINE_COLORS.map((c) => ({ ...c, count: samples.filter((s) => s.color === c.value).length })).filter((c) => c.count);
   const varieties = ranked(samples.flatMap((s) => s.varieties));
   const unknown = samples.filter((s) => !s.varieties.length).length;
   const districts = ranked(samples.map((s) => s.wineDistrict).filter(Boolean));
@@ -38,7 +33,7 @@ function yearCard(year, samples, base) {
         <p class="year-card__count"><span class="num">${n}</span> ${plural(n, SAMPLE_WORDS)}</p>
       </div>
       <div class="segbar" aria-hidden="true">${colors.map((c) => `<span class="segbar__part segbar__part--${c.key}" style="flex-grow:${c.count}"></span>`).join('')}</div>
-      <ul class="year-card__colors">${colors.map((c) => `<li><span class="swatch swatch--${c.key}" aria-hidden="true"></span>${c.label} <span class="num">${c.count}</span></li>`).join('')}</ul>
+      <ul class="year-card__colors">${colors.map((c) => `<li><span class="swatch swatch--${c.key}" aria-hidden="true"></span>${c.plural} <span class="num">${c.count}</span></li>`).join('')}</ul>
       <dl class="year-card__facts">
         <div><dt>Сорта (${varieties.length})</dt><dd>${varietyText || '—'}</dd></div>
         <div><dt>Районы АВВР (${districts.length})</dt><dd>${districts.map(([d, c]) => `${esc(d)}&nbsp;<span class="num">(${c})</span>`).join(', ') || '—'}</dd></div>

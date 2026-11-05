@@ -497,6 +497,11 @@ def build(columns: list[Column], rows, source: Path):
     for raw_variety, where in unknown_varieties.items():
         errors.append(f"Неизвестный сорт «{raw_variety}» (строки Excel {spans(where)}): добавьте строку в "
                       f"{rel(VARIETY_MAP)} командой draft и утвердите её")
+    # Поля, которые попадут на сайт: показаны в fields.csv и заполнены хотя бы у одного образца
+    filled = {c.key: sum(1 for _, s in samples if s.get(c.key) is not None) for c in columns}
+    shown = {c.key for c in columns
+             if c.key not in ("labNumber", "varietyRaw") and fields.get(c.key, {}).get("show") and filled[c.key]}
+
     known_numbers = {s["labNumber"] for _, s in samples if s["labNumber"] is not None}
     for number, items in notes.items():
         if number not in known_numbers:
@@ -504,28 +509,31 @@ def build(columns: list[Column], rows, source: Path):
         for item in items:
             if item["field"] not in by_key:
                 errors.append(f"{rel(NOTES_CSV)}: у образца {number} неизвестное поле «{item['field']}»")
+            elif item["field"] not in shown:
+                # пометка к скрытому или служебному полю на сайте не видна — лучше сказать сразу
+                errors.append(f"{rel(NOTES_CSV)}: у образца {number} пометка к полю «{item['field']}», "
+                              "которое не показывается на сайте")
 
     if errors:
         raise DataError("Сборка остановлена:\n" + "\n".join(f"  - {e}" for e in errors))
 
-    filled = {c.key: sum(1 for _, s in samples if s.get(c.key) is not None) for c in columns}
     field_list = []
     for c in columns:
-        if c.key in ("labNumber", "varietyRaw"):
+        if c.key not in shown:
             continue
         cfg = fields[c.key]
-        if not cfg["show"] or filled[c.key] == 0:
-            continue
         field_list.append({
             "key": c.key, "label": cfg["label"], "unit": cfg["unit"], "type": c.kind,
             "precision": cfg["precision"], "block": c.block, "section": c.section,
             "subsection": c.subsection, "filled": filled[c.key],
         })
+    # Скрытые поля (show = «нет») не публикуются вовсе — их значений нет и в samples.json
+    keep = shown | {"id", "labNumber", "varietyRaw", "varieties", "blend", "notes"}
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     data = {
         "source": {"file": source.name, "sha256": digest, "sheet": SHEET, "rows": len(samples)},
         "fields": field_list,
-        "samples": [{k: v for k, v in s.items() if v is not None} for _, s in samples],
+        "samples": [{k: v for k, v in s.items() if v is not None and k in keep} for _, s in samples],
     }
     return data, issues, filled
 

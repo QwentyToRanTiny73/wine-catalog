@@ -45,7 +45,8 @@ async function startServer() {
   const server = createServer(async (req, res) => {
     const url = new URL(req.url, 'http://x');
     if (!url.pathname.startsWith(BASE)) { res.writeHead(404).end(); return; }
-    let file = join(DIST, decodeURIComponent(url.pathname.slice(BASE.length)));
+    let file;
+    try { file = join(DIST, decodeURIComponent(url.pathname.slice(BASE.length))); } catch { res.writeHead(400).end(); return; }
     if (!file.startsWith(DIST + sep) && file !== DIST) { res.writeHead(403).end(); return; }
     try {
       if ((await stat(file)).isDirectory()) file = join(file, 'index.html');
