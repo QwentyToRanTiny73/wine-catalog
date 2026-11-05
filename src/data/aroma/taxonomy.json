@@ -1,0 +1,424 @@
+{
+ "categories": [
+  {
+   "id": "pervichnye",
+   "name": "Первичные — от винограда",
+   "groups": [
+    {
+     "id": "cvetochnye",
+     "name": "Цветочные",
+     "descriptors": [
+      {
+       "id": "roza",
+       "name": "роза"
+      },
+      {
+       "id": "fialka",
+       "name": "фиалка"
+      },
+      {
+       "id": "lipovyj-cvet",
+       "name": "липовый цвет"
+      },
+      {
+       "id": "akaciya",
+       "name": "акация"
+      },
+      {
+       "id": "flerdoranzh",
+       "name": "флёрдоранж"
+      }
+     ]
+    },
+    {
+     "id": "citrusovye",
+     "name": "Цитрусовые",
+     "descriptors": [
+      {
+       "id": "limon",
+       "name": "лимон"
+      },
+      {
+       "id": "lajm",
+       "name": "лайм"
+      },
+      {
+       "id": "grejpfrut",
+       "name": "грейпфрут"
+      },
+      {
+       "id": "apelsinovaya-cedra",
+       "name": "апельсиновая цедра"
+      }
+     ]
+    },
+    {
+     "id": "semechkovye-plody",
+     "name": "Семечковые плоды",
+     "descriptors": [
+      {
+       "id": "zelenoe-yabloko",
+       "name": "зелёное яблоко"
+      },
+      {
+       "id": "speloe-yabloko",
+       "name": "спелое яблоко"
+      },
+      {
+       "id": "grusha",
+       "name": "груша"
+      },
+      {
+       "id": "ajva",
+       "name": "айва"
+      }
+     ]
+    },
+    {
+     "id": "kostochkovye-plody",
+     "name": "Косточковые плоды",
+     "descriptors": [
+      {
+       "id": "persik",
+       "name": "персик"
+      },
+      {
+       "id": "abrikos",
+       "name": "абрикос"
+      },
+      {
+       "id": "sliva",
+       "name": "слива"
+      },
+      {
+       "id": "vishnya",
+       "name": "вишня"
+      },
+      {
+       "id": "chereshnya",
+       "name": "черешня"
+      }
+     ]
+    },
+    {
+     "id": "tropicheskie-plody",
+     "name": "Тропические плоды",
+     "descriptors": [
+      {
+       "id": "ananas",
+       "name": "ананас"
+      },
+      {
+       "id": "mango",
+       "name": "манго"
+      },
+      {
+       "id": "marakujya",
+       "name": "маракуйя"
+      },
+      {
+       "id": "lichi",
+       "name": "личи"
+      }
+     ]
+    },
+    {
+     "id": "krasnye-yagody",
+     "name": "Красные ягоды",
+     "descriptors": [
+      {
+       "id": "klubnika",
+       "name": "клубника"
+      },
+      {
+       "id": "malina",
+       "name": "малина"
+      },
+      {
+       "id": "krasnaya-smorodina",
+       "name": "красная смородина"
+      },
+      {
+       "id": "klyukva",
+       "name": "клюква"
+      }
+     ]
+    },
+    {
+     "id": "temnye-yagody",
+     "name": "Тёмные ягоды",
+     "descriptors": [
+      {
+       "id": "ezhevika",
+       "name": "ежевика"
+      },
+      {
+       "id": "chernika",
+       "name": "черника"
+      },
+      {
+       "id": "chernaya-smorodina",
+       "name": "чёрная смородина"
+      },
+      {
+       "id": "shelkovica",
+       "name": "шелковица"
+      }
+     ]
+    },
+    {
+     "id": "travyanistye",
+     "name": "Травянистые",
+     "descriptors": [
+      {
+       "id": "skoshennaya-trava",
+       "name": "скошенная трава"
+      },
+      {
+       "id": "sladkij-zelenyj-perec",
+       "name": "сладкий зелёный перец"
+      },
+      {
+       "id": "list-chernoj-smorodiny",
+       "name": "лист чёрной смородины"
+      },
+      {
+       "id": "myata",
+       "name": "мята"
+      }
+     ]
+    },
+    {
+     "id": "pryanye-i-muskatnye",
+     "name": "Пряные и мускатные",
+     "descriptors": [
+      {
+       "id": "chernyj-perec",
+       "name": "чёрный перец"
+      },
+      {
+       "id": "muskatnyj-ton",
+       "name": "мускатный тон"
+      },
+      {
+       "id": "anis",
+       "name": "анис"
+      }
+     ]
+    },
+    {
+     "id": "mineralnye",
+     "name": "Минеральные",
+     "descriptors": [
+      {
+       "id": "kremen",
+       "name": "кремень"
+      },
+      {
+       "id": "mokryj-kamen",
+       "name": "мокрый камень"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "vtorichnye",
+   "name": "Вторичные — от брожения",
+   "groups": [
+    {
+     "id": "drozhzhevye",
+     "name": "Дрожжевые",
+     "descriptors": [
+      {
+       "id": "hlebnaya-korka",
+       "name": "хлебная корка"
+      },
+      {
+       "id": "sdoba",
+       "name": "сдоба"
+      },
+      {
+       "id": "drozhzhi",
+       "name": "дрожжи"
+      }
+     ]
+    },
+    {
+     "id": "molochnye",
+     "name": "Молочные",
+     "descriptors": [
+      {
+       "id": "slivochnoe-maslo",
+       "name": "сливочное масло"
+      },
+      {
+       "id": "slivki",
+       "name": "сливки"
+      },
+      {
+       "id": "jogurt",
+       "name": "йогурт"
+      }
+     ]
+    },
+    {
+     "id": "brodilnye-fruktovye",
+     "name": "Бродильные фруктовые",
+     "descriptors": [
+      {
+       "id": "banan",
+       "name": "банан"
+      },
+      {
+       "id": "grushevyj-ledenec",
+       "name": "грушевый леденец"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tretichnye",
+   "name": "Третичные — от выдержки",
+   "groups": [
+    {
+     "id": "dubovye",
+     "name": "Дубовые",
+     "descriptors": [
+      {
+       "id": "vanil",
+       "name": "ваниль"
+      },
+      {
+       "id": "kokos",
+       "name": "кокос"
+      },
+      {
+       "id": "kedr",
+       "name": "кедр"
+      },
+      {
+       "id": "dym",
+       "name": "дым"
+      },
+      {
+       "id": "podzharennyj-hleb",
+       "name": "поджаренный хлеб"
+      },
+      {
+       "id": "gvozdika",
+       "name": "гвоздика"
+      }
+     ]
+    },
+    {
+     "id": "suhofrukty-i-varene",
+     "name": "Сухофрукты и варенье",
+     "descriptors": [
+      {
+       "id": "izyum",
+       "name": "изюм"
+      },
+      {
+       "id": "chernosliv",
+       "name": "чернослив"
+      },
+      {
+       "id": "kuraga",
+       "name": "курага"
+      },
+      {
+       "id": "inzhir",
+       "name": "инжир"
+      },
+      {
+       "id": "vishnevoe-varene",
+       "name": "вишнёвое варенье"
+      }
+     ]
+    },
+    {
+     "id": "orehovye",
+     "name": "Ореховые",
+     "descriptors": [
+      {
+       "id": "greckij-oreh",
+       "name": "грецкий орех"
+      },
+      {
+       "id": "mindal",
+       "name": "миндаль"
+      },
+      {
+       "id": "funduk",
+       "name": "фундук"
+      }
+     ]
+    },
+    {
+     "id": "sladkie-i-obzharennye",
+     "name": "Сладкие и обжаренные",
+     "descriptors": [
+      {
+       "id": "med",
+       "name": "мёд"
+      },
+      {
+       "id": "karamel",
+       "name": "карамель"
+      },
+      {
+       "id": "kofe",
+       "name": "кофе"
+      },
+      {
+       "id": "shokolad",
+       "name": "шоколад"
+      }
+     ]
+    },
+    {
+     "id": "zemlistye-i-zhivotnye",
+     "name": "Землистые и животные",
+     "descriptors": [
+      {
+       "id": "griby",
+       "name": "грибы"
+      },
+      {
+       "id": "lesnaya-podstilka",
+       "name": "лесная подстилка"
+      },
+      {
+       "id": "kozha",
+       "name": "кожа"
+      },
+      {
+       "id": "tabak",
+       "name": "табак"
+      },
+      {
+       "id": "tryufel",
+       "name": "трюфель"
+      }
+     ]
+    },
+    {
+     "id": "okislitelnye",
+     "name": "Окислительные",
+     "descriptors": [
+      {
+       "id": "pechenoe-yabloko",
+       "name": "печёное яблоко"
+      },
+      {
+       "id": "heresnyj-ton",
+       "name": "хересный тон"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

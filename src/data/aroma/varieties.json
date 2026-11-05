@@ -1,0 +1,2743 @@
+{
+ "varieties": {
+  "Александроули": {
+   "vishnya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "Wines produced from Aleksandrouli grapes are dry or semi-sweet and are amazingly soft, with aromas of raspberry and black cherry.",
+      "note": "«black cherry» → вишня по правилу задания; формулировки GWA и Wines of Georgia почти дословно совпадают — вероятно, один исходный текст, не независимые источники",
+      "status": "check"
+     },
+     {
+      "source": 1,
+      "intensity": 2,
+      "quote": "typically low in tannins and amazingly soft, with aromas of raspberry and black cherry.",
+      "note": "«black cherry» → вишня по правилу задания; формулировки GWA и Wines of Georgia почти дословно совпадают — вероятно, один исходный текст, не независимые источники",
+      "status": "check"
+     }
+    ]
+   },
+   "malina": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "Wines produced from Aleksandrouli grapes are dry or semi-sweet and are amazingly soft, with aromas of raspberry and black cherry.",
+      "note": "формулировки GWA и Wines of Georgia почти дословно совпадают — вероятно, один исходный текст, не независимые источники",
+      "status": "check"
+     },
+     {
+      "source": 1,
+      "intensity": 2,
+      "quote": "typically low in tannins and amazingly soft, with aromas of raspberry and black cherry.",
+      "note": "формулировки GWA и Wines of Georgia почти дословно совпадают — вероятно, один исходный текст, не независимые источники",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Алиготе": {
+   "lipovyj-cvet": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 2,
+      "intensity": 2,
+      "quote": "arômes de fruits à chair blanche, de fleurs blanches, de pêche, de citron, de tilleul, d'acacia, de noisette et de pomme verte, parfois même d'agrumes",
+      "note": "«tilleul»; описание вина AOC Bourgogne Aligoté (сорт Алиготе); источник — межпрофессиональное бюро вин Бургундии",
+      "status": "check"
+     }
+    ]
+   },
+   "akaciya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 2,
+      "intensity": 2,
+      "quote": "arômes de fruits à chair blanche, de fleurs blanches, de pêche, de citron, de tilleul, d'acacia, de noisette et de pomme verte, parfois même d'agrumes",
+      "note": "описание вина AOC Bourgogne Aligoté (сорт Алиготе); источник — межпрофессиональное бюро вин Бургундии",
+      "status": "check"
+     }
+    ]
+   },
+   "limon": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 2,
+      "intensity": 2,
+      "quote": "arômes de fruits à chair blanche, de fleurs blanches, de pêche, de citron, de tilleul, d'acacia, de noisette et de pomme verte, parfois même d'agrumes",
+      "note": "описание вина AOC Bourgogne Aligoté (сорт Алиготе); источник — межпрофессиональное бюро вин Бургундии",
+      "status": "check"
+     }
+    ]
+   },
+   "zelenoe-yabloko": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 2,
+      "intensity": 2,
+      "quote": "arômes de fruits à chair blanche, de fleurs blanches, de pêche, de citron, de tilleul, d'acacia, de noisette et de pomme verte, parfois même d'agrumes",
+      "note": "описание вина AOC Bourgogne Aligoté (сорт Алиготе); источник — межпрофессиональное бюро вин Бургундии",
+      "status": "check"
+     }
+    ]
+   },
+   "persik": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 3,
+      "intensity": 2,
+      "quote": "Primary Flavors Apple Unripe Peach White Flower Smoke Fresh Herbs",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); в источнике «Unripe Peach» (незрелый персик)",
+      "status": "check"
+     },
+     {
+      "source": 2,
+      "intensity": 2,
+      "quote": "arômes de fruits à chair blanche, de fleurs blanches, de pêche, de citron, de tilleul, d'acacia, de noisette et de pomme verte, parfois même d'agrumes",
+      "note": "описание вина AOC Bourgogne Aligoté (сорт Алиготе); источник — межпрофессиональное бюро вин Бургундии",
+      "status": "check"
+     }
+    ]
+   },
+   "dym": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 3,
+      "intensity": 2,
+      "quote": "Primary Flavors Apple Unripe Peach White Flower Smoke Fresh Herbs",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); «Smoke»; в таксономии «дым» стоит в группе «Дубовые», а здесь это сортовая/минеральная нота, не от дуба — проверить категорию",
+      "status": "check"
+     }
+    ]
+   },
+   "funduk": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 2,
+      "intensity": 2,
+      "quote": "arômes de fruits à chair blanche, de fleurs blanches, de pêche, de citron, de tilleul, d'acacia, de noisette et de pomme verte, parfois même d'agrumes",
+      "note": "«noisette»; описание вина AOC Bourgogne Aligoté (сорт Алиготе); источник — межпрофессиональное бюро вин Бургундии",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Бастардо магарачский": {
+   "chernosliv": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 4,
+      "intensity": 2,
+      "quote": "Во вкусе полное, мягкое, бархатистое, в букете и вкусе заметно выделяются шоколадные тона с черносливом.",
+      "note": "«Бастардо Массандра»; энциклопедия.",
+      "status": "check"
+     }
+    ]
+   },
+   "shokolad": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 4,
+      "intensity": 2,
+      "quote": "Во вкусе полное, мягкое, бархатистое, в букете и вкусе заметно выделяются шоколадные тона с черносливом.",
+      "note": "Вино «Бастардо Массандра», по тексту — из винограда Бастардо магарачский. «Заметно выделяются» — возможно 3, поставлено 2. Энциклопедия.",
+      "status": "check"
+     },
+     {
+      "source": 5,
+      "intensity": 2,
+      "quote": "Десертное вино темно-рубиновой окраски, искристое, бархатистое, с шоколадными тонами.",
+      "note": "Энциклопедия, пониженная достоверность. Научного источника с дескрипторами для этого сорта не найдено.",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Джеват кара": {},
+  "Каберне фран": {
+   "fialka": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 6,
+      "intensity": 2,
+      "quote": "In cooler climates, you’ll find violet notes, and in warmer climates, expect dried fruit flavors and cayenne pepper notes.",
+      "note": "в прохладном климате",
+      "status": "check"
+     }
+    ]
+   },
+   "vishnya": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 6,
+      "intensity": 3,
+      "quote": "flavors of sour cherry, smoky tomato, dried oregano, and sweet pepper dominating",
+      "note": "Chinon (Луара), во вкусе; «sour cherry» = вишня; «dominating» → 3",
+      "status": "check"
+     }
+    ]
+   },
+   "klubnika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 6,
+      "intensity": 2,
+      "quote": "Primary Flavors Strawberry Raspberry Bell Pepper Crushed Gravel Chili Pepper",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "malina": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 6,
+      "intensity": 2,
+      "quote": "Primary Flavors Strawberry Raspberry Bell Pepper Crushed Gravel Chili Pepper",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "chernaya-smorodina": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 7,
+      "intensity": 2,
+      "quote": "Cabernet Franc tends to have a more pronounced perfume with notes of raspberries, blackcurrants, violets and graphite.",
+      "note": "«pronounced» относится к аромату в целом, не к смородине — поставлено 2",
+      "status": "check"
+     }
+    ]
+   },
+   "sladkij-zelenyj-perec": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 6,
+      "intensity": 3,
+      "quote": "Methoxypyrazines are responsible for Cabernet Franc’s distinctive bell pepper and herbal aromas.",
+      "compound": "метоксипиразины (methoxypyrazines), в т.ч. 3-изобутил-2-метоксипиразин (IBMP)",
+      "note": "на той же странице: «The specific methoxypyrazine that contributes to the distinct flavor is 3-isobutyl-2-methoxypyrazine (IBMP)»; «distinctive» → 3",
+      "status": "check"
+     }
+    ]
+   },
+   "myata": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 6,
+      "intensity": 2,
+      "quote": "bold aromas of sweet strawberries, raspberries, mint, and roasted jalapeño",
+      "note": "Sierra Foothills (Калифорния)",
+      "status": "check"
+     }
+    ]
+   },
+   "kozha": {
+    "intensity": 1,
+    "evidence": [
+     {
+      "source": 6,
+      "intensity": 1,
+      "quote": "a hint of chalky dry gravel and leather",
+      "note": "Bolgheri (Тоскана); «a hint» → 1",
+      "status": "check"
+     }
+    ]
+   },
+   "tabak": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 7,
+      "intensity": 2,
+      "quote": "Depending on the growing region and style of wine, additional aromas can include tobacco, raspberry, bell pepper, cassis, and violets.",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Каберне-Совиньон": {
+   "fialka": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 8,
+      "intensity": 2,
+      "quote": "Aromas of violets are a characteristic of Margaux.",
+      "note": "региональная черта (Марго), не сорта в целом",
+      "status": "check"
+     }
+    ]
+   },
+   "vishnya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 9,
+      "intensity": 2,
+      "quote": "Primary Flavors Black Cherry Black Currant Cedar Baking Spices Graphite",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2; в источнике «Black Cherry»; в русских описаниях обычно «чёрная вишня» — сопоставлено с «вишня», проверить (возможна «черешня»)",
+      "status": "check"
+     }
+    ]
+   },
+   "ezhevika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 9,
+      "intensity": 2,
+      "quote": "TASTING NOTES: Black Currant, Blackberry, Pencil Lead, Tobacco, Mint",
+      "note": "регион North Coast, California",
+      "status": "check"
+     }
+    ]
+   },
+   "chernaya-smorodina": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 8,
+      "intensity": 3,
+      "quote": "The aroma of blackcurrants is one of the most distinctive and characteristic elements of Cabernet Sauvignon that is present in virtually every style of wine across the globe.",
+      "note": "«most distinctive and characteristic» → 3",
+      "status": "check"
+     },
+     {
+      "source": 10,
+      "intensity": 3,
+      "quote": "Доминантной вкусовой характеристикой зрелого каберне-совиньон считается отчётливый аромат чёрной смородины.",
+      "note": "русскоязычная вики-энциклопедия; статья помечена на сайте как «ещё не проверена» — вторичный источник, низкая надёжность",
+      "status": "check"
+     }
+    ]
+   },
+   "sladkij-zelenyj-perec": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 8,
+      "intensity": 3,
+      "quote": "The herbaceous or green bell pepper flavour is most widely recognised, caused by pyrazines, which are more prevalent in under-ripened grapes.",
+      "compound": "пиразины (pyrazines)",
+      "note": "«most widely recognised» → 3; связь с недозрелостью винограда",
+      "status": "check"
+     },
+     {
+      "source": 11,
+      "intensity": 2,
+      "quote": "Cabernet-Sauvignon>Merlot>Syrah>Cencibel. The correlation between 2- methoxy-3-isobutylpyrazine content and the « green pepper » descriptor suggests a perception threshold at 3 ng/L in young wines.",
+      "compound": "2-метокси-3-изобутилпиразин (2-methoxy-3-isobutylpyrazine, IBMP)",
+      "note": "аннотация: содержание IBMP у Каберне-Совиньон наибольшее из 4 сортов (Кастилия-Ла-Манча); «green pepper» в контексте метоксипиразинов понят как сладкий (болгарский) перец",
+      "status": "check"
+     }
+    ]
+   },
+   "myata": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 8,
+      "intensity": 2,
+      "quote": "Two other well-known Cabernet Sauvignon flavours are mint and eucalyptus.",
+      "note": "эвкалипт — в unmatched",
+      "status": "check"
+     }
+    ]
+   },
+   "anis": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 9,
+      "intensity": 2,
+      "quote": "TASTING NOTES: Black Currant, Anise, Tobacco Leaf, Plum Sauce, Pencil Lead",
+      "note": "регион Bordeaux",
+      "status": "check"
+     }
+    ]
+   },
+   "vanil": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 8,
+      "intensity": 2,
+      "quote": "the unique wood flavours of vanilla and baking spice complement the natural grape flavours of blackcurrant and tobacco",
+      "note": "тон от дуба",
+      "status": "check"
+     }
+    ]
+   },
+   "kedr": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 9,
+      "intensity": 2,
+      "quote": "Primary Flavors Black Cherry Black Currant Cedar Baking Spices Graphite",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "tabak": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 9,
+      "intensity": 2,
+      "quote": "TASTING NOTES: Black Currant, Anise, Tobacco Leaf, Plum Sauce, Pencil Lead",
+      "note": "регион Bordeaux; «Tobacco Leaf»",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Кефесия": {
+   "chernika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 12,
+      "intensity": 2,
+      "quote": "Букет ягодно-пряного направления с нотками сухофруктов, черники и смородины, с дымно-копченными оттенками.",
+      "note": "Красное молодое игристое (переработка по красному способу), с. Морское; табл. 5.",
+      "status": "check"
+     }
+    ]
+   },
+   "dym": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 12,
+      "intensity": 2,
+      "quote": "Букет ягодно-пряного направления с нотками сухофруктов, черники и смородины, с дымно-копченными оттенками.",
+      "note": "Красное молодое игристое; о дубе в статье не сказано — «дым» отнесён к группе «Дубовые» только по смыслу слова, проверить.",
+      "status": "check"
+     }
+    ]
+   },
+   "chernosliv": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 13,
+      "intensity": 2,
+      "quote": "Виноград используют для производства оригинального марочного десертного вина Черный доктор, отличающегося гармоничным мягким вкусом с тонами шоколада и чернослива.",
+      "note": "То же, что для «шоколад»: купаж «Черный доктор», тон во вкусе; энциклопедия.",
+      "status": "check"
+     }
+    ]
+   },
+   "karamel": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 12,
+      "intensity": 2,
+      "quote": "Букет сложный, ягодно-фруктового направления с пряными нотками, оттенками карамели и ореха.",
+      "note": "Розовое молодое игристое (переработка по белому способу), с. Морское; табл. 5.",
+      "status": "check"
+     }
+    ]
+   },
+   "shokolad": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 13,
+      "intensity": 2,
+      "quote": "Виноград используют для производства оригинального марочного десертного вина Черный доктор, отличающегося гармоничным мягким вкусом с тонами шоколада и чернослива.",
+      "note": "Тон во вкусе вина «Черный доктор» — по другой странице того же сайта это купаж (Эким-Кара, Кефесия, Лапа-Кара). На странице Кефесии «Эким кара» указан как синоним. Энциклопедия.",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Киси": {
+   "lajm": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "the amber Qvevri wines reveal more apricot, mango, lime, orange and walnut character.",
+      "note": "янтарные квеври-вина",
+      "status": "check"
+     }
+    ]
+   },
+   "grusha": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "the nose is quite floral with flavours of pear, citrus and green tea on the palate",
+      "note": "европейский стиль; груша — во вкусе",
+      "status": "check"
+     },
+     {
+      "source": 1,
+      "intensity": 2,
+      "quote": "the wines made in qvevri are characterized by aromas of ripe pear, marigold, tobacco, and walnut.",
+      "note": "«ripe pear»; квеври-вина",
+      "status": "check"
+     }
+    ]
+   },
+   "abrikos": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "the amber Qvevri wines reveal more apricot, mango, lime, orange and walnut character.",
+      "note": "янтарные квеври-вина",
+      "status": "check"
+     }
+    ]
+   },
+   "mango": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "the amber Qvevri wines reveal more apricot, mango, lime, orange and walnut character.",
+      "note": "янтарные квеври-вина",
+      "status": "check"
+     }
+    ]
+   },
+   "greckij-oreh": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "the amber Qvevri wines reveal more apricot, mango, lime, orange and walnut character.",
+      "note": "янтарные квеври-вина",
+      "status": "check"
+     },
+     {
+      "source": 1,
+      "intensity": 2,
+      "quote": "the wines made in qvevri are characterized by aromas of ripe pear, marigold, tobacco, and walnut.",
+      "note": "квеври-вина",
+      "status": "check"
+     }
+    ]
+   },
+   "tabak": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 1,
+      "intensity": 2,
+      "quote": "the wines made in qvevri are characterized by aromas of ripe pear, marigold, tobacco, and walnut.",
+      "note": "квеври-вина",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Кокур белый": {
+   "grusha": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 14,
+      "intensity": 2,
+      "quote": "Аромат виноматериалов, полученных с использованием препарата АСД «Vitilevure KD», был интенсивным, сортовым, с большим разнообразием оттенков (мёд, груша, айва, цукаты и др.)",
+      "note": "Один вариант (дрожжи Vitilevure KD). «Интенсивным» относится ко всему аромату, груша — одна из перечисленных «оттенков», поэтому 2.",
+      "status": "check"
+     }
+    ]
+   },
+   "ajva": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 14,
+      "intensity": 2,
+      "quote": "Аромат виноматериалов, полученных с использованием препарата АСД «Vitilevure KD», был интенсивным, сортовым, с большим разнообразием оттенков (мёд, груша, айва, цукаты и др.)",
+      "note": "Тот же фрагмент, что для «груша»; один вариант дрожжей (Vitilevure KD).",
+      "status": "check"
+     }
+    ]
+   },
+   "muskatnyj-ton": {
+    "intensity": 1,
+    "evidence": [
+     {
+      "source": 4,
+      "intensity": 1,
+      "quote": "Во вкусе вино полное, экстрактивное, с легкими мускатными тонами.",
+      "note": "«Кокур десертный Сурож»; тон во вкусе, не в аромате. Энциклопедия.",
+      "status": "check"
+     }
+    ]
+   },
+   "med": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 14,
+      "intensity": 2,
+      "quote": "Все образцы виноматериалов были прозрачными, светло-соломенного цвета, с сортовым цветочным ароматом с медовыми, фруктовыми и пряными оттенками",
+      "compound": "альдегиды (отдельные)",
+      "note": "Сухие столовые виноматериалы, 5 вариантов дрожжей. В статье (обзор литературы [8, 27]): «отдельные альдегиды характеризуются медово-цветочными… оттенками»; вариант Vitilevure Quartz M05 — наибольшие альдегиды и «усиление медовых оттенков». Группа «выдержка» по таксономии, хотя виноматериал молодой.",
+      "status": "check"
+     },
+     {
+      "source": 4,
+      "intensity": 2,
+      "quote": "Цвет вина янтарно-золотистый, букет тонкий, сортовой с медовопряным оттенком.",
+      "note": "Десертное вино «Кокур десертный Сурож» (Массандра), по тексту — из винограда Кокур белый. Написание «медовопряным» — как на странице. Энциклопедия (перепечатка книги «Гроздья здоровья»).",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Красень": {},
+  "Мерло": {
+   "sliva": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 15,
+      "intensity": 2,
+      "quote": "As a varietal wine, Merlot can make soft, velvety wines with plum flavors.",
+      "status": "check"
+     }
+    ]
+   },
+   "vishnya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 16,
+      "intensity": 2,
+      "quote": "Primary Flavors Cherry Chocolate Plum Bay Leaf Vanilla",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "chernika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 15,
+      "intensity": 2,
+      "quote": "Some of the fruit notes commonly associated with Merlot include cassis, black and red cherries, blackberry, blueberry, boysenberry, mulberry, ollalieberry, and plum.",
+      "note": "«blueberry»",
+      "status": "check"
+     }
+    ]
+   },
+   "chernaya-smorodina": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 16,
+      "intensity": 2,
+      "quote": "Expect blackcurrant and dark cherry, with hints of chocolate and spice.",
+      "note": "Saint-Émilion",
+      "status": "check"
+     }
+    ]
+   },
+   "shelkovica": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 15,
+      "intensity": 2,
+      "quote": "Some of the fruit notes commonly associated with Merlot include cassis, black and red cherries, blackberry, blueberry, boysenberry, mulberry, ollalieberry, and plum.",
+      "note": "«mulberry»",
+      "status": "check"
+     }
+    ]
+   },
+   "sladkij-zelenyj-perec": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 11,
+      "intensity": 2,
+      "quote": "Cabernet-Sauvignon>Merlot>Syrah>Cencibel. The correlation between 2- methoxy-3-isobutylpyrazine content and the « green pepper » descriptor suggests a perception threshold at 3 ng/L in young wines.",
+      "compound": "2-метокси-3-изобутилпиразин (2-methoxy-3-isobutylpyrazine, IBMP)",
+      "note": "аннотация: по содержанию IBMP Мерло на 2-м месте из 4 сортов; сам дескриптор «green pepper» в аннотации не привязан к Мерло отдельно — связь сорт→тон косвенная, проверить",
+      "status": "check"
+     }
+    ]
+   },
+   "vanil": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 16,
+      "intensity": 2,
+      "quote": "Merlots aged in oak can develop vanilla and spice aromas.",
+      "note": "при выдержке в дубе",
+      "status": "check"
+     }
+    ]
+   },
+   "kokos": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 15,
+      "intensity": 2,
+      "quote": "When Merlot has spent significant time in oak, the wine may show notes of caramel, chocolate, coconut, coffee bean, dill weed, mocha, molasses, smoke, vanilla, and walnut.",
+      "note": "от дуба",
+      "status": "check"
+     }
+    ]
+   },
+   "dym": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 16,
+      "intensity": 2,
+      "quote": "The best wines have smoke and clove notes from oak aging.",
+      "note": "Бордо; от дуба",
+      "status": "check"
+     }
+    ]
+   },
+   "gvozdika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 16,
+      "intensity": 2,
+      "quote": "The best wines have smoke and clove notes from oak aging.",
+      "note": "Бордо; от дуба",
+      "status": "check"
+     }
+    ]
+   },
+   "greckij-oreh": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 15,
+      "intensity": 2,
+      "quote": "When Merlot has spent significant time in oak, the wine may show notes of caramel, chocolate, coconut, coffee bean, dill weed, mocha, molasses, smoke, vanilla, and walnut.",
+      "note": "«walnut», от дуба",
+      "status": "check"
+     }
+    ]
+   },
+   "shokolad": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 16,
+      "intensity": 2,
+      "quote": "Primary Flavors Cherry Chocolate Plum Bay Leaf Vanilla",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "griby": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 15,
+      "intensity": 2,
+      "quote": "Vegetable and earthy notes include black and green olives, cola nut, bell pepper, fennel, humus, leather, mushrooms, rhubarb, and tobacco.",
+      "status": "check"
+     }
+    ]
+   },
+   "tryufel": {
+    "intensity": 1,
+    "evidence": [
+     {
+      "source": 16,
+      "intensity": 1,
+      "quote": "The wines express concentrated black cherry and plum flavors, subtle truffle notes, and a velvety texture.",
+      "note": "Pomerol; «subtle» → 1",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Мурведр": {
+   "roza": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 17,
+      "intensity": 2,
+      "quote": "OTHER: Black Pepper, Violet, Rose, Smoke, Gravel, Meat",
+      "status": "check"
+     }
+    ]
+   },
+   "fialka": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 17,
+      "intensity": 2,
+      "quote": "OTHER: Black Pepper, Violet, Rose, Smoke, Gravel, Meat",
+      "status": "check"
+     }
+    ]
+   },
+   "sliva": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 17,
+      "intensity": 2,
+      "quote": "FRUIT: Blueberry, Blackberry, Plum,",
+      "status": "check"
+     }
+    ]
+   },
+   "malina": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 18,
+      "intensity": 2,
+      "quote": "Caractérisés au départ par des arômes agrestes – cassis, framboise, mûre, pivoine, héliotrope –, les vins rouges de Bandol",
+      "note": "«framboise»; молодые вина; описание красных вин AOC Бандоль — купаж на основе мурведра, не сортовое вино в чистом виде",
+      "status": "check"
+     }
+    ]
+   },
+   "ezhevika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 17,
+      "intensity": 2,
+      "quote": "FRUIT: Blueberry, Blackberry, Plum,",
+      "status": "check"
+     },
+     {
+      "source": 19,
+      "intensity": 2,
+      "quote": "producing a firm-structured, often tannic, brambly, blackberryish red with notable funky, meaty and animal-like characters.",
+      "note": "«blackberryish»",
+      "status": "check"
+     },
+     {
+      "source": 18,
+      "intensity": 2,
+      "quote": "Caractérisés au départ par des arômes agrestes – cassis, framboise, mûre, pivoine, héliotrope –, les vins rouges de Bandol",
+      "note": "«mûre»; молодые вина; описание красных вин AOC Бандоль — купаж на основе мурведра, не сортовое вино в чистом виде",
+      "status": "check"
+     }
+    ]
+   },
+   "chernika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 17,
+      "intensity": 2,
+      "quote": "FRUIT: Blueberry, Blackberry, Plum,",
+      "status": "check"
+     }
+    ]
+   },
+   "chernaya-smorodina": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 18,
+      "intensity": 2,
+      "quote": "Caractérisés au départ par des arômes agrestes – cassis, framboise, mûre, pivoine, héliotrope –, les vins rouges de Bandol",
+      "note": "«cassis»; молодые вина; описание красных вин AOC Бандоль — купаж на основе мурведра, не сортовое вино в чистом виде",
+      "status": "check"
+     }
+    ]
+   },
+   "chernyj-perec": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 17,
+      "intensity": 2,
+      "quote": "OTHER: Black Pepper, Violet, Rose, Smoke, Gravel, Meat",
+      "status": "check"
+     }
+    ]
+   },
+   "dym": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 17,
+      "intensity": 2,
+      "quote": "OTHER: Black Pepper, Violet, Rose, Smoke, Gravel, Meat",
+      "note": "в таксономии «дым» — группа «Дубовые»; в источнике не указано, что от дуба",
+      "status": "check"
+     }
+    ]
+   },
+   "lesnaya-podstilka": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 18,
+      "intensity": 2,
+      "quote": "acquièrent après quatre ou cinq années en bouteille des arômes spécifiques de truffe et de sous-bois, de réglisse, de cannelle ou de musc.",
+      "note": "«sous-bois»; после 4–5 лет в бутылке; описание красных вин AOC Бандоль — купаж на основе мурведра, не сортовое вино в чистом виде",
+      "status": "check"
+     }
+    ]
+   },
+   "tabak": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 20,
+      "intensity": 2,
+      "quote": "Primary Flavors Blackberry Black Pepper Cocoa Tobacco Roasted Meat",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); тот же издатель, что и предыдущие записи Wine Folly — не независимый источник",
+      "status": "check"
+     }
+    ]
+   },
+   "tryufel": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 18,
+      "intensity": 2,
+      "quote": "acquièrent après quatre ou cinq années en bouteille des arômes spécifiques de truffe et de sous-bois, de réglisse, de cannelle ou de musc.",
+      "note": "после 4–5 лет в бутылке; на той же странице: «La structure tannique du mourvèdre… le caractère spécifique de truffe»; описание красных вин AOC Бандоль — купаж на основе мурведра, не сортовое вино в чистом виде",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Мускат белый": {
+   "roza": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 21,
+      "intensity": 3,
+      "quote": "Урожай используется для приготовления марочных десертных вин высокой сладости, с сильным приятным ароматом чайной розы и цитрона.",
+      "note": "«чайная роза» → роза; «сильным» → 3; десертные вина",
+      "status": "check"
+     }
+    ]
+   },
+   "flerdoranzh": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 22,
+      "intensity": 2,
+      "quote": "Primary Flavors Orange Blossum Meyer Lemon Mandarin Orange Pear Honeysuckle",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); «Orange Blossum» — опечатка источника (blossom); Muscat Blanc = Мускат белый",
+      "status": "check"
+     }
+    ]
+   },
+   "limon": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 22,
+      "intensity": 2,
+      "quote": "Primary Flavors Orange Blossum Meyer Lemon Mandarin Orange Pear Honeysuckle",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); «Meyer Lemon» (лимон Мейера) → лимон",
+      "status": "check"
+     }
+    ]
+   },
+   "grusha": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 22,
+      "intensity": 2,
+      "quote": "Primary Flavors Orange Blossum Meyer Lemon Mandarin Orange Pear Honeysuckle",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания);",
+      "status": "check"
+     }
+    ]
+   },
+   "muskatnyj-ton": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 23,
+      "intensity": 2,
+      "quote": "there are indications that many terpenes, not just linalool and geraniol, contribute to muscat and related aromas",
+      "compound": "терпены, в т. ч. линалоол (linalool) и гераниол (geraniol)",
+      "note": "утверждение о мускатных сортах в целом (обзорная часть статьи о Гевюрцтраминере, ссылка [21]), не о Мускате белом отдельно",
+      "status": "check"
+     },
+     {
+      "source": 24,
+      "intensity": 3,
+      "quote": "Используется для приготовления исключительно высококачественных марочных десертных вин с большой сахаристостью, наличием сильного мускатного аромата",
+      "note": "десертные вина; автор книги на странице не указан",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Мцване": {
+   "persik": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "Mtsvane Kakhuri imparts fresh white peach, floral, citrus and tropical aromas, with a light mineral undertone.",
+      "note": "«white peach», европейский стиль; в источнике — Mtsvane Kakhuri (Мцване кахетинский); не путать с Goruli Mtsvane — источник GWA прямо называет их разными сортами",
+      "status": "check"
+     },
+     {
+      "source": 1,
+      "intensity": 1,
+      "quote": "characterized by hints of vineyard peach, fruit tree blossoms, and mineral overtones.",
+      "note": "«vineyard peach» (≈ pêche de vigne), «hints of»; в источнике — Mtsvane Kakhuri (Мцване кахетинский); не путать с Goruli Mtsvane — источник GWA прямо называет их разными сортами",
+      "status": "check"
+     }
+    ]
+   },
+   "abrikos": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "will show more apricot and stone fruit character when vinified in Qvevri.",
+      "note": "квеври-вина; в источнике — Mtsvane Kakhuri (Мцване кахетинский); не путать с Goruli Mtsvane — источник GWA прямо называет их разными сортами",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Первенец Магарача": {},
+  "Пино гри": {
+   "roza": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 25,
+      "intensity": 2,
+      "quote": "“rose”, “melon”, “ginger”, “grapefruit”, “lilac”, and “lavender” [52, 53], as sensory descriptors for Pinot Gris wines.",
+      "note": "обзор прежних исследований в статье",
+      "status": "check"
+     }
+    ]
+   },
+   "limon": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 26,
+      "intensity": 3,
+      "quote": "when both low and high concentrations of limonene (models 5 and 9) are present, citrus aromas (lime and lemon) are dominant.",
+      "compound": "лимонен (limonene)",
+      "note": "модельные вина (деароматизированное белое вино + ароматическая основа), не натуральные образцы; «dominant» → 3",
+      "status": "check"
+     }
+    ]
+   },
+   "lajm": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 26,
+      "intensity": 3,
+      "quote": "when both low and high concentrations of limonene (models 5 and 9) are present, citrus aromas (lime and lemon) are dominant.",
+      "compound": "лимонен (limonene)",
+      "note": "модельные вина, не натуральные образцы; «dominant» → 3",
+      "status": "check"
+     }
+    ]
+   },
+   "grejpfrut": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 25,
+      "intensity": 2,
+      "quote": "“rose”, “melon”, “ginger”, “grapefruit”, “lilac”, and “lavender” [52, 53], as sensory descriptors for Pinot Gris wines.",
+      "note": "обзор прежних исследований в статье",
+      "status": "check"
+     }
+    ]
+   },
+   "zelenoe-yabloko": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 27,
+      "intensity": 2,
+      "quote": "In cooler climates, it may lean towards citrus and green apple, while late-harvest expressions evoke tropical fruit, honey, and spice.",
+      "note": "прохладный климат",
+      "status": "check"
+     }
+    ]
+   },
+   "grusha": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 27,
+      "intensity": 2,
+      "quote": "On the nose, Pinot Gris typically presents ripe pear, apple, and peach notes.",
+      "status": "check"
+     }
+    ]
+   },
+   "persik": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 27,
+      "intensity": 2,
+      "quote": "Primary Flavors White Peach Lemon Zest Cantaloupe Green Almond Crushed Gravel",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2; «White Peach»",
+      "status": "check"
+     }
+    ]
+   },
+   "abrikos": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 26,
+      "intensity": 2,
+      "quote": "Pinot gris is an aromatic wine originating from France and typically has honey and apricot aromas",
+      "note": "авторы ссылаются на литературу [3, 14]",
+      "status": "check"
+     }
+    ]
+   },
+   "ananas": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 25,
+      "intensity": 2,
+      "quote": "Previous studies have reported attributes, such as “tropical/pineapple”, “lemon/lime”, “bruised apple”, “perfume/floral”, “capsicum”, “grassy”",
+      "note": "«tropical/pineapple»",
+      "status": "check"
+     }
+    ]
+   },
+   "mindal": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 27,
+      "intensity": 2,
+      "quote": "Primary Flavors White Peach Lemon Zest Cantaloupe Green Almond Crushed Gravel",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2; «Green Almond» (зелёный миндаль) — в таксономии «миндаль» относится к третичным, а здесь это первичный тон; проверить",
+      "status": "check"
+     }
+    ]
+   },
+   "med": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 26,
+      "intensity": 2,
+      "quote": "Pinot gris is an aromatic wine originating from France and typically has honey and apricot aromas",
+      "note": "авторы ссылаются на литературу [3, 14]",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Пино нуар": {
+   "fialka": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 28,
+      "intensity": 2,
+      "quote": "β-ionone is known for contributing a violet aroma to red wine",
+      "compound": "β-ионон (β-ionone)",
+      "note": "утверждение о красных винах вообще (введение статьи о Пино нуар); в опыте β-ионон давал floral / red berry / dark berry в зависимости от матрицы",
+      "status": "check"
+     }
+    ]
+   },
+   "vishnya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 25,
+      "intensity": 2,
+      "quote": "For Pinot Noir wine, “licorice” aroma, “cloves” aroma, “fresh wood” aroma, “red fruit” flavor, “cherry” aroma, and “spicy” flavor were positively correlated with OQJ",
+      "note": "атрибуты, коррелирующие с общей оценкой качества (итальянская панель; 7 коммерческих вин)",
+      "status": "check"
+     }
+    ]
+   },
+   "malina": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 29,
+      "intensity": 2,
+      "quote": "Primary Flavors Raspberry Cherry Mushroom Vanilla Hibiscus",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "klyukva": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 29,
+      "intensity": 2,
+      "quote": "Expect cranberry, Bing cherry fruit flavors with secondary aromas of truffle mushrooms and sometimes even a green dandelion stem flavor.",
+      "note": "Орегон",
+      "status": "check"
+     }
+    ]
+   },
+   "chernaya-smorodina": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 30,
+      "intensity": 2,
+      "quote": "4-Mercapto-4-methylpentan-2-one (FD < 16) – black currant aroma",
+      "compound": "4-меркапто-4-метилпентан-2-он (4-mercapto-4-methylpentan-2-one, 4MMP)",
+      "note": "слайд «Compounds found in Pinot Noir»; FD<16 — низкий фактор разведения, вклад, вероятно, невелик; интенсивность из формулировки неясна → 2",
+      "status": "check"
+     }
+    ]
+   },
+   "myata": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 30,
+      "intensity": 2,
+      "quote": "The characteristic aroma is ‘eucalyptus’, ‘fresh’, ‘cool’, ‘minty’, ‘medicinal’ and ‘camphorous’",
+      "compound": "1,8-цинеол (1,8-cineole, эвкалиптол)",
+      "note": "слайд про 1,8-цинеол; там же: 65% современных образцов Pinot Noir содержали 1,8-цинеол на уровне порога или выше",
+      "status": "check"
+     }
+    ]
+   },
+   "banan": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 25,
+      "intensity": 2,
+      "quote": "isoamyl acetate, known to be responsible for tropical/banana odor in wine",
+      "compound": "изоамилацетат (isoamyl acetate)",
+      "note": "соединение характеризовало чилийские образцы Пино нуар в этом исследовании; связь «соединение→банан» дана для вина вообще",
+      "status": "check"
+     }
+    ]
+   },
+   "gvozdika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 25,
+      "intensity": 2,
+      "quote": "For Pinot Noir wine, “licorice” aroma, “cloves” aroma, “fresh wood” aroma, “red fruit” flavor, “cherry” aroma, and “spicy” flavor were positively correlated with OQJ",
+      "note": "то же исследование; лакрица — в unmatched",
+      "status": "check"
+     }
+    ]
+   },
+   "griby": {
+    "intensity": 1,
+    "evidence": [
+     {
+      "source": 29,
+      "intensity": 1,
+      "quote": "As it ages, you might catch hints of mushroom and leather.",
+      "note": "с возрастом; «hints» → 1",
+      "status": "check"
+     }
+    ]
+   },
+   "lesnaya-podstilka": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 29,
+      "intensity": 2,
+      "quote": "from ripe cherry and raspberry to intriguing undertones of forest floor, tea leaves, and sometimes even clove",
+      "note": "на той же странице этот ряд приписан сложным эфирам («dominated by aroma compounds known as esters»), но для лесной подстилки это химически сомнительно — соединение не заполнено",
+      "status": "check"
+     }
+    ]
+   },
+   "kozha": {
+    "intensity": 1,
+    "evidence": [
+     {
+      "source": 29,
+      "intensity": 1,
+      "quote": "As it ages, you might catch hints of mushroom and leather.",
+      "note": "с возрастом; «hints» → 1",
+      "status": "check"
+     }
+    ]
+   },
+   "tryufel": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 29,
+      "intensity": 2,
+      "quote": "Expect cranberry, Bing cherry fruit flavors with secondary aromas of truffle mushrooms and sometimes even a green dandelion stem flavor.",
+      "note": "Орегон; «truffle mushrooms»",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Пти вердо": {
+   "roza": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 31,
+      "intensity": 2,
+      "quote": "Phenylethanol and phenylacetaldehyde produced by the amino acid metabolism also had high OAV in wines, which contributed to the rosy and sweet aroma.",
+      "compound": "фенилэтанол и фенилацетальдегид (phenylethanol, phenylacetaldehyde)",
+      "note": "только аннотация (китайский журнал, вина региона Хэбэй); «rosy» → роза; полный текст не открывался; страница doaj.org/article/ea6dcf08aca9421d9b7b4a0a989345b7 рендерится скриптом, поэтому запись прочитана через API DOAJ",
+      "status": "check"
+     }
+    ]
+   },
+   "fialka": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 32,
+      "intensity": 3,
+      "quote": "Strong tones of violet and leather develop as it matures.",
+      "note": "при созревании вина; «strong» → 3",
+      "status": "check"
+     }
+    ]
+   },
+   "sliva": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 33,
+      "intensity": 2,
+      "quote": "Primary Flavors Black Cherry Plum Violet Lilac Sage",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "vishnya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 33,
+      "intensity": 2,
+      "quote": "Primary Flavors Black Cherry Plum Violet Lilac Sage",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2; в источнике «Black Cherry»; в русских описаниях обычно «чёрная вишня» — сопоставлено с «вишня», проверить (возможна «черешня»)",
+      "status": "check"
+     }
+    ]
+   },
+   "banan": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 32,
+      "intensity": 2,
+      "quote": "When young its aromas have been likened to banana and pencil shavings.",
+      "note": "молодое вино",
+      "status": "check"
+     }
+    ]
+   },
+   "kozha": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 32,
+      "intensity": 3,
+      "quote": "Strong tones of violet and leather develop as it matures.",
+      "note": "при созревании вина; «strong» → 3",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Рислинг": {
+   "roza": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 34,
+      "intensity": 2,
+      "quote": "aromas of green or other apples, grapefruit, peach, gooseberry, honey, rose blossom or cut green grass",
+      "note": "молодые вина; «rose blossom»",
+      "status": "check"
+     }
+    ]
+   },
+   "lajm": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 34,
+      "intensity": 3,
+      "quote": "In Australia, Riesling is often noted for a characteristic lime note that tends to emerge in examples from the Clare Valley and Eden Valley in South Australia.",
+      "note": "Австралия; «characteristic» → 3",
+      "status": "check"
+     }
+    ]
+   },
+   "grejpfrut": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 34,
+      "intensity": 2,
+      "quote": "aromas of green or other apples, grapefruit, peach, gooseberry, honey, rose blossom or cut green grass",
+      "note": "молодые вина",
+      "status": "check"
+     }
+    ]
+   },
+   "zelenoe-yabloko": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 35,
+      "intensity": 2,
+      "quote": "Primary Flavors Lime Green Apple Beeswax Jasmine Petroleum",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "persik": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 34,
+      "intensity": 2,
+      "quote": "As a late-ripening variety, Riesling can develop citrus and peach notes in warmer areas such as the Palatinate, Alsace",
+      "note": "тёплые районы",
+      "status": "check"
+     }
+    ]
+   },
+   "lichi": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 34,
+      "intensity": 2,
+      "quote": "While fruit-forward descriptors such as lychee and pineapple are typically used to describe young Australian Rieslings, notes of kerosene and caramel become more apparent as Australian Riesling wines age.",
+      "note": "молодые австралийские вина",
+      "status": "check"
+     }
+    ]
+   },
+   "dym": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 34,
+      "intensity": 2,
+      "quote": "Riesling's naturally high acidity and pronounced fruit flavors give wines made from the grape good aging potential, with well-made vintages often developing smokey, honey notes",
+      "note": "«smokey» при старении; в таксономии «дым» — в группе «Дубовые», а Рислинг обычно не выдерживают в дубе — проверить уместность",
+      "status": "check"
+     }
+    ]
+   },
+   "med": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 34,
+      "intensity": 2,
+      "quote": "Riesling's naturally high acidity and pronounced fruit flavors give wines made from the grape good aging potential, with well-made vintages often developing smokey, honey notes",
+      "note": "при выдержке",
+      "status": "check"
+     }
+    ]
+   },
+   "karamel": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 34,
+      "intensity": 2,
+      "quote": "While fruit-forward descriptors such as lychee and pineapple are typically used to describe young Australian Rieslings, notes of kerosene and caramel become more apparent as Australian Riesling wines age.",
+      "note": "выдержанные австралийские вина",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Ркацители": {
+   "lajm": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 36,
+      "intensity": 2,
+      "quote": "Primary Flavors Pineapple Lime Resin Tarragon Fennel",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); интенсивность не указана",
+      "status": "check"
+     }
+    ]
+   },
+   "apelsinovaya-cedra": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "the oxidative handling elicits flavours of honey, dried orange peel, spices, apricot and other stone fruits.",
+      "note": "квеври-вина; в источнике «dried orange peel» (сушёная цедра)",
+      "status": "check"
+     }
+    ]
+   },
+   "zelenoe-yabloko": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 36,
+      "intensity": 2,
+      "quote": "Rkatsiteli typically exudes green apple, citrus, and herbal hints.",
+      "note": "нос, классический (не квеври) стиль",
+      "status": "check"
+     },
+     {
+      "source": 1,
+      "intensity": 2,
+      "quote": "Restrained and refreshing, with crisp green-apple flavors and hints of quince and white peach",
+      "status": "check"
+     }
+    ]
+   },
+   "ajva": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "When vinified in the European style, Rkatsiteli offers subtle floral aromas with notes of citrus, quince, and apple.",
+      "note": "европейский стиль",
+      "status": "check"
+     },
+     {
+      "source": 1,
+      "intensity": 1,
+      "quote": "Restrained and refreshing, with crisp green-apple flavors and hints of quince and white peach",
+      "note": "«hints of»",
+      "status": "check"
+     }
+    ]
+   },
+   "persik": {
+    "intensity": 1,
+    "evidence": [
+     {
+      "source": 1,
+      "intensity": 1,
+      "quote": "Restrained and refreshing, with crisp green-apple flavors and hints of quince and white peach",
+      "note": "«white peach», «hints of»",
+      "status": "check"
+     }
+    ]
+   },
+   "abrikos": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "the oxidative handling elicits flavours of honey, dried orange peel, spices, apricot and other stone fruits.",
+      "note": "квеври-вина",
+      "status": "check"
+     }
+    ]
+   },
+   "ananas": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 36,
+      "intensity": 2,
+      "quote": "Primary Flavors Pineapple Lime Resin Tarragon Fennel",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); интенсивность не указана",
+      "status": "check"
+     }
+    ]
+   },
+   "kuraga": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 36,
+      "intensity": 2,
+      "quote": "In its qvevri-fermented, skin-contact version, aromas of honey, dried apricot, and earthy nuances may emerge.",
+      "note": "«dried apricot»; только квеври/мацерация на мезге",
+      "status": "check"
+     }
+    ]
+   },
+   "greckij-oreh": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 36,
+      "intensity": 2,
+      "quote": "Kakheti’s Rkatsiteli exhibits rich amber hues and complex aromatics of dried apricot, honey, and walnut",
+      "note": "янтарные квеври-вина Кахетии",
+      "status": "check"
+     }
+    ]
+   },
+   "med": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 0,
+      "intensity": 2,
+      "quote": "the oxidative handling elicits flavours of honey, dried orange peel, spices, apricot and other stone fruits.",
+      "note": "квеври-вина",
+      "status": "check"
+     },
+     {
+      "source": 36,
+      "intensity": 2,
+      "quote": "In its qvevri-fermented, skin-contact version, aromas of honey, dried apricot, and earthy nuances may emerge.",
+      "note": "только квеври/мацерация на мезге",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Саперави": {
+   "fialka": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 37,
+      "intensity": 2,
+      "quote": "Descriptors include floral (violets), dark fruits (blackberry, cherry), citrus and savoury.",
+      "note": "австралийские вина из Саперави; в PDF «ﬂoral» набрано лигатурой",
+      "status": "check"
+     }
+    ]
+   },
+   "vishnya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 37,
+      "intensity": 2,
+      "quote": "Descriptors include floral (violets), dark fruits (blackberry, cherry), citrus and savoury.",
+      "note": "в источнике «cherry» без уточнения (вишня/черешня) — отнесено к «вишня», проверить",
+      "status": "check"
+     }
+    ]
+   },
+   "ezhevika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 37,
+      "intensity": 2,
+      "quote": "Descriptors include floral (violets), dark fruits (blackberry, cherry), citrus and savoury.",
+      "note": "австралийские вина из Саперави",
+      "status": "check"
+     }
+    ]
+   },
+   "shokolad": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 1,
+      "intensity": 2,
+      "quote": "It has aromas and flavors of dark berries, licorice, grilled meat, tobacco, chocolate, and spices.",
+      "status": "check"
+     }
+    ]
+   },
+   "tabak": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 1,
+      "intensity": 2,
+      "quote": "It has aromas and flavors of dark berries, licorice, grilled meat, tobacco, chocolate, and spices.",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Сары пандас": {
+   "persik": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 12,
+      "intensity": 2,
+      "quote": "Букет сложный, цветочно-фруктового направления с леденцовыми оттенками, нотками персика и сухофруктов.",
+      "note": "Молодое игристое вино (переработка по белому способу), виноград с. Морское; табл. 5.",
+      "status": "check"
+     }
+    ]
+   },
+   "mango": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 12,
+      "intensity": 2,
+      "quote": "Вкус гармоничный и полный, фруктовый (персик, манго), хорошая насыщенность СО2.",
+      "note": "Тон во вкусе, не в букете; молодое игристое, табл. 5.",
+      "status": "check"
+     }
+    ]
+   },
+   "med": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 38,
+      "intensity": 2,
+      "quote": "Артемовская (с ароматом цветочно-медового направления, с проявлением леденцовых ноток и оттенков луговых трав)",
+      "note": "Виноматериал для игристых вин, один штамм дрожжей (Артемовская), с. Морское. Группа «выдержка» по таксономии, хотя виноматериал молодой.",
+      "status": "check"
+     },
+     {
+      "source": 38,
+      "intensity": 2,
+      "quote": "вино столового направления из сорта Сары пандас характеризуется ароматом плодово-медового направления с оттенками луговых трав",
+      "note": "Вторичная ссылка: авторы цитируют «литературные данные [36]» — Захарьин В.А. «Автохтоны Крыма. Виноград и вино», 2019 (сама книга не открывалась).",
+      "status": "check"
+     }
+    ]
+   },
+   "karamel": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 38,
+      "intensity": 2,
+      "quote": "на фоне сортового аромата проявляются выраженные цветочные, леденцово-карамельные, фруктовые оттенки",
+      "note": "Аннотация, перспективные штаммы I-539, I-596, I-633. «Выраженные» (не «ярко выраженные») — поставлено 2. Отнесено к «карамель» по части «-карамельные».",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Сира": {
+   "fialka": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 39,
+      "intensity": 2,
+      "quote": "Aroma characters can range from violets to berries (usually dark as opposed to red), chocolate, and black pepper.",
+      "status": "check"
+     }
+    ]
+   },
+   "sliva": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 40,
+      "intensity": 2,
+      "quote": "Primary Flavors Blueberry Black Plum Milk Chocolate Tobacco Green Peppercorn",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2; «Black Plum»",
+      "status": "check"
+     }
+    ]
+   },
+   "ezhevika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 39,
+      "intensity": 2,
+      "quote": "No one aroma can be called typical though blackberry, coffee and pepper are often noticed.",
+      "status": "check"
+     }
+    ]
+   },
+   "chernika": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 40,
+      "intensity": 2,
+      "quote": "Primary Flavors Blueberry Black Plum Milk Chocolate Tobacco Green Peppercorn",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "chernyj-perec": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 41,
+      "intensity": 3,
+      "quote": "the ‘black pepper’ flavour in some Shiraz wines, especially those from cooler regions, is very distinctive.",
+      "compound": "ротундон (rotundone)",
+      "note": "следующее предложение: «The compound responsible was identified at the AWRI in 2007 as rotundone»; «very distinctive» → 3; прохладные районы",
+      "status": "check"
+     },
+     {
+      "source": 42,
+      "intensity": 2,
+      "quote": "By GC-MS-O, rotundone was established as the principal aroma impact compound for pepper aroma in grapes and wine.",
+      "compound": "ротундон (rotundone)",
+      "note": "презентация «Capturing the pepper character in Shiraz»; на следующем слайде: «the black pepper compound Rotundone»; порог 16 нг/л в красном вине, 20–25% дегустаторов его не чувствуют",
+      "status": "check"
+     }
+    ]
+   },
+   "kofe": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 39,
+      "intensity": 2,
+      "quote": "No one aroma can be called typical though blackberry, coffee and pepper are often noticed.",
+      "status": "check"
+     }
+    ]
+   },
+   "kozha": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 39,
+      "intensity": 2,
+      "quote": "With time in the bottle these primary notes are moderated and then supplemented with earthy or savory tertiary notes such as leather and truffle.",
+      "note": "при выдержке в бутылке",
+      "status": "check"
+     }
+    ]
+   },
+   "tabak": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 40,
+      "intensity": 2,
+      "quote": "Primary Flavors Blueberry Black Plum Milk Chocolate Tobacco Green Peppercorn",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "tryufel": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 39,
+      "intensity": 2,
+      "quote": "With time in the bottle these primary notes are moderated and then supplemented with earthy or savory tertiary notes such as leather and truffle.",
+      "note": "при выдержке в бутылке",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Совиньон белый": {
+   "grejpfrut": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 43,
+      "intensity": 2,
+      "quote": "3SH – described as grapefruit, passion fruit, gooseberry or guava.",
+      "compound": "3-сульфанилгексан-1-ол (3SH, он же 3MH)",
+      "note": "крыжовник и гуава — в unmatched",
+      "status": "check"
+     }
+    ]
+   },
+   "zelenoe-yabloko": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 43,
+      "intensity": 2,
+      "quote": "cis-3-Hexenal has been described as almost sweet grassy or green apple.",
+      "compound": "цис-3-гексеналь (cis-3-hexenal)",
+      "status": "check"
+     }
+    ]
+   },
+   "persik": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 44,
+      "intensity": 2,
+      "quote": "Primary Flavors Gooseberry Honeydew Grapefruit White Peach Passion Fruit",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2; «White Peach»",
+      "status": "check"
+     }
+    ]
+   },
+   "mango": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 44,
+      "intensity": 2,
+      "quote": "expect pungent, in-your-face aromas ranging from freshly cut grass, peas, and asparagus to tropical and ripe passion fruit, grapefruit, or even mango.",
+      "note": "«or even mango» — скорее редкий тон; оставлено 2",
+      "status": "check"
+     }
+    ]
+   },
+   "marakujya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 43,
+      "intensity": 2,
+      "quote": "4MSP – described as box tree or passion fruit.",
+      "compound": "4-сульфанил-4-метилпентан-2-он (4MSP, он же 4MMP)",
+      "note": "на том же постере маракуйя указана также для 3SH и 3SHA; самшит (box tree) — в unmatched",
+      "status": "check"
+     }
+    ]
+   },
+   "skoshennaya-trava": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 6,
+      "intensity": 2,
+      "quote": "Sauvignon Blanc, too, is known for methoxypyrazine-driven aromas, though its profile leans more towards fresh-cut grass or gooseberry.",
+      "compound": "метоксипиразины (methoxypyrazines)",
+      "note": "фраза со страницы Wine Folly о Каберне фран; расходится с постером NZW (там трава — от C6-альдегидов); проверить",
+      "status": "check"
+     },
+     {
+      "source": 43,
+      "intensity": 2,
+      "quote": "The freshly cut grass aromas come primarily from hexenal, trans-2-hexenal and cis-3-hexenal, which during fermentation get converted to the corresponding alcohols.",
+      "compound": "C6-альдегиды: «hexenal» (так в источнике, возможно гексаналь), транс-2-гексеналь, цис-3-гексеналь (trans-2-hexenal, cis-3-hexenal)",
+      "note": "расхождение: Wine Folly связывает траву у Совиньона с метоксипиразинами — см. следующую запись",
+      "status": "check"
+     }
+    ]
+   },
+   "sladkij-zelenyj-perec": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 45,
+      "intensity": 2,
+      "quote": "3-isobutyl-2-methoxypyrazine (IBMP) is a grape-derived aroma compound responsible for the bell pepper character of wine.",
+      "compound": "3-изобутил-2-метоксипиразин (IBMP)",
+      "note": "рецензируемая статья; изучены вина Совиньон и Фер (Гайяк)",
+      "status": "check"
+     },
+     {
+      "source": 43,
+      "intensity": 2,
+      "quote": "IBMP (Isobutylmethoxypyrazine) is the main aroma compound from this family found in New Zealand Sauvignon Blanc. Its aroma is described as green pepper or capsicum.",
+      "compound": "изобутилметоксипиразин (IBMP)",
+      "note": "новозеландский стиль",
+      "status": "check"
+     }
+    ]
+   },
+   "kremen": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 44,
+      "intensity": 2,
+      "quote": "Pouilly-Fumé: Similar in weight to Sancerre, but often slightly softer and richer, showing notable aromas of gunflint, yellow flowers and rich citrus.",
+      "note": "Пуйи-Фюме (Луара); «gunflint»",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Совиньон зеленый": {
+   "grejpfrut": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 46,
+      "intensity": 2,
+      "quote": "Primary Flavors Grapefruit Green Pear White Peach Tarragon Crushed Gravel",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); Friulano = Sauvignonasse (на странице: «Officially called Sauvignonasse») = Совиньон зеленый; не Sauvignon blanc",
+      "status": "check"
+     }
+    ]
+   },
+   "grusha": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 46,
+      "intensity": 2,
+      "quote": "Primary Flavors Grapefruit Green Pear White Peach Tarragon Crushed Gravel",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); «Green Pear»; Friulano = Sauvignonasse (на странице: «Officially called Sauvignonasse») = Совиньон зеленый; не Sauvignon blanc",
+      "status": "check"
+     }
+    ]
+   },
+   "persik": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 46,
+      "intensity": 2,
+      "quote": "Primary Flavors Grapefruit Green Pear White Peach Tarragon Crushed Gravel",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания); «White Peach»; Friulano = Sauvignonasse (на странице: «Officially called Sauvignonasse») = Совиньон зеленый; не Sauvignon blanc",
+      "status": "check"
+     }
+    ]
+   },
+   "mindal": {
+    "intensity": 1,
+    "evidence": [
+     {
+      "source": 47,
+      "intensity": 1,
+      "quote": "the creamy but crisp apple nose showing touches of floral character and almond creamy/nuttiness",
+      "note": "дегустационная заметка одного вина (Borgo Magredo Friulano 2015), не обобщение по сорту; «touches» → 1; на странице: «Friulano (aka Sauvignonasse)»",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Траминер розовый": {
+   "roza": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 23,
+      "intensity": 2,
+      "quote": "spicy, floral (rose petals), fruity (citrus, grapefruit, peach), lychee, cold cream, honey, and jasmine tea",
+      "note": "«rose petals»; перечень терминов из литературы [28]",
+      "status": "check"
+     },
+     {
+      "source": 48,
+      "intensity": 3,
+      "quote": "Дает вина с ярким ароматом роз, китайского личи и насыщенным цветом.",
+      "note": "фраза о Гевюрцтраминере (на странице — клон Траминера розового); для вина «Троянда Закарпаття» из Траминера розового там же: «нежными тонами чайной розы»",
+      "status": "check"
+     },
+     {
+      "source": 49,
+      "intensity": 3,
+      "quote": "pronounced aromas of rose petal, lychee, and exotic spices",
+      "compound": "гераниол (geraniol)",
+      "note": "Альто-Адидже; связь с гераниолом в том же источнике: «Other terpenes, such as geraniol (rose)…»",
+      "status": "check"
+     }
+    ]
+   },
+   "flerdoranzh": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 49,
+      "intensity": 2,
+      "quote": "You can also find ginger, orange blossom, and delicate spiced notes",
+      "status": "check"
+     }
+    ]
+   },
+   "grejpfrut": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 23,
+      "intensity": 2,
+      "quote": "spicy, floral (rose petals), fruity (citrus, grapefruit, peach), lychee, cold cream, honey, and jasmine tea",
+      "note": "перечень терминов из литературы [28]",
+      "status": "check"
+     },
+     {
+      "source": 49,
+      "intensity": 2,
+      "quote": "Primary Flavors Lychee Rose Grapefruit Tangerine Ginger",
+      "note": "цитата — элементы списка «Primary Flavors» на странице (без знаков препинания);",
+      "status": "check"
+     }
+    ]
+   },
+   "persik": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 23,
+      "intensity": 2,
+      "quote": "spicy, floral (rose petals), fruity (citrus, grapefruit, peach), lychee, cold cream, honey, and jasmine tea",
+      "note": "перечень терминов из литературы [28]",
+      "status": "check"
+     }
+    ]
+   },
+   "lichi": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 23,
+      "intensity": 2,
+      "quote": "cis‐rose oxide is the main impact odorant related to sweet and fruity [11], and it is thought to produce the aroma of lychee",
+      "compound": "цис-розоксид (cis-rose oxide)",
+      "note": "обзорная часть статьи со ссылками на литературу; связь сформулирована осторожно («is thought to»)",
+      "status": "check"
+     },
+     {
+      "source": 48,
+      "intensity": 3,
+      "quote": "Дает вина с ярким ароматом роз, китайского личи и насыщенным цветом.",
+      "note": "фраза о Гевюрцтраминере (на странице — клон Траминера розового)",
+      "status": "check"
+     },
+     {
+      "source": 49,
+      "intensity": 3,
+      "quote": "Its hallmark lychee aroma is attributed to linalool",
+      "compound": "линалоол (linalool)",
+      "note": "«hallmark» → 3. ПРОТИВОРЕЧИЕ: научная статья MDPI (Fermentation 2022) связывает личи с цис-розоксидом, а не с линалоолом — проверить",
+      "status": "check"
+     }
+    ]
+   },
+   "med": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 23,
+      "intensity": 2,
+      "quote": "spicy, floral (rose petals), fruity (citrus, grapefruit, peach), lychee, cold cream, honey, and jasmine tea",
+      "note": "перечень терминов из литературы [28]",
+      "status": "check"
+     },
+     {
+      "source": 49,
+      "intensity": 2,
+      "quote": "can develop notes of dried fruit, honey, and savory spice.",
+      "note": "только выдержанные вина лучших лет",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Цитронный Магарача": {
+   "roza": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 50,
+      "intensity": 2,
+      "quote": "Аромат тонкий цветочного направления с тонами розы и цитрона.",
+      "compound": "гераниол",
+      "note": "Сухой столовый виноматериал, штамм Мускат 4 (Р) (I-637), табл. «Органолептическая оценка». Связь «гераниол — аромат розы» дана в статье как литературная справка [18–20], не измерена именно для этого тона.",
+      "status": "check"
+     }
+    ]
+   },
+   "muskatnyj-ton": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 50,
+      "intensity": 2,
+      "quote": "Аромат сортовой, с мускатными оттенками.",
+      "compound": "терпеновые соединения (терпеновые спирты)",
+      "note": "Виноматериал, штамм Кокур 3 (I-279). В статье: «специфический мускатный аромат во многом зависит от присутствия в вине терпеновых соединений» (0,46–1,51 мг/л в опытных образцах).",
+      "status": "check"
+     },
+     {
+      "source": 51,
+      "intensity": 3,
+      "quote": "Вкус гармоничный, с сильно выраженным цитронно-мускатным ароматом.",
+      "note": "Описание ягод (винограда), не вина. Энциклопедия — пониженная достоверность.",
+      "status": "check"
+     }
+    ]
+   },
+   "med": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 50,
+      "intensity": 2,
+      "quote": "Аромат яркий, пряно-медовый с цветочными тонами и цитроном.",
+      "note": "Виноматериал, штамм Алиготе М (I-76). «Яркий» относится ко всему аромату — интенсивность могла бы быть 3; поставлено 2. Группа «выдержка» по таксономии, хотя здесь молодой виноматериал.",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Шардоне": {
+   "limon": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "Primary Flavors Lemon Yellow Apple Butter Vanilla Pineapple",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "speloe-yabloko": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "Primary Flavors Lemon Yellow Apple Butter Vanilla Pineapple",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2; «Yellow Apple» сопоставлено со «спелое яблоко» — проверить",
+      "status": "check"
+     }
+    ]
+   },
+   "ananas": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "Primary Flavors Lemon Yellow Apple Butter Vanilla Pineapple",
+      "note": "список «Primary Flavors» на странице; интенсивность по умолчанию 2",
+      "status": "check"
+     }
+    ]
+   },
+   "kremen": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "Chablis is recognized for producing lean, steely Chardonnay with a unique flinty-mineral edge",
+      "note": "Шабли",
+      "status": "check"
+     }
+    ]
+   },
+   "sdoba": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "This can also add brioche, dough, or biscuit flavors.",
+      "note": "от батонажа (перемешивания осадка)",
+      "status": "check"
+     }
+    ]
+   },
+   "slivochnoe-maslo": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 3,
+      "quote": "A noteworthy byproduct of MLF is a compound called diacetyl, which contributes a distinctive buttery character to the Chardonnay.",
+      "compound": "диацетил (diacetyl)",
+      "note": "от малолактического брожения; на той же странице: «hallmark tasting notes of butter and vanilla» → 3",
+      "status": "check"
+     },
+     {
+      "source": 53,
+      "intensity": 2,
+      "quote": "Ethyl lactate and diethyl succinate are known to influence the buttery and creamy aspects of wine",
+      "compound": "этиллактат и диэтилсукцинат (ethyl lactate, diethyl succinate)",
+      "note": "утверждение о вине вообще в статье о Шардоне и ЯМБ; DOI 10.3390/foods9060802; текст прочитан через Europe PMC (страница PMC7353488)",
+      "status": "check"
+     }
+    ]
+   },
+   "slivki": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "Oak’s gift to Chardonnay includes vanilla essence from vanillin, creamy aroma from lactones, and a hint of clove-like spice from eugenol.",
+      "compound": "лактоны (lactones; дубовые лактоны)",
+      "note": "«creamy aroma» → сливки; проверить сопоставление",
+      "status": "check"
+     }
+    ]
+   },
+   "jogurt": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "Chardonnay often undergoes a process called malolactic fermentation, which changes sharp malic acid into softer lactic acid, adding butter and yogurt notes.",
+      "note": "от ЯМБ; соединение не названо",
+      "status": "check"
+     }
+    ]
+   },
+   "vanil": {
+    "intensity": 3,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 3,
+      "quote": "Oak’s gift to Chardonnay includes vanilla essence from vanillin, creamy aroma from lactones, and a hint of clove-like spice from eugenol.",
+      "compound": "ванилин (vanillin)",
+      "note": "от дуба; «hallmark» на той же странице → 3",
+      "status": "check"
+     }
+    ]
+   },
+   "kokos": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "Different types of oak impart varied flavors: American oak offers bold, coconutty notes, French oak offers subtle, spicy nuances, and Hungarian oak balances the two.",
+      "note": "только при американском дубе; «bold» — можно считать 3",
+      "status": "check"
+     }
+    ]
+   },
+   "gvozdika": {
+    "intensity": 1,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 1,
+      "quote": "Oak’s gift to Chardonnay includes vanilla essence from vanillin, creamy aroma from lactones, and a hint of clove-like spice from eugenol.",
+      "compound": "эвгенол (eugenol)",
+      "note": "«a hint» → 1; от дуба",
+      "status": "check"
+     }
+    ]
+   },
+   "funduk": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 52,
+      "intensity": 2,
+      "quote": "With age, no matter the style, Chardonnay tends to develop hazelnut aromas.",
+      "note": "с возрастом",
+      "status": "check"
+     }
+    ]
+   }
+  },
+  "Эким кара": {
+   "vishnya": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 12,
+      "intensity": 2,
+      "quote": "Букет ягодно-травянистого направления с оттенками вишни, проходящая «задушка».",
+      "note": "Красное молодое игристое, с. Морское; авторы пишут, что травянистые оттенки связаны с ранним сбором (сахаристость менее 18 г/100 см3).",
+      "status": "check"
+     }
+    ]
+   },
+   "shokolad": {
+    "intensity": 2,
+    "evidence": [
+     {
+      "source": 4,
+      "intensity": 2,
+      "quote": "Вино темно-рубинового цвета, полное, мягкое, бархатистое, с заметно выраженными какао-шоколадными тонами в букете и вкусе.",
+      "note": "Вино «Черный доктор (Эким-Кара)» — купаж Эким-Кара, Кефесия, Лапа-Кара и др., основной сорт Эким-Кара. «Заметно выраженными» — возможно 3, поставлено 2. Энциклопедия.",
+      "status": "check"
+     }
+    ]
+   }
+  }
+ },
+ "sources": [
+  {
+   "title": "Grape Varieties - GWA (Georgian Wine Association)",
+   "url": "https://gwa.ge/en/yurdznis-jishebi/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Grape Varieties - Wines of Georgia",
+   "url": "https://www.winesgeorgia.com/grape-varieties/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "L’Aligoté : un cépage bourguignon pour toutes les occasions — Vins de Bourgogne (BIVB)",
+   "url": "https://www.vins-bourgogne.fr/vins-et-terroirs/nos-cepages-nos-couleurs/aligote/aligote-il-a-tout-d-un-grand,2794,10503.html",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Aligoté | Wine Folly",
+   "url": "https://winefolly.com/grapes/aligote/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Десертные сладкие вина (книга «Гроздья здоровья») — vinograd.info",
+   "url": "https://vinograd.info/info/grozdya-zdorovya/desertnye-sladkie-vina.html",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Бастардо магарачский — сорт винограда — vinograd.info",
+   "url": "https://vinograd.info/sorta/vinnye/bastardo-magarachskii.html",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Cabernet Franc | Wine Folly",
+   "url": "https://winefolly.com/grapes/cabernet-franc/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Cabernet Franc — Wikipedia (англ.)",
+   "url": "https://en.wikipedia.org/wiki/Cabernet_Franc",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Cabernet Sauvignon — Wikipedia (англ.)",
+   "url": "https://en.wikipedia.org/wiki/Cabernet_Sauvignon",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Cabernet Sauvignon: Everything You Need To Know | Wine Folly",
+   "url": "https://winefolly.com/grapes/cabernet-sauvignon/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Каберне-совиньон — Знание.Вики",
+   "url": "https://znanierussia.ru/articles/%D0%9A%D0%B0%D0%B1%D0%B5%D1%80%D0%BD%D0%B5-%D1%81%D0%BE%D0%B2%D0%B8%D0%BD%D1%8C%D0%BE%D0%BD",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Romero R. et al. Pyrazine contents in four red grape varietes cultivated in warm climate. J. Int. Sci. Vigne Vin (OENO One), 2006, 40(4)",
+   "url": "https://oeno-one.eu/article/view/861",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Лутков И.П., Макаров А.С., Шмигельская Н.А. Исследование качества молодых игристых вин из крымских автохтонных сортов винограда // Техника и технология пищевых производств. 2024; 54(1): 1-17. DOI 10.21603/2074-9414-2024-1-2483",
+   "url": "https://www.fptt.ru/jour/article/download/156/145",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Сорт винограда Кефесия, Эким кара — vinograd.info",
+   "url": "https://vinograd.info/sorta/vinnye/kefesiya.html",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Иванченко К.В., Геок В.Н., Пробейголова П.А. Влияние штаммов дрожжей на качество столовых виноматериалов из винограда сорта Кокур белый // «Магарач». Виноградарство и виноделие. 2019; 21(1)",
+   "url": "https://magarach-journal.ru/files/articles/2019-v21-n1-15-ivanchenko.pdf",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Merlot — Wikipedia (англ.)",
+   "url": "https://en.wikipedia.org/wiki/Merlot",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Merlot | Wine Folly",
+   "url": "https://winefolly.com/grapes/merlot/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Diversify Your Taste With Mourvèdre Wine | Wine Folly",
+   "url": "https://winefolly.com/grapes/mourvedre-wine/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Bandol | Guide Hachette des Vins",
+   "url": "https://www.hachette-vins.com/tout-sur-le-vin/appellations-vins/284/bandol",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Discover the wine of the Mourvèdre grape variety | Decanter",
+   "url": "https://www.decanter.com/wine/grape-varieties/mourvedre/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Monastrell (Mourvèdre) | Wine Folly",
+   "url": "https://winefolly.com/grapes/monastrell-mourvedre/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Сорт винограда Мускат белый — vinograd.info",
+   "url": "https://vinograd.info/sorta/vinnye/myskat-belyi.html",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Muscat Blanc | Wine Folly",
+   "url": "https://winefolly.com/grapes/muscat-blanc/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Chigo-Hernandez M.M., DuBois A., Tomasino E. Aroma Perception of Rose Oxide, Linalool and α-Terpineol Combinations in Gewürztraminer Wine. Fermentation 2022, 8, 30 (doi:10.3390/fermentation8010030)",
+   "url": "https://mdpi-res.com/d_attachment/fermentation/fermentation-08-00030/article_deploy/fermentation-08-00030.pdf",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Сорта винограда для приготовления мускатных десертных вин — Страница 7 (раздел «Селекция виноградной лозы», vinograd.info)",
+   "url": "https://vinograd.info/info/selekciya-vinogradnoy-lozy/harakteristika-ishodnogo-materiala-ispolzuemogo-v-selekcii-vinograda-7.html",
+   "type": "монография/ампелография",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Darnal A. et al. Decoding the Identity of Pinot Gris and Pinot Noir Wines: A Comprehensive Chemometric Fusion of Sensory (from Dual Panel) and Chemical Analysis. Foods, 13(1):18",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10778262/",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Chigo-Hernandez M. M., Tomasino E. Aroma Perception of Limonene, Linalool and α-Terpineol Combinations in Pinot Gris Wine. Foods, 2023, 12(12):2389",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10297329/",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Pinot Gris | Wine Folly",
+   "url": "https://winefolly.com/grapes/pinot-gris/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Potential Effect of β-Ionone and β-Damascenone on Sensory Perception of Pinot Noir Wine Aroma. Molecules, 2021",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7956508/",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Pinot Noir | Wine Folly",
+   "url": "https://winefolly.com/grapes/pinot-noir/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Aroma compounds important to Pinot Noir: An overview and recent ‘eucalypt/mint’ research (D. L. Capone, AWRI; презентация)",
+   "url": "https://www.awri.com.au/wp-content/uploads/2013/08/capone-Pinot-WS1-AWITC15.pdf",
+   "type": "другое",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Changes of aroma components of 'Petit Verdot' grape berries and wines from Hebei Jieshi Mountain region during fermentation process. Zhongguo niangzao (China Brewing), 2024, 43(9):50-59 (аннотация)",
+   "url": "https://doaj.org/api/search/articles/id:ea6dcf08aca9421d9b7b4a0a989345b7",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Petit Verdot — Wikipedia (англ.)",
+   "url": "https://en.wikipedia.org/wiki/Petit_verdot",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Petit Verdot | Wine Folly",
+   "url": "https://winefolly.com/grapes/petit-verdot/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Riesling — Wikipedia (англ.)",
+   "url": "https://en.wikipedia.org/wiki/Riesling",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Riesling | Wine Folly",
+   "url": "https://winefolly.com/grapes/riesling/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Rkatsiteli | Wine Folly (Christine Marsiglio MW)",
+   "url": "https://winefolly.com/grapes/rkatsiteli/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Peter Dry (AWRI). Alternative varieties: Saperavi. Wine & Viticulture Journal, Sept/Oct 2014",
+   "url": "https://awri.com.au/files/attachment/s1663-2",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Шмигельская Н.А., Макаров А.С., Лутков И.П. и др. Оценка перспективности штаммов дрожжей для производства игристых вин из сорта Сары пандас // «Магарач». Виноградарство и виноделие. 2024; 26(4): 396-402",
+   "url": "https://magarach-journal.ru/files/articles/2024-v26-n4-12-shmigelskaya.pdf",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Syrah — Wikipedia (англ.)",
+   "url": "https://en.wikipedia.org/wiki/Syrah",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Syrah | Wine Folly",
+   "url": "https://winefolly.com/grapes/syrah/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Mapping the origins of high rotundone and pepper flavour in Shiraz (AWRI Technical Review 214, Technical notes)",
+   "url": "https://www.awri.com.au/wp-content/uploads/2011/07/Technical_Review_Issue_214_Barter.pdf",
+   "type": "другое",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Capturing the pepper character in Shiraz (L. Francis, T. Siebert и др., AWRI; презентация)",
+   "url": "https://www.awri.com.au/wp-content/uploads/2014/06/Leigh_Rotundone.pdf",
+   "type": "другое",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Sauvignon Blanc: compound classes (постер New Zealand Winegrowers при участии Bragato Research Institute)",
+   "url": "https://www.nzwine.com/media/17498/nzw-careers-sauvblancposterweb.pdf",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Sauvignon Blanc | Wine Folly",
+   "url": "https://winefolly.com/grapes/sauvignon-blanc/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Geffroy O. et al. 3-Isobutyl-2-methoxypyrazine is neutrally perceived by consumers at usual concentrations in French Sauvignon and Fer wines from the Gaillac area. OENO One, 2020, 54(4)",
+   "url": "https://oeno-one.eu/article/download/4492/13798",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Friulano | Wine Folly",
+   "url": "https://winefolly.com/grapes/friulano/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Borgo Magredo, Friulano 2015 - wine-pages (Tom Cannavan)",
+   "url": "https://wine-pages.com/tasting-notes/borgo-magredo-friulano-2015/",
+   "type": "другое",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Сорт винограда Траминер розовый и Гевюрцтраминер — vinograd.info",
+   "url": "https://vinograd.info/sorta/vinnye/traminer-rozovyi-i-gevyurctraminer.html",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Gewürztraminer | Wine Folly (Christine Marsiglio MW)",
+   "url": "https://winefolly.com/grapes/gewurztraminer/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Шаламитский М.Ю., Танащук Т.Н., Загоруйко В.А. Влияние штаммов дрожжей на ароматический комплекс виноматериалов из винограда сорта Цитронный Магарача // «Магарач». Виноградарство и виноделие. 2021; 23(1): 66-71",
+   "url": "https://magarach-journal.ru/files/articles/2021-v23-n1-12-shalamitskij.pdf",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Сорт винограда Цитронный Магарача — vinograd.info",
+   "url": "https://vinograd.info/sorta/vinnye/citronnyi-magaracha.html",
+   "type": "энциклопедия",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "The Comprehensive Guide to Chardonnay | Wine Folly",
+   "url": "https://winefolly.com/grapes/chardonnay/",
+   "type": "справочник",
+   "accessed": "2026-11-05"
+  },
+  {
+   "title": "Impact of the Timing and Temperature of Malolactic Fermentation on the Aroma Composition and Mouthfeel Properties of Chardonnay Wine. Foods, 2020, 9(6):802",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7353488/fullTextXML",
+   "type": "научная статья",
+   "accessed": "2026-11-05"
+  }
+ ]
+}
