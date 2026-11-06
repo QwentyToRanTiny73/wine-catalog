@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!--@head title="Админка" description="Служебная страница: правка дескрипторов ароматов и пометок к образцам."-->
+    <link rel="stylesheet" href="/src/styles/admin.css" />
+    <script type="module" src="/src/pages/admin.js"></script>
+  </head>
+  <body>
+    <!--@header-->
+
+    <main id="main" class="container">
+      <div class="page-intro">
+        <p class="overline">Служебная страница</p>
+        <h1>Админка</h1>
+        <p class="lead">Правка дескрипторов ароматов и пометок к образцам. Значения анализов меняются только в исходном Excel.</p>
+      </div>
+
+      <form class="panel admin-login" id="login" autocomplete="off">
+        <h2>Вход</h2>
+        <p>Нужен fine-grained токен GitHub с правом <strong>Contents: Read and write</strong> только на этот репозиторий.
+          Токен хранится в этой вкладке до её закрытия (sessionStorage) и отправляется только на api.github.com.</p>
+        <label for="token">Токен GitHub</label>
+        <input id="token" name="token" type="password" spellcheck="false" required />
+        <div class="admin-actions"><button class="button" type="submit">Войти</button></div>
+        <p class="admin-status" id="login-status" role="status"></p>
+      </form>
+
+      <div id="editor" hidden>
+        <p class="admin-bar"><span id="who"></span> <button class="button button--ghost" type="button" id="logout">Выйти</button></p>
+
+        <section class="panel admin-section" aria-labelledby="aroma-title">
+          <h2 id="aroma-title">Дескрипторы ароматов <span class="muted">(data/aroma-descriptors.csv)</span></h2>
+          <div class="admin-filter">
+            <label for="aroma-variety">Сорт</label>
+            <select id="aroma-variety"></select>
+          </div>
+          <div class="admin-table-wrap"><table class="admin-table" id="aroma-table">
+            <caption class="visually-hidden">Дескрипторы выбранного сорта</caption>
+            <thead><tr><th scope="col">Тон</th><th scope="col">Интенсивность</th><th scope="col">Статус</th><th scope="col">Источник</th></tr></thead>
+            <tbody></tbody>
+          </table></div>
+
+          <details class="admin-add">
+            <summary>Добавить дескриптор</summary>
+            <form id="aroma-add" class="admin-form">
+              <label for="add-variety">Сорт</label><select id="add-variety" required></select>
+              <label for="add-descriptor">Тон</label><select id="add-descriptor" required></select>
+              <label for="add-intensity">Интенсивность</label>
+              <select id="add-intensity"><option>1</option><option selected>2</option><option>3</option></select>
+              <label for="add-quote">Цитата из источника (дословно)</label><textarea id="add-quote" rows="3" required></textarea>
+              <label for="add-url">Ссылка на источник</label><input id="add-url" type="url" required placeholder="https://…" />
+              <label for="add-title">Название источника</label><input id="add-title" required />
+              <label for="add-type">Тип источника</label>
+              <select id="add-type"><option>научная статья</option><option>монография/ампелография</option><option>справочник</option><option>энциклопедия</option><option>другое</option></select>
+              <label for="add-compound">Вещество, отвечающее за тон (если источник его называет)</label><input id="add-compound" />
+              <label for="add-note">Примечание</label><input id="add-note" />
+              <div class="admin-actions"><button class="button button--ghost" type="submit">Добавить в список</button></div>
+            </form>
+          </details>
+
+          <div class="admin-save">
+            <label for="aroma-message">Описание изменения (для истории)</label>
+            <input id="aroma-message" value="admin: дескрипторы ароматов" />
+            <button class="button" type="button" id="aroma-save" disabled>Сохранить на сайт</button>
+            <p class="admin-status" id="aroma-status" role="status"></p>
+          </div>
+        </section>
+
+        <section class="panel admin-section" aria-labelledby="notes-title">
+          <h2 id="notes-title">Пометки к образцам <span class="muted">(data/sample-notes.csv)</span></h2>
+          <div class="admin-table-wrap"><table class="admin-table" id="notes-table">
+            <caption class="visually-hidden">Пометки к образцам</caption>
+            <thead><tr><th scope="col">№ образца</th><th scope="col">Поле</th><th scope="col">Пометка</th><th scope="col"><span class="visually-hidden">Действие</span></th></tr></thead>
+            <tbody></tbody>
+          </table></div>
+          <form id="notes-add" class="admin-form admin-form--inline">
+            <label for="note-number">№ образца</label><input id="note-number" type="number" min="1" required />
+            <label for="note-field">Поле</label><select id="note-field" required></select>
+            <label for="note-text">Пометка</label><input id="note-text" required />
+            <div class="admin-actions"><button class="button button--ghost" type="submit">Добавить пометку</button></div>
+          </form>
+          <div class="admin-save">
+            <label for="notes-message">Описание изменения (для истории)</label>
+            <input id="notes-message" value="admin: пометки к образцам" />
+            <button class="button" type="button" id="notes-save" disabled>Сохранить на сайт</button>
+            <p class="admin-status" id="notes-status" role="status"></p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!--@footer-->
+  </body>
+</html>

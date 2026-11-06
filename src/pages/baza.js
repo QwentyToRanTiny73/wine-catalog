@@ -1,6 +1,7 @@
 // /baza/ — единственная таблица образцов.
 // Данные выводятся только через textContent; innerHTML — лишь для постоянных SVG-иконок.
 import data from '../data/samples.json';
+import notes from '../data/notes.json';   // пометки к образцам: номер → [{ field, text }] (scripts/build_notes.py)
 import { filterSamples, sortSamples, filterOptions, readState, writeState, SELECT_FILTERS, DEFAULT_STATE } from '../lib/query.js';
 import { formatNumber, varietyLabel, plural, sampleTitle, sampleNumber, isEmpty, capitalize } from '../lib/format.js';
 import { COLUMNS } from '../lib/columns.js';
@@ -199,7 +200,7 @@ function valueNode(s, field) {
     dd = el('dd', {}, el('span', { class: isNum ? 'mono' : null }, String(isNum ? formatNumber(s[field.key]) : s[field.key])));
     if (field.unit) dd.append(' ', el('span', { class: 'unit' }, field.unit));
   }
-  for (const note of (s.notes ?? []).filter((n) => n.field === field.key)) {
+  for (const note of (notes[s.labNumber] ?? []).filter((n) => n.field === field.key)) {
     dd.append(el('p', { class: 'note' }, svg('info'), el('span', {}, note.text)));
   }
   return dd;

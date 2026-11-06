@@ -38,7 +38,7 @@ npm run preview   # посмотреть собранный dist/: http://localh
 Как устроены страницы (всё вставляется при сборке — страницы работают без JavaScript):
 - `src/site/site.js` — **единственный реестр** страниц (`PAGES`), базовый адрес и названия (`SITE`).
   Из него строятся входы сборки, меню, `sitemap.xml` и список страниц для `npm run audit`.
-  **Новая страница = HTML-файл + одна строка в `PAGES`.**
+  **Новая страница = HTML-файл + одна строка в `PAGES`.** `hidden: true` — служебная (нет в меню и sitemap, `noindex`).
 - Метки в HTML: `<!--@head title="…" description="…"-->`, `<!--@header-->`, `<!--@footer-->`, `<!--@icon имя-->`,
   `<!--@chart years|colors|chromatogram-->`, `<!--@archive-->`, `<!--@external href="…" text="…"-->`.
   Значения: `{{stats.…}}`, `{{site.…}}`, `{{url.baza}}`, `{{base}}`. Неизвестная метка или значение — ошибка сборки.
@@ -53,7 +53,12 @@ python3 -m pip install openpyxl           # именно через python3 -m p
 python3 -I scripts/build_data.py          # сборка → src/data/samples.json, data/report.md
 python3 -I scripts/build_data.py draft    # новые сорта/колонки → строки на утверждение (утверждённое не трогает)
 python3 -I scripts/build_data.py --source X.xlsx --out /tmp/dir   # проверка на другом файле, без записи в проект
+python3 -I scripts/build_aroma.py         # data/aroma-*.csv → src/data/aroma/*.json (Excel не нужен)
+python3 -I scripts/build_notes.py         # data/sample-notes.csv → src/data/notes.json (Excel не нужен)
 ```
+
+CI перед `npm run build` сам запускает `build_aroma.py` и `build_notes.py` — так правки из `/admin/` попадают на сайт.
+`/admin/` (Р27) коммитит в `main` только эти два CSV; значения анализов — только через Excel. Инструкция — `docs/admin.md`.
 
 `-I` — изолированный режим Python: Excel приходит извне, поэтому посторонние модули из текущей папки не подгружаются.
 CSV для владельца пишутся с разделителем `;` и BOM, чтобы русский Excel открывал их сразу по колонкам.
@@ -66,6 +71,7 @@ CSV для владельца пишутся с разделителем `;` и 
 - `docs/decisions.md` — решения (Р…) и открытые вопросы (В…).
 - `docs/audit.md` — проверка аудита с доказательствами.
 - `docs/STATUS.md` — где мы сейчас и что нужно от владельца.
+- `docs/admin.md` — как войти в `/admin/` (токен GitHub) и что она правит.
 - `data/variety-map.csv` — написание сорта в Excel → канонические сорта (утверждает владелец).
 - `data/fields.csv` — подпись, единица и точность каждого показателя (утверждает владелец).
 - `data/aroma-taxonomy.csv` — утверждённая таксономия ароматов (Р21).
