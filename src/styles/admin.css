@@ -1,0 +1,44 @@
+/* Общие стили — первыми: так страничные правила гарантированно идут после них */
+@import './main.css';
+
+/* /admin/: служебная страница. Цвета — токены из main.css. */
+
+.admin-login { max-width: 36rem; margin-top: 1.5rem; }
+.admin-section { margin-top: 1.5rem; }
+.admin-section h2 { margin-top: 0; }
+.admin-bar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-top: 1.5rem; }
+
+.admin-login label, .admin-form label, .admin-filter label, .admin-save label {
+  display: block; margin-top: 0.75rem; font-size: 0.8125rem; font-weight: 600; color: var(--text-2);
+}
+.panel input, .panel select, .panel textarea {
+  width: 100%; min-height: 2.75rem; margin-top: 0.25rem; padding: 0.5rem 0.7rem;
+  font: inherit; font-size: 0.9375rem; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius);
+}
+.panel textarea { resize: vertical; }
+.admin-filter { max-width: 22rem; }
+
+.admin-table-wrap { overflow-x: auto; margin-top: 1rem; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+.admin-table th, .admin-table td { padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.admin-table th { font-size: 0.8125rem; color: var(--text-2); }
+.admin-table select { min-width: 9rem; margin: 0; }
+
+.admin-add { margin-top: 1rem; }
+.admin-add summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+.admin-form { max-width: 40rem; }
+@media (min-width: 48rem) {
+  .admin-form--inline { display: grid; grid-template-columns: 8rem 16rem minmax(0, 1fr); gap: 0 0.75rem; max-width: none; }
+  .admin-form--inline label { grid-row: 1; }
+  .admin-form--inline .admin-actions { grid-column: 1 / -1; }
+}
+
+.admin-actions { margin-top: 1rem; }
+.admin-save { max-width: 40rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.admin-save .button { margin-top: 0.75rem; }
+.button:disabled { opacity: 0.5; cursor: not-allowed; }
+.admin-status { min-height: 1.5em; margin: 0.6rem 0 0; color: var(--text-2); }
+
+.link-button { padding: 0; border: 0; background: none; font: inherit; color: var(--accent); text-decoration: underline; text-underline-offset: 0.18em; cursor: pointer; }
+.link-button:hover { color: var(--accent-hover); }

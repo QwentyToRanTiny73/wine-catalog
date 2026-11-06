@@ -22,7 +22,7 @@
 Утверждённые владельцем таблицы (вход сборки):
   data/variety-map.csv   написание сорта в Excel → канонические сорта (статус «утверждено»)
   data/fields.csv        подпись, единица и точность каждого показателя
-  data/sample-notes.csv  пометки к отдельным образцам (номер образца; поле; текст)
+Пометки к образцам (data/sample-notes.csv) собирает отдельно scripts/build_notes.py — ему Excel не нужен.
 """
 from __future__ import annotations
 
@@ -42,7 +42,6 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCE_DIR = ROOT / "data" / "source"
 VARIETY_MAP = ROOT / "data" / "variety-map.csv"
 FIELDS_CSV = ROOT / "data" / "fields.csv"
-NOTES_CSV = ROOT / "data" / "sample-notes.csv"
 OUT_JSON = Path("src/data/samples.json")
 OUT_REPORT = Path("data/report.md")
 
@@ -390,25 +389,12 @@ def load_fields(columns: list[Column], errors: list[str]) -> dict[str, dict]:
     return config
 
 
-def load_notes(errors: list[str]) -> dict[int, list[dict]]:
-    notes: dict[int, list[dict]] = collections.defaultdict(list)
-    for r in read_csv(NOTES_CSV):
-        try:
-            number = int(r["labNumber"])
-        except ValueError:
-            errors.append(f"{rel(NOTES_CSV)}: номер образца «{r['labNumber']}» — не число")
-            continue
-        notes[number].append({"field": r["field"].strip(), "text": r["note"].strip()})
-    return notes
-
-
 # ── Сборка ───────────────────────────────────────────────────────────────────
 
 def build(columns: list[Column], rows, source: Path):
     errors: list[str] = []
     variety_map = load_variety_map(errors)
     fields = load_fields(columns, errors)
-    notes = load_notes(errors)
     by_key = {c.key: c for c in columns}
     legends = {c.key: parse_code_legend(c.unit) for c in columns if c.kind == "code"}
 
@@ -485,8 +471,6 @@ def build(columns: list[Column], rows, source: Path):
             label = "купаж, состав неизвестен" if s["blend"] else "сорт не указан"
             issues[f"Сортовой состав: {label}"].append(excel_row)
 
-        if number is not None and number in notes:
-            s["notes"] = notes[number]
         samples.append((excel_row, s))
 
     for number, where in numbers_seen.items():
@@ -502,18 +486,6 @@ def build(columns: list[Column], rows, source: Path):
     shown = {c.key for c in columns
              if c.kind != "id" and fields.get(c.key, {}).get("show") and filled[c.key]}
 
-    known_numbers = {s["labNumber"] for _, s in samples if s["labNumber"] is not None}
-    for number, items in notes.items():
-        if number not in known_numbers:
-            errors.append(f"{rel(NOTES_CSV)}: образца с номером {number} нет в Excel")
-        for item in items:
-            if item["field"] not in by_key:
-                errors.append(f"{rel(NOTES_CSV)}: у образца {number} неизвестное поле «{item['field']}»")
-            elif item["field"] not in shown:
-                # пометка к скрытому или служебному полю на сайте не видна — лучше сказать сразу
-                errors.append(f"{rel(NOTES_CSV)}: у образца {number} пометка к полю «{item['field']}», "
-                              "которое не показывается на сайте")
-
     if errors:
         raise DataError("Сборка остановлена:\n" + "\n".join(f"  - {e}" for e in errors))
 
@@ -528,7 +500,7 @@ def build(columns: list[Column], rows, source: Path):
             "subsection": c.subsection, "filled": filled[c.key],
         })
     # Скрытые поля (show = «нет») не публикуются вовсе — их значений нет и в samples.json
-    keep = shown | {"id", "labNumber", "varieties", "blend", "notes"}
+    keep = shown | {"id", "labNumber", "varieties", "blend"}
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
     data = {
         "source": {"file": source.name, "sha256": digest, "sheet": SHEET, "rows": len(samples)},
@@ -584,9 +556,6 @@ def report_md(data: dict, issues: dict, filled: dict, columns: list[Column], fie
     else:
         out.append("- замечаний нет")
 
-    noted = [s for s in samples if s.get("notes")]
-    out += ["", "## Пометки к образцам (`data/sample-notes.csv`)", ""]
-    out += [f"- № {s['labNumber']}, поле `{n['field']}`: {n['text']}" for s in noted for n in s["notes"]] or ["- нет"]
     return "\n".join(out) + "\n"
 
 

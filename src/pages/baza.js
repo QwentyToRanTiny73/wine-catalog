@@ -1,11 +1,14 @@
 // /baza/ — единственная таблица образцов.
 // Данные выводятся только через textContent; innerHTML — лишь для постоянных SVG-иконок.
 import data from '../data/samples.json';
+import notes from '../data/notes.json';   // пометки к образцам: номер → [{ field, text }] (scripts/build_notes.py)
 import { filterSamples, sortSamples, filterOptions, readState, writeState, SELECT_FILTERS, DEFAULT_STATE } from '../lib/query.js';
 import { formatNumber, varietyLabel, plural, sampleTitle, sampleNumber, isEmpty, capitalize } from '../lib/format.js';
 import { COLUMNS } from '../lib/columns.js';
 import { BLOCKS, colorKey, SAMPLE_WORDS } from '../lib/domain.js';
 import { icon } from '../site/icons.js';
+import { pageUrl } from '../site/site.js';
+import { MAX_COMPARE } from '../lib/wheel.js';
 
 const SAMPLES = data.samples;
 const BY_ID = new Map(SAMPLES.map((s) => [s.id, s]));
@@ -197,7 +200,7 @@ function valueNode(s, field) {
     dd = el('dd', {}, el('span', { class: isNum ? 'mono' : null }, String(isNum ? formatNumber(s[field.key]) : s[field.key])));
     if (field.unit) dd.append(' ', el('span', { class: 'unit' }, field.unit));
   }
-  for (const note of (s.notes ?? []).filter((n) => n.field === field.key)) {
+  for (const note of (notes[s.labNumber] ?? []).filter((n) => n.field === field.key)) {
     dd.append(el('p', { class: 'note' }, svg('info'), el('span', {}, note.text)));
   }
   return dd;
@@ -244,6 +247,10 @@ function openSample(id, trigger) {
   $('#dlg-number').textContent = sampleTitle(s);
   $('#dlg-title').textContent = varietyLabel(s);
   $('#dlg-meta').textContent = [s.harvestYear && `урожай ${s.harvestYear}`, s.color, s.productType].filter(Boolean).join(' · ');
+  // ссылка на профиль аромата сорта (у купажа — сравнение его сортов, до трёх)
+  const aromaVarieties = s.varieties.slice(0, MAX_COMPARE);
+  $('#dlg-aroma').replaceChildren(...(aromaVarieties.length ? [el('a', { href: `${pageUrl('aromaty')}?v=${encodeURIComponent(aromaVarieties.join(','))}` },
+    aromaVarieties.length > 1 ? 'Профили аромата сортов' : 'Профиль аромата сорта')] : []));
   dlgBody.replaceChildren(...dialogBody(s));
   opener = trigger ?? null;
   state.id = id;

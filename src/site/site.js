@@ -14,11 +14,14 @@ export const SITE = {
   instituteUrl: 'https://magarach-institut.ru/',
 };
 
-/** key — имя страницы, file — HTML-исходник, path — адрес от BASE, label — пункт меню. */
+/** key — имя страницы, file — HTML-исходник, path — адрес от BASE, label — пункт меню;
+ *  hidden — служебная: нет в меню и sitemap, закрыта от поисковиков. */
 export const PAGES = [
   { key: 'home', file: 'index.html', path: '', label: 'О базе' },
   { key: 'baza', file: 'baza/index.html', path: 'baza/', label: 'База образцов' },
   { key: 'arkhiv', file: 'arkhiv/index.html', path: 'arkhiv/', label: 'Архив' },
+  { key: 'aromaty', file: 'aromaty/index.html', path: 'aromaty/', label: 'Ароматы' },
+  { key: 'admin', file: 'admin/index.html', path: 'admin/', label: 'Админка', hidden: true },
 ];
 
 export function page(key) {
@@ -29,3 +32,6 @@ export function page(key) {
 
 /** Адрес страницы на сайте: pageUrl('baza') → '/wine-catalog/baza/'. */
 export const pageUrl = (key) => BASE + page(key).path;
+
+/** Страницы для меню и sitemap (без служебных). */
+export const PUBLIC_PAGES = PAGES.filter((p) => !p.hidden);

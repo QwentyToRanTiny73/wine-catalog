@@ -27,7 +27,6 @@
 .results-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; margin: 1rem 0 0.5rem; font-size: 0.875rem; }
 .results-bar p { margin: 0; }
 .results-bar__count { font-weight: 600; color: var(--text-2); }
-.notice { padding: 1rem 1.25rem; background: var(--surface-2); border-radius: var(--radius); color: var(--text-2); }
 
 /* ── Таблица ──────────────────────────────────────────────────────────── */
 .table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
@@ -112,6 +111,8 @@ html:has(dialog[open]) { overflow: hidden; }
 .sample-dialog__head h2 { margin: 0 0 0.2rem; }
 .sample-dialog__head .overline { margin-bottom: 0.25rem; }
 .sample-dialog__meta { margin: 0; color: var(--text-2); }
+.sample-dialog__aroma { margin: 0.35rem 0 0; font-size: 0.9375rem; }
+.sample-dialog__aroma:empty { display: none; }
 .sample-dialog__body { overflow-y: auto; padding: 0.25rem 1.5rem 1.5rem; overscroll-behavior: contain; }
 .icon-button {
   display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; flex: none;

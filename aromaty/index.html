@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!--@head title="Колесо ароматов" description="Органолептические профили сортов винограда Крыма: колесо ароматов, сравнение сортов, вещества, отвечающие за тон, и источники каждого дескриптора."-->
+    <link rel="stylesheet" href="/src/styles/aromaty.css" />
+    <script type="module" src="/src/pages/aromaty.js"></script>
+  </head>
+  <body>
+    <!--@header-->
+
+    <main id="main">
+      <div class="container page-intro">
+        <p class="section-tag section-tag--sand">Ароматы</p>
+        <h1>Колесо ароматов</h1>
+        <p class="lead">
+          Органолептические профили сортов: какие тона характерны для сорта, насколько ярко и какие вещества за них отвечают.
+          Выберите до трёх сортов, чтобы сравнить их.
+        </p>
+        <p class="notice notice--source"><!--@icon info-->
+          <span>Дескрипторы собраны из открытых источников и до проверки лабораторией помечены «интернет, проверить».
+          У каждого тона указана цитата и ссылка на источник.</span>
+        </p>
+      </div>
+
+      <div class="container aroma-layout">
+        <fieldset class="picker panel" id="picker">
+          <legend class="picker__legend">Сорта для сравнения <span class="picker__count" id="picker-count"></span></legend>
+          <p class="picker__hint muted" id="picker-hint">Можно выбрать до трёх.</p>
+          <div class="picker__list" id="picker-list"></div>
+        </fieldset>
+
+        <figure class="wheel panel">
+          <figcaption class="visually-hidden" id="wheel-title">Колесо ароматов: категории, группы и тона</figcaption>
+          <div class="wheel__box" id="wheel-box"></div>
+          <div class="wheel__tip" id="wheel-tip" hidden aria-hidden="true"></div>
+          <p class="wheel__help muted" id="wheel-help">Наведите или перейдите клавишей Tab на тон; стрелки — соседний тон, Enter — подробности.</p>
+          <ul class="wheel__legend" id="wheel-legend"></ul>
+        </figure>
+
+        <section class="details panel" id="details" aria-live="polite" aria-labelledby="details-title">
+          <h2 class="visually-hidden" id="details-title">Подробности о тоне</h2>
+          <div id="details-body"></div>
+        </section>
+      </div>
+
+      <section class="container section" aria-labelledby="profile-title">
+        <div class="section__head">
+          <div>
+            <p class="section-tag section-tag--sand">Текстовая версия колеса</p>
+            <h2 id="profile-title">Профили выбранных сортов</h2>
+          </div>
+        </div>
+        <div id="profile"></div>
+      </section>
+    </main>
+
+    <!--@footer-->
+  </body>
+</html>

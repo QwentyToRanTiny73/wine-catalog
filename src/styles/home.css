@@ -39,7 +39,8 @@
 
 /* ── 2. Разделы сайта ─────────────────────────────────────────────────── */
 .destinations { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 1rem; }
-@media (min-width: 56rem) { .destinations { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 40rem) { .destinations { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 72rem) { .destinations { grid-template-columns: repeat(4, 1fr); } }
 .dest {
   position: relative; display: flex; flex-direction: column; gap: 0.35rem;
   padding: 1.35rem 1.4rem 1.25rem; border-radius: var(--radius-lg); border: 1px solid transparent; color: var(--text-2);
@@ -48,6 +49,8 @@
 .dest--wine { background: var(--accent-tint); border-color: var(--wine-line); }
 .dest--khaki { background: var(--khaki-tint); border-color: var(--khaki-line); }
 .dest--sand { background: var(--sand-tint); border-color: var(--sand-line); }
+.dest--plain { background: var(--surface); border-color: var(--line); }
+.dest--plain .dest__icon { background: var(--surface-2); color: var(--text-2); }
 .dest:hover, .dest:focus-within { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
 .dest:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
 .dest__icon {

@@ -2,12 +2,13 @@
 // Вставляются в HTML при сборке плагином в vite.config.js.
 import { icon } from './icons.js';
 import { escapeHtml as esc } from '../lib/format.js';
-import { BASE, SITE_URL, SITE, PAGES, page as findPage } from './site.js';
+import { BASE, SITE_URL, SITE, PUBLIC_PAGES, page as findPage } from './site.js';
 
 /** <head>: заголовок, описание, Open Graph, канонический адрес, иконка вкладки. */
 export function renderHead({ page, title, description }) {
   if (!title || !description) throw new Error(`У страницы «${page}» нет title или description`);
-  const url = SITE_URL + findPage(page).path;
+  const def = findPage(page);
+  const url = SITE_URL + def.path;
   const fullTitle = page === 'home' ? title : `${title} — ${SITE.name}`;
   return `<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,7 +16,7 @@ export function renderHead({ page, title, description }) {
     <meta name="description" content="${esc(description)}" />
     <link rel="canonical" href="${esc(url)}" />
     <meta name="theme-color" content="#fbfaf7" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light" />${def.hidden ? '\n    <meta name="robots" content="noindex, nofollow" />' : ''}
     <link rel="icon" href="${BASE}favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
@@ -45,7 +46,7 @@ export function renderHeader({ page }) {
       </span>
     </a>
     <nav class="site-nav" aria-label="Разделы сайта">
-      <ul>${PAGES.map((p) => navLink(p, page)).join('')}</ul>
+      <ul>${PUBLIC_PAGES.map((p) => navLink(p, page)).join('')}</ul>
     </nav>
   </div>
 </header>`;
@@ -63,7 +64,7 @@ export function renderFooter({ stats }) {
     <div class="site-footer__col">
       <p class="site-footer__title">Разделы</p>
       <ul class="site-footer__links">
-        ${PAGES.map((p) => navLink(p, null)).join('')}
+        ${PUBLIC_PAGES.map((p) => navLink(p, null)).join('')}
         <li>${externalLink(SITE.instituteUrl, 'Официальный сайт института')}</li>
       </ul>
     </div>
@@ -78,6 +79,6 @@ export function renderFooter({ stats }) {
 
 /** sitemap.xml из реестра страниц — генерируется при сборке. */
 export function renderSitemap() {
-  const urls = PAGES.map((p) => `  <url><loc>${SITE_URL}${p.path}</loc></url>`).join('\n');
+  const urls = PUBLIC_PAGES.map((p) => `  <url><loc>${SITE_URL}${p.path}</loc></url>`).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }

@@ -38,6 +38,18 @@
   --wine-red: #9b2c44;
   --wine-rose: #d0607a;
 
+  /* колесо ароматов: сорта для сравнения — проверено validate_palette.js (все пары, контраст ≥ 3:1) */
+  --series-1: #9b2c44;
+  --series-2: #6f8128;
+  --series-3: #3d6db5;
+  /* кольца категорий и групп — пастель (структура подписана, цвет только помогает) */
+  --ring-grape: #dfe5c6;
+  --ring-grape-2: #eef0e2;
+  --ring-ferment: #ecdfc4;
+  --ring-ferment-2: #f6efe3;
+  --ring-aging: #ecd3d9;
+  --ring-aging-2: #f6ecee;
+
   --font-sans: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
@@ -154,6 +166,9 @@ img, svg { display: block; }
 .site-footer__title { font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
 .site-footer p { margin: 0 0 0.35rem; }
 .site-footer__links { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.35rem; }
+
+/* Сообщение на странице (пусто, нет данных, пометка об источниках) */
+.notice { padding: 1rem 1.25rem; background: var(--surface-2); border-radius: var(--radius); color: var(--text-2); }
 
 /* ── Общие элементы разделов (главная, архив) ─────────────────────────── */
 .section-tag {
