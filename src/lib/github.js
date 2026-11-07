@@ -15,6 +15,7 @@ export class GitHubError extends Error {
 async function request(token, path, options = {}) {
   const res = await fetch(`${API}${path}`, {
     ...options,
+    cache: 'no-store',   // GitHub отдаёт max-age=60: без этого после сохранения читалась бы старая версия
     headers: {
       Accept: 'application/vnd.github+json',
       Authorization: `Bearer ${token}`,
@@ -23,14 +24,15 @@ async function request(token, path, options = {}) {
     },
   });
   if (!res.ok) {
+    const detail = await res.json().then((b) => b?.message, () => null);
     const hint = {
       401: 'токен неверный или истёк',
       403: 'у токена нет прав на этот репозиторий (нужно Contents: Read and write)',
       404: 'репозиторий или файл не найден (проверьте, что токен выдан на этот репозиторий)',
-      409: 'файл изменился, пока вы его правили — загрузите заново',
-      422: 'файл изменился, пока вы его правили — загрузите заново',
+      409: 'файл изменился, пока вы его правили (или запись в main запрещена защитой ветки)',
+      422: 'GitHub не принял изменение (например, защита ветки main)',
     }[res.status] ?? `ошибка GitHub ${res.status}`;
-    throw new GitHubError(res.status, hint);
+    throw new GitHubError(res.status, detail ? `${hint}. Ответ GitHub: «${detail}»` : hint);
   }
   return res.json();
 }

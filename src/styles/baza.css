@@ -58,7 +58,7 @@
 
 .row-open {
   min-width: 2.25rem; min-height: 1.75rem; padding: 0.1rem 0.4rem; margin: -0.1rem -0.4rem;
-  border: 0; border-radius: 4px; background: none; cursor: pointer;
+  border: 0; border-radius: var(--radius-sm); background: none; cursor: pointer;
   font: 400 0.9375rem/1.4 var(--font-mono); color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em;
 }
 .row-open:hover { background: var(--accent-tint); color: var(--accent-hover); }

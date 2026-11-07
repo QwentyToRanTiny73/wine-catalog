@@ -12,8 +12,8 @@
 
 status: «интернет, проверить» — показывается с этой пометкой (Р10, Р26); «проверено» — без пометки;
         «скрыто» — на сайт не попадает.
-Любая ошибка (дескриптор не из таксономии, сорт не из variety-map, интенсивность вне 1–3,
-запись без источника) останавливает сборку, файлы не перезаписываются.
+Любая ошибка (дескриптор не из таксономии, сорт не из утверждённых строк variety-map, интенсивность
+вне 1–3, запись без источника — ссылки, цитаты, даты обращения) останавливает сборку, файлы не перезаписываются.
 
   python3 -I scripts/build_aroma.py
 """
@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -31,6 +32,8 @@ VARIETY_MAP = ROOT / "data" / "variety-map.csv"
 OUT_DIR = ROOT / "src" / "data" / "aroma"
 
 STATUSES = {"интернет, проверить": "check", "проверено": "ok", "скрыто": "hidden"}
+APPROVED = "утверждено"   # как в build_data.py: сорта — только из утверждённых строк variety-map
+DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 TRANSLIT = dict(zip("абвгдеёжзийклмнопрстуфхцчшщъыьэюя",
                     ["a", "b", "v", "g", "d", "e", "e", "zh", "z", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s",
@@ -73,12 +76,13 @@ def build() -> tuple[dict, dict]:
         descriptor_ids[name] = did
         groups[-1]["descriptors"].append({"id": did, "name": name})
 
-    varieties = sorted({v.strip() for r in read_csv(VARIETY_MAP) for v in r["varieties"].split("+") if v.strip()},
+    varieties = sorted({v.strip() for r in read_csv(VARIETY_MAP) if r["status"].strip() == APPROVED
+                        for v in r["varieties"].split("+") if v.strip()},
                        key=lambda v: v.lower().replace("ё", "е"))
 
     # Дескрипторы сортов: одна пара «сорт — дескриптор» может иметь несколько источников
     sources: list[dict] = []
-    source_index: dict[str, int] = {}
+    source_index: dict[tuple, int] = {}
     profiles: dict[str, dict] = {v: {} for v in varieties}
     for n, row in enumerate(read_csv(DESCRIPTORS_CSV), start=2):
         where = f"{rel(DESCRIPTORS_CSV)}, строка {n}"
@@ -103,17 +107,19 @@ def build() -> tuple[dict, dict]:
             errors.append(f"{where}: интенсивность «{row['intensity']}» — нужно 1, 2 или 3")
             continue
         url = row["source_url"].strip()
-        if not url.startswith(("http://", "https://")) or not row["quote"].strip():
-            errors.append(f"{where}: нет источника (ссылки и цитаты) — без источника записи нет (Р10)")
+        accessed = row["accessed"].strip()
+        if not url.startswith(("http://", "https://")) or not row["quote"].strip() or not DATE.fullmatch(accessed):
+            errors.append(f"{where}: нет источника (ссылки, цитаты, даты обращения ГГГГ-ММ-ДД) — без источника записи нет (Р10)")
             continue
-        if url not in source_index:
-            source_index[url] = len(sources)
-            sources.append({"title": row["source_title"].strip(), "url": url,
-                            "type": row["source_type"].strip(), "accessed": row["accessed"].strip()})
+        # один источник = одна ссылка с тем же названием и датой обращения: у новой цитаты по старой ссылке — своя дата
+        key = (url, row["source_title"].strip(), row["source_type"].strip(), accessed)
+        if key not in source_index:
+            source_index[key] = len(sources)
+            sources.append({"title": key[1], "url": url, "type": key[2], "accessed": accessed})
         entry = profiles[variety].setdefault(descriptor_ids[name], {"intensity": 0, "evidence": []})
         entry["intensity"] = max(entry["intensity"], intensity)
         entry["evidence"].append({k: v for k, v in {
-            "source": source_index[url], "intensity": intensity, "quote": row["quote"].strip(),
+            "source": source_index[key], "intensity": intensity, "quote": row["quote"].strip(),
             "compound": row["compound"].strip(), "note": row["note"].strip(), "status": status,
         }.items() if v != ""})
 

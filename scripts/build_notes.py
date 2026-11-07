@@ -3,7 +3,8 @@
 
 Excel не нужен — проверка идёт по уже собранному src/data/samples.json, поэтому скрипт
 запускается и в GitHub Actions (после правки пометок через /admin/, решение Р27).
-Ошибка (нет образца с таким номером, поле не показывается на сайте) останавливает сборку.
+Ошибка (нет образца с таким номером, поле не показывается на сайте, у образца это поле пустое —
+пометку никто не увидит) останавливает сборку.
 
   python3 -I scripts/build_notes.py
 """
@@ -22,7 +23,7 @@ OUT = ROOT / "src" / "data" / "notes.json"
 
 def main() -> int:
     data = json.loads(SAMPLES.read_text(encoding="utf-8"))
-    numbers = {s["labNumber"] for s in data["samples"] if "labNumber" in s}
+    by_number = {s["labNumber"]: s for s in data["samples"] if "labNumber" in s}
     fields = {f["key"] for f in data["fields"]}
     notes: dict[str, list[dict]] = {}
     errors = []
@@ -35,10 +36,12 @@ def main() -> int:
                 errors.append(f"{where}: номер образца «{row['labNumber']}» — не число")
                 continue
             field, text = row["field"].strip(), row["note"].strip()
-            if number not in numbers:
+            if number not in by_number:
                 errors.append(f"{where}: образца с номером {number} нет в данных")
             elif field not in fields:
                 errors.append(f"{where}: поле «{field}» не показывается на сайте — пометку никто не увидит")
+            elif by_number[number].get(field) in (None, ""):
+                errors.append(f"{where}: у образца {number} поле «{field}» пустое — пометку никто не увидит")
             elif not text:
                 errors.append(f"{where}: пустой текст пометки")
             else:

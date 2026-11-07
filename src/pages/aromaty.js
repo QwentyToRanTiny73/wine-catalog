@@ -174,11 +174,14 @@ function showTip(id, clientX, clientY) {
       `${v}: ${PROFILES[v][id] ? `${PROFILES[v][id].intensity} из 3` : 'нет'}`))
     : [el('span', { class: 'tip__row' }, (() => { const n = holders(id).length; return n ? `у ${n} ${plural(n, ['сорта', 'сортов', 'сортов'])}` : 'в источниках не встречается'; })())];
   tip.append(...list);
-  const rect = box.getBoundingClientRect();
+  // координаты — от блока, внутри которого подсказка позиционируется (figure.wheel), а не от колеса:
+  // колесо стоит по центру и с отступами, иначе подсказка уезжает от указателя
   tip.hidden = false;
-  const x = Math.min(Math.max(clientX - rect.left, 8), rect.width - tip.offsetWidth - 8);
+  const host = tip.offsetParent ?? box;
+  const rect = host.getBoundingClientRect();
+  const x = Math.min(Math.max(clientX - rect.left - host.clientLeft, 8), host.clientWidth - tip.offsetWidth - 8);
   tip.style.left = `${x}px`;
-  tip.style.top = `${clientY - rect.top + 16}px`;
+  tip.style.top = `${clientY - rect.top - host.clientTop + 16}px`;
 }
 
 function tipForNode(node) {
@@ -205,7 +208,8 @@ function renderDetails() {
   }
   const d = BY_ID.get(id);
   const list = holders(id);
-  const head = [el('p', { class: 'overline' }, `${shortCategory(d.category)} › ${d.group}`), el('h3', { class: 'details__title' }, capitalize(d.name))];
+  const head = [el('p', { class: 'overline' }, `${shortCategory(d.category)} › ${d.group}`),
+    el('h3', { class: 'details__title', id: 'details-tone', tabindex: '-1' }, capitalize(d.name))];
   if (!list.length) {
     detailsBody.replaceChildren(...head, el('p', {}, 'В собранных источниках этот тон не указан ни для одного сорта.'));
     return;
@@ -351,14 +355,18 @@ function bindEvents() {
 
   // «Сравнить» в подробностях и тона в текстовой версии
   document.addEventListener('click', (e) => {
+    // нажатая кнопка исчезает при перерисовке — фокус переносим на заголовок подробностей,
+    // иначе он падает в начало страницы и пользователь клавиатуры теряет место
     const add = e.target.closest('[data-add]');
     if (add && state.varieties.length < MAX_COMPARE) {
       state.varieties = [...state.varieties, add.dataset.add];
       render();
+      $('#details-tone')?.focus();
     }
     const tone = e.target.closest('[data-tone]');
     if (tone) {
       selectTone(tone.dataset.tone);
+      $('#details-tone')?.focus({ preventScroll: true });
       $('#details').scrollIntoView({ block: 'nearest' });
     }
   });

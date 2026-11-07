@@ -15,11 +15,14 @@ const VARIETIES = Object.keys(aroma.varieties);
 const GROUPS = taxonomy.categories.flatMap((c) => c.groups);
 const DESCRIPTORS = new Set(GROUPS.flatMap((g) => g.descriptors.map((d) => d.name)));
 const FIELDS = new Map(samples.fields.map((f) => [f.key, f.label]));
-const NUMBERS = new Set(samples.samples.map((s) => s.labNumber).filter((n) => n != null));
+const BY_NUMBER = new Map(samples.samples.filter((s) => s.labNumber != null).map((s) => [s.labNumber, s]));
+const isHttp = (url) => /^https?:\/\//.test(url);   // как build_aroma.py: url.startswith(('http://', 'https://'))
+/** Сегодняшняя дата по часам компьютера (toISOString дал бы дату по UTC — ночью в Крыму это вчера). */
+const today = () => { const d = new Date(); return [d.getFullYear(), d.getMonth() + 1, d.getDate()].map((n) => String(n).padStart(2, '0')).join('-'); };
 
 const $ = (sel) => document.querySelector(sel);
 let token = null;
-const files = { aroma: null, notes: null };   // { header, rows, sha, dirty }
+const files = { aroma: null, notes: null };   // { header, rows, sha, dirty, edits, saving }
 
 function el(tag, attrs = {}, ...children) {
   const node = document.createElement(tag);
@@ -39,8 +42,10 @@ function setStatus(id, text, link = null) {
 }
 
 function markDirty(kind) {
-  files[kind].dirty = true;
-  $(`#${kind}-save`).disabled = false;
+  const f = files[kind];
+  f.dirty = true;
+  f.edits += 1;   // по счётчику save() видит правки, сделанные во время сохранения
+  $(`#${kind}-save`).disabled = f.saving;
   setStatus(`#${kind}-status`, 'Есть несохранённые изменения.');
 }
 
@@ -53,8 +58,8 @@ async function login(candidate) {
     token = candidate;
     sessionStorage.setItem(TOKEN_KEY, token);
     const [a, n] = await Promise.all([readFile(token, AROMA_PATH), readFile(token, NOTES_PATH)]);
-    files.aroma = { ...parseCsv(a.text), sha: a.sha, dirty: false };
-    files.notes = { ...parseCsv(n.text), sha: n.sha, dirty: false };
+    files.aroma = { ...parseCsv(a.text), sha: a.sha, dirty: false, edits: 0, saving: false };
+    files.notes = { ...parseCsv(n.text), sha: n.sha, dirty: false, edits: 0, saving: false };
     $('#login').hidden = true;
     $('#editor').hidden = false;
     $('#who').textContent = `Вход выполнен · ${REPO}, ветка main`;
@@ -78,7 +83,8 @@ function renderAroma() {
     const status = el('select', { 'aria-label': `Статус: ${r.descriptor}` }, ...options(STATUSES, r.status));
     status.addEventListener('change', () => { r.status = status.value; markDirty('aroma'); });
     return el('tr', {}, el('td', {}, r.descriptor), el('td', {}, intensity), el('td', {}, status),
-      el('td', {}, el('a', { href: r.source_url, rel: 'noopener', target: '_blank' }, r.source_title || r.source_url)));
+      // ссылка — только http(s): строку «скрыто» сборка не проверяет, а здесь хранится токен
+      el('td', {}, isHttp(r.source_url) ? el('a', { href: r.source_url, rel: 'noopener', target: '_blank' }, r.source_title || r.source_url) : (r.source_title || r.source_url)));
   }));
   if (!rows.length) tbody.append(el('tr', {}, el('td', { colspan: 4 }, 'У этого сорта пока нет дескрипторов.')));
 }
@@ -89,13 +95,14 @@ function addAroma(e) {
   const row = {
     variety: v('#add-variety'), descriptor: v('#add-descriptor'), intensity: v('#add-intensity'),
     compound: v('#add-compound'), quote: v('#add-quote'), source_title: v('#add-title'), source_url: v('#add-url'),
-    source_type: v('#add-type'), accessed: new Date().toISOString().slice(0, 10), note: v('#add-note'),
+    source_type: v('#add-type'), accessed: today(), note: v('#add-note'),
     status: 'проверено',   // добавляет сама лаборатория
   };
   // те же правила, что в scripts/build_aroma.py: без источника записи нет (Р10)
   const problem = !VARIETIES.includes(row.variety) ? 'сорт не из списка'
     : !DESCRIPTORS.has(row.descriptor) ? 'тон не из таксономии'
-      : !/^https?:\/\//.test(row.source_url) ? 'нужна ссылка на источник (https://…)'
+    : !['1', '2', '3'].includes(row.intensity) ? 'интенсивность — 1, 2 или 3'
+      : !isHttp(row.source_url) ? 'нужна ссылка на источник (https://…)'
         : !row.quote ? 'нужна цитата из источника' : null;
   if (problem) { setStatus('#aroma-status', `Не добавлено: ${problem}.`); return; }
   files.aroma.rows.push(row);
@@ -110,8 +117,15 @@ function addAroma(e) {
 function renderNotes() {
   const tbody = $('#notes-table tbody');
   tbody.replaceChildren(...files.notes.rows.map((r, i) => {
-    const del = el('button', { type: 'button', class: 'link-button' }, 'Удалить');
-    del.addEventListener('click', () => { files.notes.rows.splice(i, 1); renderNotes(); markDirty('notes'); });
+    const del = el('button', { type: 'button', class: 'link-button', 'aria-label': `Удалить пометку к образцу ${r.labNumber}` }, 'Удалить');
+    del.addEventListener('click', () => {
+      files.notes.rows.splice(i, 1);
+      renderNotes();
+      markDirty('notes');
+      // кнопка исчезла вместе со строкой — фокус на соседнюю «Удалить» или на форму, а не в начало страницы
+      const buttons = tbody.querySelectorAll('button');
+      (buttons[Math.min(i, buttons.length - 1)] ?? $('#note-number')).focus();
+    });
     return el('tr', {}, el('td', {}, r.labNumber), el('td', {}, FIELDS.get(r.field) ?? r.field), el('td', {}, r.note), el('td', {}, del));
   }));
 }
@@ -121,8 +135,12 @@ function addNote(e) {
   const number = Number($('#note-number').value);
   const field = $('#note-field').value;
   const note = $('#note-text').value.trim();
-  const problem = !NUMBERS.has(number) ? `образца с номером ${number} нет (у образцов «б/н» пометок быть не может)`
-    : !FIELDS.has(field) ? 'поле не показывается на сайте' : !note ? 'пустой текст' : null;
+  const sample = BY_NUMBER.get(number);
+  // те же правила, что в scripts/build_notes.py
+  const problem = !sample ? `образца с номером ${number} нет (у образцов «б/н» пометок быть не может)`
+    : !FIELDS.has(field) ? 'поле не показывается на сайте'
+      : (sample[field] ?? '') === '' ? `у образца ${number} поле «${FIELDS.get(field)}» не заполнено — пометку никто не увидит`
+        : !note ? 'пустой текст' : null;
   if (problem) { setStatus('#notes-status', `Не добавлено: ${problem}.`); return; }
   files.notes.rows.push({ labNumber: String(number), field, note });
   e.target.reset();
@@ -135,16 +153,22 @@ function addNote(e) {
 async function save(kind, path) {
   const f = files[kind];
   const button = $(`#${kind}-save`);
+  const edits = f.edits;
+  f.saving = true;
   button.disabled = true;
   setStatus(`#${kind}-status`, 'Сохраняю…');
   try {
     const res = await writeFile(token, path, serializeCsv(f.header, f.rows), f.sha, $(`#${kind}-message`).value.trim() || `admin: ${path}`);
     f.sha = res.sha;
-    f.dirty = false;
-    setStatus(`#${kind}-status`, 'Сохранено. Сайт обновится через 1–2 минуты (сборка GitHub Actions).', res.commitUrl);
+    // правки, сделанные пока шло сохранение, в этот коммит не попали — они остаются несохранёнными
+    f.dirty = f.edits !== edits;
+    setStatus(`#${kind}-status`, f.dirty ? 'Сохранено, но есть правки, сделанные во время сохранения, — сохраните ещё раз.'
+      : 'Сохранено. Сайт обновится через 1–2 минуты (сборка GitHub Actions).', res.commitUrl);
   } catch (e) {
-    button.disabled = false;
     setStatus(`#${kind}-status`, `Не сохранено: ${e.message}.`);
+  } finally {
+    f.saving = false;
+    button.disabled = !f.dirty;
   }
 }
 
