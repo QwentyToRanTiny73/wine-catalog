@@ -4,26 +4,36 @@
 
 const BOM = '﻿';
 
-/** Текст CSV → массив объектов по заголовку. Понимает кавычки, «""» и переводы строк внутри поля. */
+/** Текст CSV → массив объектов по заголовку. Как Python csv: кавычка открывает поле только в его начале
+ *  (в середине поля это обычный символ), «""» внутри кавычек — одна кавычка, пустые строки пропускаются. */
 export function parseCsv(text, delimiter = ';') {
   const src = text.startsWith(BOM) ? text.slice(1) : text;
   const rows = [];
   let row = [];
   let field = '';
   let quoted = false;
+  let fieldStart = true;   // ни одного символа поля ещё не прочитано
+  let lineUsed = false;    // в строке что-то есть (пустую строку Python пропускает)
+  const endLine = () => {
+    if (lineUsed) { row.push(field); rows.push(row); }
+    row = []; field = ''; fieldStart = true; lineUsed = false;
+  };
   for (let i = 0; i < src.length; i += 1) {
     const ch = src[i];
     if (quoted) {
       if (ch === '"' && src[i + 1] === '"') { field += '"'; i += 1; }
       else if (ch === '"') quoted = false;
       else field += ch;
-    } else if (ch === '"') quoted = true;
-    else if (ch === delimiter) { row.push(field); field = ''; }
-    else if (ch === '\r') { /* \r\n — конец строки обработается на \n */ }
-    else if (ch === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
-    else field += ch;
+      continue;
+    }
+    if (ch === '\r') continue;   // \r\n — конец строки обработается на \n
+    if (ch === '\n') { endLine(); continue; }
+    lineUsed = true;
+    if (ch === '"' && fieldStart) { quoted = true; fieldStart = false; }
+    else if (ch === delimiter) { row.push(field); field = ''; fieldStart = true; }
+    else { field += ch; fieldStart = false; }
   }
-  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  endLine();
   const [header, ...body] = rows;
   return { header, rows: body.map((r) => Object.fromEntries(header.map((h, j) => [h, r[j] ?? '']))) };
 }

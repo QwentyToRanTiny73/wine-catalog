@@ -97,3 +97,4 @@
 .profile__groups { margin: 0; display: grid; grid-template-columns: minmax(8rem, auto) 1fr; gap: 0.3rem 1rem; font-size: 0.9375rem; }
 .profile__groups dt { color: var(--text-3); }
 .profile__groups dd { margin: 0; }
+.page-intro noscript .notice { margin: 1rem 0 0; max-width: 52rem; }

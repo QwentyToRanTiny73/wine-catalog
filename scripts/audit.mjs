@@ -7,6 +7,7 @@
 // На /baza/: сортировка с клавиатуры и aria-sort, карточка образца (<dialog>):
 //   фокус внутри, Esc закрывает, фокус возвращается; axe с открытой карточкой.
 // Вес /baza/: не больше 233 КБ переданных байт (CDP, кэш выключен, gzip как на GitHub Pages).
+// Колесо ароматов: всё, что /aromaty/ грузит сверх общего с главной, — не больше 50 КБ.
 //
 // Опции:
 //   --url https://…/wine-catalog/   проверить живой сайт вместо локального dist/
@@ -174,20 +175,29 @@ async function measureWeight(browser, origin) {
   if (kb > WEIGHT_LIMIT_KB) fail(msg); else pass(msg);
 }
 
-async function measureAromaExtra(browser, origin) {
+/** Все загруженные страницей ресурсы: адрес → переданные байты (кэш выключен). */
+async function loadedResources(browser, url) {
   const context = await browser.newContext();
   const page = await context.newPage();
   const cdp = await context.newCDPSession(page);
   await cdp.send('Network.enable');
   await cdp.send('Network.setCacheDisabled', { cacheDisabled: true });
   const urls = new Map();
-  let bytes = 0;
+  const sizes = new Map();
   cdp.on('Network.responseReceived', (e) => urls.set(e.requestId, e.response.url));
-  cdp.on('Network.loadingFinished', (e) => { if (/\/assets\/aromaty-/.test(urls.get(e.requestId) ?? '')) bytes += e.encodedDataLength; });
-  await page.goto(`${origin}aromaty/`, { waitUntil: 'networkidle' });
+  cdp.on('Network.loadingFinished', (e) => { if (urls.has(e.requestId)) sizes.set(urls.get(e.requestId), e.encodedDataLength); });
+  await page.goto(url, { waitUntil: 'networkidle' });
   await context.close();
-  const kb = bytes / 1024;
-  const msg = `/aromaty/: свои JS+CSS (с данными колеса) ${kb.toFixed(1)} КБ (лимит ${AROMA_EXTRA_LIMIT_KB} КБ)`;
+  return sizes;
+}
+
+// Дополнительный вес колеса = всё, что /aromaty/ загружает сверх общего с главной (шрифты и т. п.):
+// своя HTML-страница, JS, CSS и данные колеса — в каком бы общем куске сборки (chunk) они ни оказались.
+async function measureAromaExtra(browser, origin) {
+  const common = await loadedResources(browser, origin);
+  const own = [...(await loadedResources(browser, `${origin}aromaty/`))].filter(([u]) => !common.has(u));
+  const kb = own.reduce((sum, [, b]) => sum + b, 0) / 1024;
+  const msg = `/aromaty/: сверх общего с главной ${kb.toFixed(1)} КБ за ${own.length} запросов — страница, JS, CSS, данные колеса (лимит ${AROMA_EXTRA_LIMIT_KB} КБ)`;
   if (kb > AROMA_EXTRA_LIMIT_KB) fail(msg); else pass(msg);
 }
 
