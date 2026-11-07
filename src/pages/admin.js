@@ -16,7 +16,7 @@ const GROUPS = taxonomy.categories.flatMap((c) => c.groups);
 const DESCRIPTORS = new Set(GROUPS.flatMap((g) => g.descriptors.map((d) => d.name)));
 const FIELDS = new Map(samples.fields.map((f) => [f.key, f.label]));
 const BY_NUMBER = new Map(samples.samples.filter((s) => s.labNumber != null).map((s) => [s.labNumber, s]));
-const isHttp = (url) => /^https?:\/\//i.test(url);
+const isHttp = (url) => /^https?:\/\//.test(url);   // как build_aroma.py: url.startswith(('http://', 'https://'))
 /** Сегодняшняя дата по часам компьютера (toISOString дал бы дату по UTC — ночью в Крыму это вчера). */
 const today = () => { const d = new Date(); return [d.getFullYear(), d.getMonth() + 1, d.getDate()].map((n) => String(n).padStart(2, '0')).join('-'); };
 
@@ -101,6 +101,7 @@ function addAroma(e) {
   // те же правила, что в scripts/build_aroma.py: без источника записи нет (Р10)
   const problem = !VARIETIES.includes(row.variety) ? 'сорт не из списка'
     : !DESCRIPTORS.has(row.descriptor) ? 'тон не из таксономии'
+    : !['1', '2', '3'].includes(row.intensity) ? 'интенсивность — 1, 2 или 3'
       : !isHttp(row.source_url) ? 'нужна ссылка на источник (https://…)'
         : !row.quote ? 'нужна цитата из источника' : null;
   if (problem) { setStatus('#aroma-status', `Не добавлено: ${problem}.`); return; }

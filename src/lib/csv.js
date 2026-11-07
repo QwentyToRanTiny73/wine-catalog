@@ -26,7 +26,7 @@ export function parseCsv(text, delimiter = ';') {
       else field += ch;
       continue;
     }
-    if (ch === '\r') continue;   // \r\n — конец строки обработается на \n
+    if (ch === '\r') { if (src[i + 1] !== '\n') endLine(); continue; }   // \r\n — конец на \n; одиночный \r — тоже конец (как Python)
     if (ch === '\n') { endLine(); continue; }
     lineUsed = true;
     if (ch === '"' && fieldStart) { quoted = true; fieldStart = false; }
